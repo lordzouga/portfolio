@@ -2,7 +2,7 @@ export default defineAppConfig({
     ui: {
         gray: "neutral",
         container: {
-            padding: 'px-4 sm:px-6 lg:px-72 pt-12 lg:pt-14',
+            padding: 'px-4 sm:px-6 lg:px-60 pb-14 pt-12 lg:pt-14',
         },
         card: {
             header: {
