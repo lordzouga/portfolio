@@ -54,7 +54,7 @@ const projects = [
     {
         title: "Remoteable",
         description: "A chrome extension that lets you get notifications while in your browser.",
-        bg: 'alc_bg.png',
+        bg: 'remoteable_bg.png',
         color: '#3c076441'
     },
     {
