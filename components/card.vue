@@ -1,18 +1,19 @@
 <template>
     <div class="card project-card mt-4 first:mt-0 lg:mt-0 overflow-hidden rounded-lg
-     ring-1 ring-slate-900/5 flex-col flex p-4 lg:flex-[0.3] bg-gradient-to-b from-gray-900/80 to-gray-900/10
-    shadow-[0_0_1px_1px_rgba(0,0,0,0.14)] min-h-[200px]" 
+     ring-1 ring-slate-900/5 flex-col flex p-4 lg:flex-[0.3] bg-gradient-to-b from-neutral-950/80 to-neutral-950/10
+    shadow-[0_0_1px_1px_rgba(0,0,0,0.14)] min-h-[200px] cursor-pointer hover:outline-orange-600 hover:outline peer" 
     :style="`background-color: ${ color }; --bg-var: url('/img/${ background }');`" 
    >
       <span class=" text-sm text-neutral-100 tracking-wide font-semibold " >
-          {{ title }}
+          {{ title }} <span class="hover:animate-ping"><UBadge class="ml-1 " color="orange" size="xs" variant="solid"  >{{ group }}</UBadge></span>
       </span>
+      
       <span class="text-neutral-400 text-xs tracking-wide font-medium"> {{ description }} </span>
     </div>
   </template>
 
 <script setup>
-    defineProps(["title", "description", "background", "color"]);
+    defineProps(["title", "description", "background", "color", "group"]);
 </script>
 
 <style>

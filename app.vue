@@ -8,8 +8,9 @@
         <div class="mt-4 tracking-wide text-slate-200">
             A very passionate developer that has been building apps for years
         </div>
-        <div class="mt-4 flex flex-col">
-            <span class="font-semibold text-neutral-400 tracking-wide">Technologies</span>
+
+        <div class="mt-8 flex flex-col">
+            <span class="font-medium text-sm text-neutral-400 tracking-wide">Technologies</span>
             <div>
                 <span v-for="tech in technologies" class="pl-1 first:pl-0 tracking-wide text-slate-200">
                      <UIcon :name="tech.icon" class="h-3 w-3 text-neutral-300 mr-[-2px]"></UIcon> {{ tech.tech }}
@@ -19,18 +20,24 @@
             <span class="text-xs text-neutral-400 line-through">Docker, Bash, C/C++</span>
         </div>
 
-        <div class="mt-4">
-            <span class="text-gray-400 font-semibold tracking-wide">Featured Projects</span>
+        <div class="mt-8">
+            <span class="text-gray-400 text-sm font-medium tracking-wide">Featured Projects</span>
 
             <div class="flex lg:space-x-4 mt-2 lg:flex-row flex-col">
                 <Card v-for="project in projects" class="" :description="project.description" :title="project.title"
-                :background="project.bg" :color="project.color" :key="project.title">
+                :background="project.bg" :color="project.color" :key="project.title" :group="project.group">
                 </Card>
+            </div>
+        </div>
 
-                <!--<UCard  class="flex lg:flex-[0.3] flex-col lg:mt-0 mt-4 first:mt-0
-                 shadow-[0_0_1px_1px_rgba(0,0,0,0.14)]">
-                    <span> {{ project.title }} </span> <span>{{ project.description }}</span>
-                </UCard>-->
+        <div class="mt-8">
+            <span class="text-gray-400 text-sm font-medium tracking-wide">Other Projects</span>
+            <div class="flex flex-col mt-2">
+                <div class="flex flex-col tracking-wide mt-4 first:mt-0" v-for="other in otherProjects">
+                    <span class="font-medium text-neutral-100">{{ other.title }}</span>
+                    <span class="mt-1 text-sm text-neutral-300">{{ other.description }}</span>
+                </div>
+
             </div>
         </div>
         
@@ -49,19 +56,33 @@ const projects = [
         title: "ALC Manager",
         description: "A tool for managing controller settings on Apex Legends.",
         bg: 'alc_bg.png',
+        group: 'gaming',
         color: '#1725544a'
     },
     {
         title: "Remoteable",
         description: "A chrome extension that lets you get notifications while in your browser.",
         bg: 'remoteable_bg.png',
+        group: 'jobs',
         color: '#3c076441'
     },
     {
         title:"DStrategyIQ",
         description: "A Binary option trading tool for deriv.com.",
         bg: 'alc_bg.png',
+        group: 'finance',
         color: '#155f753e'
+    }
+]
+
+const otherProjects = [
+    {
+        title: "LinksForGram",
+        description:"An android app that lets users click links in instagram posts"
+    },
+    {
+        title: "FilterProxyServer",
+        description: "A Server in python "
     }
 ]
 
