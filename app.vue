@@ -2,7 +2,7 @@
     <UContainer class="flex flex-col font-inter">
         <div class="flex flex-col">
             <span class="font-semibold text-lg tracking-wide text-slate-200">Zouga Gerald</span>
-            <span class="text-neutral-400">33yrs https://twitter.com/iamzouga ozojiechikelu@gmail.com</span>
+            <span class="text-neutral-400">iamzouga https://twitter.com/iamzouga ozojiechikelu@gmail.com</span>
         </div>
 
         <div class="mt-4 tracking-wide text-slate-200">
