@@ -1,8 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxthq/ui'],
+  modules: ['@nuxthq/ui', '@nuxtjs/google-fonts'],
   ui: {
     icons: 'all'
+  },
+  googleFonts: {
+    families: {
+        Inter: [100, 200, 300, 400, 500, 600, 700]
+    }
   }
 })
