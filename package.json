@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@iconify-json/mdi": "^1.1.53",
-    "@iconify/json": "^2.2.95"
+    "@iconify/json": "^2.2.95",
+    "gsap": "^3.12.2"
   }
 }

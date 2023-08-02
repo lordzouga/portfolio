@@ -45,6 +45,8 @@
 </template>
 
 <script setup>
+import { gsap } from 'gsap';
+
 
 const technologies = ref([{"tech": "Python,", "icon": "i-teenyicons-python-outline"}, 
 {tech: "Vue,", icon: "i-ri-vuejs-line"},
@@ -85,6 +87,21 @@ const otherProjects = [
         description: "A Server in python "
     }
 ]
+
+onMounted(() => {
+    useNuxtApp().$gsap.fromTo(".card", {
+        opacity: 0,
+        y: "30%",
+    },
+    {
+        duration: 0.4,
+        opacity: 1,
+        y: 0,
+        delay: 0,
+        ease: "power.easeOut",
+        stagger: 0.2,
+    });
+});
 
 </script>
 <style>

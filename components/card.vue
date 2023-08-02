@@ -12,8 +12,10 @@
       <span class="text-neutral-400 text-xs tracking-wide font-medium"> {{ description }} </span>
 
       <div class="mt-auto flex">
-        <UIcon name="i-tabler-device-gamepad-2" class="self-end"></UIcon>
-        <span class="text-xs ml-auto text-neutral-400 font-medium"> vue </span>
+        <UIcon name="i-tabler-device-gamepad-2 text-sm" class="self-end "></UIcon>
+        <span class="text-sm ml-auto text-neutral-400 mb-0 flex"> 
+            <UIcon name="i-ri-vuejs-line"></UIcon> <UIcon name="i-tabler-brand-firebase"></UIcon> 
+        </span>
       </div>
       
     </div>
