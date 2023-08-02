@@ -5,10 +5,17 @@
     :style="`background-color: ${ color }; --bg-var: url('/img/${ background }');`" 
    >
       <span class=" text-sm text-neutral-100 tracking-wide font-semibold " >
-          {{ title }} <span class="hover:animate-ping"><UBadge class="ml-1" color="orange" size="xs" :variant='"soft"'  >{{ group }}</UBadge></span>
+          {{ title }} <span class="hover:animate-ping">
+            <UBadge class="ml-1" color="orange" size="xs" :variant='"subtle"'  >{{ group }}</UBadge></span>
       </span>
       
       <span class="text-neutral-400 text-xs tracking-wide font-medium"> {{ description }} </span>
+
+      <div class="mt-auto flex">
+        <UIcon name="i-tabler-device-gamepad-2" class="self-end"></UIcon>
+        <span class="text-xs ml-auto text-neutral-400 font-medium"> vue </span>
+      </div>
+      
     </div>
   </template>
 
