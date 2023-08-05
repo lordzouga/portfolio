@@ -14,21 +14,40 @@
 
         <div class="mt-auto flex">
             <UIcon name="i-tabler-device-gamepad-2 text-sm" class="self-end "></UIcon>
-            <span class="text-sm ml-auto text-neutral-400 mb-0 flex" :class=visibility>
-                <UIcon v-for="icon in tech_icons" :name="icon" :class="[iconsClass]"></UIcon>
+            <span class="text-sm ml-auto text-neutral-400 mb-0 flex lg:foo" :class=visibility>
+                <UIcon v-for="icon in tech_icons" :name="icon" class="ml-1 first:ml-0" :class="[iconsClass]"></UIcon>
             </span>
         </div>
     </div>
 </template>
 
 <script setup>
+import tailwindConfig from '~/tailwind.config';
+import resolveConfig from 'tailwindcss/resolveConfig';
+
 const props = defineProps(["title", "description", "background", "color", "group", "tech_icons"]);
 const iconsClass = `tech-icon-${props.title.toLowerCase().replace(" ", "-")}`;
-const visibility = ref("invisible");
+const visibility = ref("visible lg:invisible");
+
+const getActiveBreakpoint = () => {
+    const { theme: { screens } } = resolveConfig(tailwindConfig);
+
+    /* Sort the breakpoints based on their dimensions in descending order */
+    const sorted = Object.entries(screens).sort((x, y) => parseInt(y[1]) - parseInt(x[1]));
+
+    /* Find the first instance where the current width is higher or equal to a breakpoint */
+    const bp = sorted.find((s) => window.innerWidth >= parseInt(s[1]));
+
+    /* if no breakpoint is found, it is a mobile screen */
+    if (!bp) return "mb"
+    else return bp[0]
+}
 
 var tween = null;
 const spreadIcons = () => {
-    tween = useNuxtApp().$gsap.fromTo("." + iconsClass, {
+    if (getActiveBreakpoint() === "mb") return;
+
+    tween = useNuxtApp().$gsap.fromTo(".lg\\:invisible ." + iconsClass, {
         opacity: 0,
         x: "-30%",
     },
@@ -41,21 +60,19 @@ const spreadIcons = () => {
             ease: "power.easeOut",
             stagger: 0.2,
             onComplete: () => {
-                visibility.value = "visible";
+                visibility.value = "visible lg:visible";
             },
             onReverseComplete: () => {
-                visibility.value = "invisible"
+                visibility.value = "visible lg:invisible"
             }
         }
     );
 }
 
 const reverseSpread = () => {
-    tween.reverse();
+    if (getActiveBreakpoint() === "mb") return;
+    if (tween != null) tween.reverse();
 }
-
-
-
     //onMounted(() => spreadIcons())
 </script>
 
