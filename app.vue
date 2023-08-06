@@ -1,8 +1,17 @@
 <template>
     <UContainer class="flex flex-col font-inter">
-        <div class="flex flex-col">
+        <div class="flex ml-auto">
+            <UButton color="gray" icon="i-logos-spotify-icon" size="xs"> Music </UButton>
+            <UButton color="gray" icon="i-uil-github" class="ml-4" size="xs"> View on Github </UButton>
+        </div>
+        <div class="flex flex-col mt-8">
             <span class="font-semibold text-lg tracking-wide text-slate-200">Zouga Gerald</span>
-            <span class="text-neutral-400">iamzouga https://twitter.com/iamzouga ozojiechikelu@gmail.com</span>
+            <span class="text-neutral-400 flex mt-1">
+                <UButton variant="link" icon="i-devicon-twitter" size="xs" to="https://twitter.com/iamzouga" color="gray"
+                    :padded="false">Twitter</UButton>
+                <UButton to="mailto:ozojiechikelu@gmail.com" icon="i-logos-google-gmail" size="xs" variant="link"
+                    :padded="false" color="gray" class="ml-4">Gmail</UButton>
+            </span>
         </div>
 
         <div class="mt-4 tracking-wide text-slate-200">
@@ -20,7 +29,7 @@
             <span class="text-xs text-neutral-400 line-through">Docker, Bash, C/C++</span>
         </div>
 
-        <div class="mt-8">
+        <div class="mt-8 flex flex-col">
             <span class="text-gray-400 text-sm font-medium tracking-wide">Featured Projects</span>
 
             <div class="flex lg:space-x-4 mt-2 lg:flex-row flex-col">
