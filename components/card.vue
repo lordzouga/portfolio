@@ -6,11 +6,11 @@
         @mouseleave="reverseSpread()">
         <span class=" text-sm text-neutral-100 tracking-wide font-semibold ">
             {{ title }} <span class="hover:animate-ping">
-                <UBadge class="ml-1" color="orange" size="xs" :variant='"subtle"'>{{ group }}</UBadge>
+                <UBadge class="ml-1" color="orange" size="xs" :variant='"soft"'>{{ group }}</UBadge>
             </span>
         </span>
 
-        <span class="text-neutral-400 text-xs tracking-wide font-medium"> {{ description }} </span>
+        <span class="text-neutral-400 text-xs tracking-wide font-medium mt-1"> {{ description }} </span>
 
         <div class="mt-auto flex">
             <UIcon name="i-tabler-device-gamepad-2 text-sm" class="self-end "></UIcon>
