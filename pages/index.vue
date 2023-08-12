@@ -1,9 +1,6 @@
 <template>
-    <UContainer class="flex flex-col font-inter">
-        <div class="flex ml-auto">
-            <UButton color="gray" icon="i-logos-spotify-icon" size="xs"> Music </UButton>
-            <UButton color="gray" icon="i-uil-github" class="ml-4" size="xs"> View on Github </UButton>
-        </div>
+    <div>
+
         <div class="flex flex-col mt-8">
             <span class="font-semibold text-lg tracking-wide text-slate-200">Zouga Gerald</span>
             <span class="text-neutral-400 flex mt-1">
@@ -51,13 +48,13 @@
             </div>
         </div>
 
-    </UContainer>
+    </div>
 </template>
 
 <script setup>
 
 const technologies = ref([
-    { "tech": "Python,", "icon": "i-teenyicons-python-outline" },
+    { tech: "Python,", icon: "i-teenyicons-python-outline" },
     { tech: "Vue,", icon: "i-ri-vuejs-line" },
     { tech: "Android/Java,", icon: "i-basil-android-outline" },
     { tech: "Flutter", icon: "i-tabler-brand-flutter" }
