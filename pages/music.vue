@@ -1,43 +1,103 @@
 <template>
-    <div class="flex">
-        <div class="flex flex-col"><!--Artists-->
-            <span>Favorite Artists</span>
+    <div class="flex flex-col">
+        <div class="flex mt-8"><!--Artists and Albums-->
+            <div class="flex flex-col"><!--Artists-->
+                <span class="font-medium text-xs text-neutral-400 tracking-wide">Favorite Artists</span>
+                <hr class="mt-2 mb-4 border-neutral-600 border">
 
-            <span><span v-for="artist in artists">{{ artist.name }}</span></span>
-        </div>
-        <div class="flex flex-col ml-auto"><!--Albums-->
-            <span>Favorite Albums</span>
-
-            <span>
-                <span v-for="album in albums">
-                    {{ album.title }}
+                <span class="flex mt-2"><!--Artist List-->
+                    <artist class="ml-8 first:ml-0" v-for="artist in artists" :artist="artist" />
                 </span>
-            </span>
+            </div>
+
+            <div class="flex flex-col ml-auto"><!--Albums-->
+                <span class="font-medium text-neutral-400 text-xs tracking-wide">Favorite Albums</span>
+
+                <hr class="mt-2 mb-4 border-neutral-600 border">
+                <span class="flex mt-2"> <!--Album list-->
+                    <album class="ml-8 first:ml-0" v-for="album in albums" :album="album" />
+                </span>
+            </div>
+        </div>
+
+        <div class="flex mt-8"><!--Favorite Playlists-->
+            <div class="flex flex-col flex-[0.4]"><!--Workout Section-->
+                <span class="font-medium text-neutral-400 text-xs tracking-wide">Workout Playlist</span>
+                <hr class="mt-2 mb-4 border-neutral-600 border">
+
+                <span class="flex flex-col"> <!--Workout Playlist-->
+                    <song class="mt-4 first:mt-0" v-for="song in workoutSongs" :song="song" />
+                </span>
+            </div>
+
+            <div class="flex flex-col flex-[0.4] ml-auto"><!--Liked Section-->
+                <span class="font-medium text-neutral-400 text-xs tracking-wide">Liked Songs</span>
+                <hr class="mt-2 mb-4 border-neutral-600 border">
+
+                <span class="flex flex-col"> <!--Liked Songs-->
+                    <song class="mt-4 first:mt-0" v-for="song in workoutSongs" :song="song" />
+                </span>
+            </div>
+
         </div>
     </div>
 </template>
+
 <script setup>
 const artists = [
     {
-        name: "Deca"
+        name: "Deca",
+        avatar: "/img/deca_avatar.jpeg"
     },
     {
-        name: "Black Thought"
+        name: "Black Thought",
+        avatar: ""
     },
     {
-        name: "Coldplay"
+        name: "Coldplay",
+        avatar: ""
     }
 ]
 
 const albums = [
     {
-        title: "The Way Through"
+        title: "The Way Through",
+        art: "/img/deca_avatar.jpeg"
     },
     {
-        title: "A Rush of Blood To the Head"
+        title: "A Rush of Blood To the Head",
+        art: "/img/deca_avatar.jpeg"
     },
     {
-        title: "Streams of Thought"
+        title: "Streams of Thought",
+        art: "/img/deca_avatar.jpeg"
     }
+]
+
+const workoutSongs = [
+    {
+        title: "Yeah Yeah Yeah",
+        artist: "Jax Jones",
+        duration: "4:53"
+    },
+    {
+        title: "Tsunami",
+        artist: "DVBBS, Borgeous",
+        duration: "3:57"
+    },
+    {
+        title: "Wake Up",
+        artist: "No wyld",
+        duration: "3:50"
+    },
+    {
+        title: "Upside Down",
+        artist: "Paloma Faith",
+        duration: "3:09"
+    }
+]
+
+const likedSongs = [
+
 ]
 </script>
