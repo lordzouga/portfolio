@@ -44,6 +44,30 @@
 </template>
 
 <script setup>
+import SpotifyWebApi from 'spotify-web-api-node';
+
+const { refresh } = await useFetch('/api/access', {
+    key: "access",
+    server: true
+});
+
+const loginToSpotify = async () => {
+    const { data: { access } } = useNuxtApp().payload;
+
+    let spotify = new SpotifyWebApi();
+    spotify.setAccessToken(access.token);
+
+    // Get Elvis' albums
+    spotify.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE').then(
+        function (data) {
+            console.log('Artist albums', data.body);
+        },
+        function (err) {
+            console.error(err);
+        }
+    );
+}
+
 const artists = [
     {
         name: "Deca",
@@ -100,4 +124,10 @@ const workoutSongs = [
 const likedSongs = [
 
 ]
+
+
+onMounted(() => {
+    loginToSpotify();
+});
+
 </script>

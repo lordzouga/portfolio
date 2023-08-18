@@ -13,11 +13,13 @@
     "@nuxthq/ui": "npm:@nuxthq/ui-edge@latest",
     "@nuxtjs/google-fonts": "^3.0.2",
     "@types/node": "^18.17.0",
+    "@types/spotify-web-api-node": "^5.0.7",
     "nuxt": "^3.6.5"
   },
   "dependencies": {
     "@iconify-json/mdi": "^1.1.53",
     "@iconify/json": "^2.2.95",
-    "gsap": "^3.12.2"
+    "gsap": "^3.12.2",
+    "spotify-web-api-node": "^5.0.2"
   }
 }
