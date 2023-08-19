@@ -46,26 +46,29 @@
 <script setup>
 import SpotifyWebApi from 'spotify-web-api-node';
 
+/* generate access token server-side */
 const { refresh } = await useFetch('/api/access', {
     key: "access",
     server: true
 });
 
 const loginToSpotify = async () => {
+    /* retrieve generated access token */
     const { data: { access } } = useNuxtApp().payload;
 
     let spotify = new SpotifyWebApi();
-    spotify.setAccessToken(access.token);
+    spotify.setAccessToken(access.token.access_token);
 
-    // Get Elvis' albums
-    spotify.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE').then(
-        function (data) {
-            console.log('Artist albums', data.body);
-        },
-        function (err) {
-            console.error(err);
-        }
-    );
+    const me = await spotify.getMe();
+    console.log(me.body);
+
+    const tracks = await spotify.getMyTopTracks({
+        time_range: 'medium_term',
+        limit: 10,
+        offset: 5
+    });
+
+    console.log(tracks);
 }
 
 const artists = [
