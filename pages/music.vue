@@ -2,19 +2,28 @@
     <div class="flex flex-col">
         <div class="flex mt-8"><!--Artists and Albums-->
             <div class="flex flex-col"><!--Artists-->
-                <span class="font-medium text-xs text-neutral-400 tracking-wide">Favorite Artists</span>
-                <hr class="mt-2 mb-4 border-neutral-600 border">
+                <span class="flex">
+                    <u-icon name="i-tabler-palette" class="h-4 w-4 text-blue-500 self-center"></u-icon>
+                    <span class="font-semibold text-xs text-neutral-400 tracking-wider ml-2">
+                        Favorite Artists</span>
+                </span>
 
-                <span class="flex mt-2"><!--Artist List-->
+                <!--<hr class="mt-2 mb-4 border-neutral-600/0 border">-->
+
+                <span class="flex mt-4"><!--Artist List-->
                     <artist class="ml-8 first:ml-0" v-for="artist in artists" :artist="artist" />
                 </span>
             </div>
 
             <div class="flex flex-col ml-auto"><!--Albums-->
-                <span class="font-medium text-neutral-400 text-xs tracking-wide">Favorite Albums</span>
+                <span class="flex">
+                    <u-icon name="i-tabler-album" class="h-4 w-4 text-pink-500 self-center"></u-icon>
+                    <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Favorite Albums</span>
+                </span>
 
-                <hr class="mt-2 mb-4 border-neutral-600 border">
-                <span class="flex mt-2"> <!--Album list-->
+
+                <!--<hr class="mt-2 mb-4 border-neutral-600/0 border">-->
+                <span class="flex mt-4"> <!--Album list-->
                     <album class="ml-8 first:ml-0" v-for="album in albums" :album="album" />
                 </span>
             </div>
@@ -22,20 +31,26 @@
 
         <div class="flex mt-8"><!--Favorite Playlists-->
             <div class="flex flex-col flex-[0.4]"><!--Workout Section-->
-                <span class="font-medium text-neutral-400 text-xs tracking-wide">Workout Playlist</span>
-                <hr class="mt-2 mb-4 border-neutral-600 border">
+                <span class="flex">
+                    <u-icon name="i-tabler-stretching" class="h-4 w-4 text-purple-500 self-center font-bold"></u-icon>
+                    <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Workout Playlist</span>
+                </span>
+                <!--<hr class="mt-2 mb-4 border-neutral-600/0 border">-->
 
-                <span class="flex flex-col"> <!--Workout Playlist-->
-                    <song class="mt-4 first:mt-0" v-for="song in workoutSongs" :song="song" />
+                <span class="flex flex-col mt-2"> <!--Workout Playlist-->
+                    <song class="first:mt-0" v-for="song in workoutSongs" :song="song" />
                 </span>
             </div>
 
             <div class="flex flex-col flex-[0.4] ml-auto"><!--Liked Section-->
-                <span class="font-medium text-neutral-400 text-xs tracking-wide">Liked Songs</span>
-                <hr class="mt-2 mb-4 border-neutral-600 border">
+                <span class="flex">
+                    <u-icon name="i-tabler-heart" class="h-4 w-4 text-orange-500 self-center font-bold"></u-icon>
+                    <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Liked Songs</span>
+                </span>
+                <!--<hr class="mt-2 mb-4 border-neutral-600/0 border">-->
 
-                <span class="flex flex-col"> <!--Liked Songs-->
-                    <song class="mt-4 first:mt-0" v-for="song in workoutSongs" :song="song" />
+                <span class="flex flex-col mt-2"> <!--Liked Songs-->
+                    <song class="first:mt-0" v-for="song in workoutSongs" :song="song" />
                 </span>
             </div>
 
