@@ -1,7 +1,8 @@
 <template>
     <div class="flex flex-col">
         <div class="flex mt-8 flex-col lg:flex-row"><!--Artists and Albums-->
-            <div class="flex flex-col pb-4 lg:pb-0 lg:border-b-0 border-b border-neutral-600/30"><!--Artists-->
+            <div class="flex flex-col pb-4 lg:pb-0 lg:flex-[0.4] lg:border-b-0 border-b border-neutral-600/30">
+                <!--Artists-->
                 <span class="flex">
                     <u-icon name="i-tabler-palette" class="h-4 w-4 text-blue-500 self-center"></u-icon>
                     <span class="font-semibold text-xs text-neutral-400 tracking-wider ml-2">
@@ -9,25 +10,26 @@
                 </span>
 
                 <!--<hr class="mt-2 mb-4 border-neutral-600/0 border">-->
-
-                <span class="flex mt-4"><!--Artist List-->
+                <span v-if="dataLoaded" class="flex mt-4"> <!--Artist List-->
                     <artist class="ml-8 first:ml-0" v-for="artist in artists" :artist="artist" />
                 </span>
+                <u-skeleton v-else class="mt-4 h-24 w-full" :ui="{ rounded: 'rounded-md' }" />
             </div>
 
-            <div class="flex flex-col lg:ml-auto mt-8 lg:mt-0 lg:pb-0 lg:border-b-0 pb-4 
-            border-b border-neutral-600/30 ">
+            <div class="flex flex-col lg:ml-auto mt-8 lg:mt-0 lg:pb-0 lg:border-b-0 pb-4 border-b 
+            border-neutral-600/30 lg:flex-[0.4]">
                 <!--Albums-->
                 <span class="flex">
                     <u-icon name="i-tabler-album" class="h-4 w-4 text-pink-500 self-center"></u-icon>
                     <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Favorite Albums</span>
                 </span>
 
-
                 <!--<hr class="mt-2 mb-4 border-neutral-600/0 border">-->
-                <span class="flex mt-4"> <!--Album list-->
+                <span v-if="dataLoaded" class="flex mt-4"> <!--Album list-->
                     <album class="ml-8 first:ml-0" v-for="album in albums" :album="album" />
                 </span>
+                <u-skeleton v-else class="mt-4 h-24 w-full" :ui="{ rounded: 'rounded-md' }" />
+
             </div>
         </div>
 
@@ -39,9 +41,13 @@
                 </span>
                 <!--<hr class="mt-2 mb-4 border-neutral-600/0 border">-->
 
-                <span class="flex flex-col mt-2"> <!--Workout Playlist-->
+                <span v-if="dataLoaded" class="flex flex-col mt-2"> <!--Workout Playlist-->
                     <song class="first:mt-0" v-for="song in workoutSongs" :song="song" />
                 </span>
+                <span v-else class="flex flex-col mt-8">
+                    <u-skeleton v-for="i in ['', '', '', '']" class="h-12 w-full mt-8 first:mt-0" />
+                </span>
+
             </div>
 
             <div class="flex flex-col flex-[0.4] mt-8 lg:mt-0 lg:ml-auto"><!--Liked Section-->
@@ -51,8 +57,12 @@
                 </span>
                 <!--<hr class="mt-2 mb-4 border-neutral-600/0 border">-->
 
-                <span class="flex flex-col mt-2"> <!--Liked Songs-->
+                <span v-if="dataLoaded" class="flex flex-col mt-2"> <!--Liked Songs-->
                     <song class="first:mt-0" v-for="song in workoutSongs" :song="song" />
+                </span>
+
+                <span v-else class="flex flex-col mt-8">
+                    <u-skeleton v-for="i in ['', '', '', '']" class="h-12 w-full mt-8 first:mt-0" />
                 </span>
             </div>
 
@@ -68,6 +78,7 @@ const { refresh } = await useFetch('/api/access', {
     key: "access",
     server: true
 });
+
 
 const loginToSpotify = async () => {
     /* retrieve generated access token */
@@ -86,6 +97,14 @@ const loginToSpotify = async () => {
     });
 
     console.log(tracks);
+}
+
+const dataLoaded = ref(false);
+
+const loadTracks = () => {
+    setTimeout(() => {
+        dataLoaded.value = true;
+    }, 3 * 1000)
 }
 
 const artists = [
@@ -155,7 +174,8 @@ const likedSongs = [
 
 
 onMounted(() => {
-    loginToSpotify();
+    // loginToSpotify();
+    loadTracks();
 });
 
 </script>
