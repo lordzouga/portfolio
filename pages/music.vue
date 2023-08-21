@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col">
-        <div class="flex mt-8"><!--Artists and Albums-->
-            <div class="flex flex-col"><!--Artists-->
+        <div class="flex mt-8 flex-col lg:flex-row"><!--Artists and Albums-->
+            <div class="flex flex-col pb-4 lg:pb-0 lg:border-b-0 border-b border-neutral-600/30"><!--Artists-->
                 <span class="flex">
                     <u-icon name="i-tabler-palette" class="h-4 w-4 text-blue-500 self-center"></u-icon>
                     <span class="font-semibold text-xs text-neutral-400 tracking-wider ml-2">
@@ -15,7 +15,9 @@
                 </span>
             </div>
 
-            <div class="flex flex-col ml-auto"><!--Albums-->
+            <div class="flex flex-col lg:ml-auto mt-8 lg:mt-0 lg:pb-0 lg:border-b-0 pb-4 
+            border-b border-neutral-600/30 ">
+                <!--Albums-->
                 <span class="flex">
                     <u-icon name="i-tabler-album" class="h-4 w-4 text-pink-500 self-center"></u-icon>
                     <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Favorite Albums</span>
@@ -29,7 +31,7 @@
             </div>
         </div>
 
-        <div class="flex mt-8"><!--Favorite Playlists-->
+        <div class="flex mt-8 flex-col lg:flex-row"><!--Favorite Playlists-->
             <div class="flex flex-col flex-[0.4]"><!--Workout Section-->
                 <span class="flex">
                     <u-icon name="i-tabler-stretching" class="h-4 w-4 text-purple-500 self-center font-bold"></u-icon>
@@ -42,7 +44,7 @@
                 </span>
             </div>
 
-            <div class="flex flex-col flex-[0.4] ml-auto"><!--Liked Section-->
+            <div class="flex flex-col flex-[0.4] mt-8 lg:mt-0 lg:ml-auto"><!--Liked Section-->
                 <span class="flex">
                     <u-icon name="i-tabler-heart" class="h-4 w-4 text-orange-500 self-center font-bold"></u-icon>
                     <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Liked Songs</span>
@@ -98,7 +100,11 @@ const artists = [
     {
         name: "Coldplay",
         avatar: ""
-    }
+    },
+    /*{
+        name: "Lana Del Rey",
+        avatar: ""
+    }*/
 ]
 
 const albums = [
@@ -113,7 +119,11 @@ const albums = [
     {
         title: "Streams of Thought",
         art: "/img/deca_avatar.jpeg"
-    }
+    },
+    /*{
+        title: "Ultraviolence",
+        art: "/img/deca_avatar.jpeg"
+    }*/
 ]
 
 const workoutSongs = [
