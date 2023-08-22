@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-col">
-        <div class="flex mt-8 flex-col lg:flex-row"><!--Artists and Albums-->
+    <div class="flex flex-col mt-10">
+        <div class="flex flex-col lg:flex-row"><!--Artists and Albums-->
             <div class="flex flex-col pb-4 lg:pb-0 lg:flex-[0.4] lg:border-b-0 border-b border-neutral-600/30">
                 <!--Artists-->
                 <span class="flex">
@@ -10,10 +10,13 @@
                 </span>
 
                 <!--<hr class="mt-2 mb-4 border-neutral-600/0 border">-->
-                <span v-if="dataLoaded" class="flex mt-4"> <!--Artist List-->
-                    <artist class="ml-8 first:ml-0" v-for="artist in artists" :artist="artist" />
-                </span>
-                <u-skeleton v-else class="mt-4 h-24 w-full" :ui="{ rounded: 'rounded-md' }" />
+                <transition name="show-loaded" mode="out-in" @enter="onArtistEnter">
+                    <span v-if="dataLoaded" class="flex mt-4" key="artists"> <!--Artist List-->
+                        <artist class="artist ml-8 first:ml-0" v-for="artist in artists" :artist="artist" />
+                    </span>
+                    <u-skeleton v-else class="mt-4 h-24 w-full" key="artist-skeleton" :ui="{ rounded: 'rounded-md' }" />
+                </transition>
+
             </div>
 
             <div class="flex flex-col lg:ml-auto mt-8 lg:mt-0 lg:pb-0 lg:border-b-0 pb-4 border-b 
@@ -25,11 +28,12 @@
                 </span>
 
                 <!--<hr class="mt-2 mb-4 border-neutral-600/0 border">-->
-                <span v-if="dataLoaded" class="flex mt-4"> <!--Album list-->
-                    <album class="ml-8 first:ml-0" v-for="album in albums" :album="album" />
-                </span>
-                <u-skeleton v-else class="mt-4 h-24 w-full" :ui="{ rounded: 'rounded-md' }" />
-
+                <transition name="show-loaded" mode="out-in" @enter="onAlbumEnter">
+                    <span v-if="dataLoaded" class="flex mt-4" key="albums"> <!--Album list-->
+                        <album class="album ml-8 first:ml-0" v-for="album in albums" :album="album" />
+                    </span>
+                    <u-skeleton v-else class="mt-4 h-24 w-full" key="albums-skeleton" :ui="{ rounded: 'rounded-md' }" />
+                </transition>
             </div>
         </div>
 
@@ -47,7 +51,6 @@
                 <span v-else class="flex flex-col mt-8">
                     <u-skeleton v-for="i in ['', '', '', '']" class="h-12 w-full mt-8 first:mt-0" />
                 </span>
-
             </div>
 
             <div class="flex flex-col flex-[0.4] mt-8 lg:mt-0 lg:ml-auto"><!--Liked Section-->
@@ -74,11 +77,35 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 
 /* generate access token server-side */
-const { refresh } = await useFetch('/api/access', {
+/* const { refresh } = await useFetch('/api/access', {
     key: "access",
     server: true
-});
+});*/
 
+const _onEnter = (target) => {
+    useNuxtApp().$gsap.fromTo(target, {
+        opacity: 0,
+        visibility: "hidden",
+        y: "20%",
+    },
+        {
+            duration: 0.2,
+            opacity: 1,
+            y: 0,
+            visibility: "visible",
+            delay: 0,
+            ease: "power2.easeIn",
+            stagger: 0.2,
+        });
+}
+
+const onArtistEnter = () => {
+    // _onEnter(".artist");
+}
+
+const onAlbumEnter = () => {
+    // _onEnter(".album");
+}
 
 const loginToSpotify = async () => {
     /* retrieve generated access token */
@@ -88,7 +115,7 @@ const loginToSpotify = async () => {
     spotify.setAccessToken(access.token.access_token);
 
     const me = await spotify.getMe();
-    console.log(me.body);
+    // console.log(me.body);
 
     const tracks = await spotify.getMyTopTracks({
         time_range: 'medium_term',
@@ -96,8 +123,9 @@ const loginToSpotify = async () => {
         offset: 5
     });
 
-    console.log(tracks);
+    // console.log(tracks);
 }
+
 
 const dataLoaded = ref(false);
 
@@ -179,3 +207,16 @@ onMounted(() => {
 });
 
 </script>
+
+<style>
+.show-loaded-enter-active {
+    transition: opacity 0.4s ease-in;
+}
+
+.show-loaded-leave-active {}
+
+.show-loaded-enter-from,
+.show-loaded-leave-to {
+    opacity: 0.4;
+}
+</style>

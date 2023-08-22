@@ -2,7 +2,7 @@
     <div>
 
         <div class="flex flex-col mt-8">
-            <span class="font-semibold text-lg tracking-wide text-slate-200">Zouga Gerald</span>
+            <span class="font-light text-2xl tracking-wide text-slate-200">Zouga Gerald</span>
             <span class="text-neutral-400 flex mt-1">
                 <UButton variant="link" icon="i-devicon-twitter" size="xs" to="https://twitter.com/iamzouga" color="gray"
                     :padded="false">Twitter</UButton>
