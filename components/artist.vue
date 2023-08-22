@@ -1,9 +1,9 @@
 <template>
-    <div class="flex flex-col items-center lg:items-center cursor-pointer hover:underline 
-        transition-transform hover:-translate-y-1 duration-[250ms]">
-        <UAvatar class="artist-avatar hover:outline outline-orange-500" :src="artist.avatar" size="2xl" :alt="artist.name">
-        </UAvatar>
-        <span class="mt-2 text-xs text-neutral-200/80 tracking-wide"> {{ artist.name }}</span>
+    <div class="flex flex-col items-center lg:items-center cursor-pointer
+        transition-transform hover:-translate-y-1 duration-[250ms] group">
+        <UAvatar class="artist-avatar group-hover:outline outline-orange-500" :src="artist.avatar" size="2xl"
+            :alt="artist.name" />
+        <span class="mt-2 text-xs group-hover:text-white text-neutral-200/80 tracking-wide"> {{ artist.name }}</span>
     </div>
 </template>
 
