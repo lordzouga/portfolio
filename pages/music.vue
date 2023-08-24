@@ -9,7 +9,6 @@
                         Favorite Artists</span>
                 </span>
 
-                <!--<hr class="mt-2 mb-4 border-neutral-600/0 border">-->
                 <transition name="show-loaded" mode="out-in" @enter="onArtistEnter">
                     <span v-if="dataLoaded" class="flex mt-4" key="artists"> <!--Artist List-->
                         <artist class="artist ml-8 first:ml-0" v-for="artist in artists" :artist="artist" />
@@ -27,7 +26,6 @@
                     <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Favorite Albums</span>
                 </span>
 
-                <!--<hr class="mt-2 mb-4 border-neutral-600/0 border">-->
                 <transition name="show-loaded" mode="out-in" @enter="onAlbumEnter">
                     <span v-if="dataLoaded" class="flex mt-4" key="albums"> <!--Album list-->
                         <album class="album ml-8 first:ml-0" v-for="album in albums" :album="album" />
@@ -43,7 +41,6 @@
                     <u-icon name="i-tabler-stretching" class="h-4 w-4 text-purple-500 self-center font-bold"></u-icon>
                     <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Workout Playlist</span>
                 </span>
-                <!--<hr class="mt-2 mb-4 border-neutral-600/0 border">-->
 
                 <span v-if="dataLoaded" class="flex flex-col mt-2"> <!--Workout Playlist-->
                     <song class="first:mt-0" v-for="song in workoutSongs" :song="song" />
@@ -58,7 +55,6 @@
                     <u-icon name="i-tabler-heart" class="h-4 w-4 text-orange-500 self-center font-bold"></u-icon>
                     <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Liked Songs</span>
                 </span>
-                <!--<hr class="mt-2 mb-4 border-neutral-600/0 border">-->
 
                 <span v-if="dataLoaded" class="flex flex-col mt-2"> <!--Liked Songs-->
                     <song class="first:mt-0" v-for="song in workoutSongs" :song="song" />
@@ -80,7 +76,7 @@ import SpotifyWebApi from 'spotify-web-api-node';
 /* const { refresh } = await useFetch('/api/access', {
     key: "access",
     server: true
-});*/
+}); */
 
 const _onEnter = (target) => {
     useNuxtApp().$gsap.fromTo(target, {
@@ -123,7 +119,7 @@ const loginToSpotify = async () => {
         offset: 5
     });
 
-    // console.log(tracks);
+    console.log(tracks);
 }
 
 
@@ -177,22 +173,26 @@ const workoutSongs = [
     {
         title: "Yeah Yeah Yeah",
         artist: "Jax Jones",
-        duration: "4:53"
+        duration: "4:53",
+        art: "/img/statik_art.jpeg"
     },
     {
         title: "Tsunami",
         artist: "DVBBS, Borgeous",
-        duration: "3:57"
+        duration: "3:57",
+        art: "/img/statik_art.jpeg"
     },
     {
         title: "Wake Up",
         artist: "No wyld",
-        duration: "3:50"
+        duration: "3:50",
+        art: "/img/statik_art.jpeg"
     },
     {
         title: "Upside Down",
         artist: "Paloma Faith",
-        duration: "3:09"
+        duration: "3:09",
+        art: "/img/statik_art.jpeg"
     }
 ]
 
@@ -209,7 +209,7 @@ onMounted(() => {
 </script>
 
 <style>
-.show-loaded-enter-active {
+/*.show-loaded-enter-active {
     transition: opacity 0.4s ease-in;
 }
 
@@ -218,5 +218,5 @@ onMounted(() => {
 .show-loaded-enter-from,
 .show-loaded-leave-to {
     opacity: 0.4;
-}
+}*/
 </style>
