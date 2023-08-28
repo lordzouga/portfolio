@@ -1,9 +1,8 @@
-
 <template>
     <div class="flex pt-4 pb-4 border-b border-neutral-600/30 group-hover: hover:bg-neutral-700 cursor-pointer 
-    lg:-mx-4 lg:px-4 lg:rounded-md group" @click="isOpen = true" :key="song.artist">
+    -mx-4 px-4 lg:rounded-md group" @click="isOpen = true" :key="song.artist">
         <span class="flex flex-col tracking-wide">
-            <span class="font-medium text-sm text-neutral-200/90 group-hover:text-white group-hover:underline ">
+            <span class="font-medium text-sm text-neutral-200/90 group-hover:text-orange-500 ">
                 {{ song.title }} </span>
             <span class="text-xs text-neutral-300 mt-1">{{ song.artist }}</span>
         </span>
@@ -11,17 +10,16 @@
         <span class="ml-auto self-center text-neutral-400 text-sm tracking-wider">{{ song.duration }}</span>
 
         <USlideover v-model="isOpen" :key="song.title" class="font-inter">
-            <div class="h-full bg-[url('/img/statik_art.jpeg')] bg-cover bg-center">
+            <div class="h-full bg-[url('/img/statik_art.jpeg')] bg-cover bg-center player-root">
                 <div class="h-full bg-gradient-to-b from-neutral-950/80 from-[8%] via-transparent via-10% 
                   to-black to-60% p-8 flex flex-col">
                     <div>
-                        <UButton class="" square="" variant="solid" color="gray" icon="i-heroicons-x-mark-20-solid"
-                            @click="isOpen = false" />
+                        <UButton class="close-button" square="" variant="solid" color="gray"
+                            icon="i-heroicons-x-mark-20-solid" @click="isOpen = false" />
                     </div>
 
                     <div class="h-[60%] bg-transparent"></div> <!--Do this to have better control over the spacing-->
-
-                    <div class="flex flex-col"><!--Song Details-->
+                    <div class="flex flex-col player-details"><!--Song Details-->
                         <span class="text-xl text-neutral-200 tracking-wide font-semibold">
                             {{ song.title }}
                         </span>
@@ -33,8 +31,8 @@
                         </span>
                     </div>
 
-                    <div class="flex flex-col  mt-8"><!-- Play Button -->
-                        <UIcon class="text-orange-500 h-8 w-8 self-center" name="i-basil-play-solid" />
+                    <div class="flex flex-col mt-8 play-button"><!-- Play Button -->
+                        <UIcon class="text-orange-500 h-8 w-8 self-center " name="i-basil-play-solid" />
 
                         <UButton class="mt-4 self-center focus:ring-0 focus-visible:ring-0" size="xs" color="gray"
                             :padded="false" icon="i-teenyicons-spotify-outline" variant="link">
@@ -42,7 +40,7 @@
                         </UButton>
                     </div>
 
-                    <span class="mt-auto text-neutral-500 text-xs font-light"> listened to 245 times </span>
+                    <span class="mt-auto text-neutral-500 text-xs font-light played-stat"> listened to 245 times </span>
                 </div>
             </div>
         </USlideover>
@@ -50,7 +48,23 @@
 </template>
 
 <script setup>
-const props = defineProps(["song"]);
 
+const props = defineProps(["song"]);
 const isOpen = ref(false);
+
+const animComp = () => {
+    useNuxtApp().$gsap.timeline()
+        .from(".player-root", { duration: 0.3, y: "10%", opacity: 0, delay: 0.1 })
+        .from(".close-button", { scale: 0.5, opacity: 0, duration: 0.3, ease: "back" }, 0.4)
+        .from(".player-details", { y: "20%", duration: 0.2, opacity: 0, ease: "sine" }, 0.6)
+        .from(".play-button", { scale: 0.2, opacity: 0, duration: 0.5, ease: "back.out" }, 0.7)
+        .from(".played-stat", { opacity: 0, duration: 0.2, ease: "power2.ease" }, 0.5);
+}
+
+watch(isOpen, (newVal, oldVal) => {
+
+    if (newVal) { // if slider is open
+        nextTick(() => animComp())
+    }
+})
 </script>
