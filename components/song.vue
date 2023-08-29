@@ -68,19 +68,28 @@ const animComp = () => {
         .from(".played-stat", { opacity: 0, duration: 0.2, ease: "power2.ease" }, 0.2);
 }
 
-var foo = null;
+var artAnimTimeline = null;
 
-const showArt = () => {
-    foo = useNuxtApp().$gsap.timeline()
+const newArtAnim = () => {
+    artAnimTimeline = useNuxtApp().$gsap.timeline()
         .to(`.${props.song.ident}-details`, { duration: 0.2, x: 48, ease: "power2.ease" })
         .set(`.${props.song.ident}-art`, { display: 'flex' })
         .set(`.${props.song.ident}-details`, { x: 0 })
         .fromTo(`.${props.song.ident}-art`, { scale: 0.5, }, { scale: 1, duration: 0.2, ease: "back.out" });
 }
 
+const showArt = () => {
+    if (artAnimTimeline != null && artAnimTimeline.progress() > 0 && artAnimTimeline.progress() < 1) { // if the animation is still running, reverse it
+        if (artAnimTimeline.reversed()) artAnimTimeline.play();
+        else artAnimTimeline.reverse();
+    } else {
+        newArtAnim()
+    }
+}
+
 const reverseShowArt = () => {
-    if (foo != null) {
-        foo.reverse(0);
+    if (artAnimTimeline != null && !artAnimTimeline.reversed()) {
+        artAnimTimeline.reverse();
     }
 }
 
