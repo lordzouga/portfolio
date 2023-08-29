@@ -15,7 +15,6 @@
                     </span>
                     <u-skeleton v-else class="mt-4 h-24 w-full" key="artist-skeleton" :ui="{ rounded: 'rounded-md' }" />
                 </transition>
-
             </div>
 
             <div class="flex flex-col lg:ml-auto mt-8 lg:mt-0 lg:pb-0 lg:border-b-0 pb-4 border-b 
@@ -43,7 +42,7 @@
                 </span>
 
                 <span v-if="dataLoaded" class="flex flex-col mt-2"> <!--Workout Playlist-->
-                    <song class="first:mt-0" v-for="song in workoutSongs" :song="song" />
+                    <song class="first:mt-0" v-for="song in workoutSongs" :key="song.ident" :song="song" />
                 </span>
                 <span v-else class="flex flex-col mt-8">
                     <u-skeleton v-for="i in ['', '', '', '']" class="h-12 w-full mt-8 first:mt-0" />
@@ -57,7 +56,7 @@
                 </span>
 
                 <span v-if="dataLoaded" class="flex flex-col mt-2"> <!--Liked Songs-->
-                    <song class="first:mt-0" v-for="song in workoutSongs" :song="song" />
+                    <song class="first:mt-0" v-for="song in workoutSongs" :key="song.ident" :song="song" />
                 </span>
 
                 <span v-else class="flex flex-col mt-8">
@@ -174,25 +173,29 @@ const workoutSongs = [
         title: "Yeah Yeah Yeah",
         artist: "Jax Jones",
         duration: "4:53",
-        art: "/img/statik_art.jpeg"
+        art: "/img/statik_art.jpeg",
+        ident: "tforumn"
     },
     {
         title: "Tsunami",
         artist: "DVBBS, Borgeous",
         duration: "3:57",
-        art: "/img/statik_art.jpeg"
+        art: "/img/statik_art.jpeg",
+        ident: "ferbsak"
     },
     {
         title: "Wake Up",
         artist: "No wyld",
         duration: "3:50",
-        art: "/img/statik_art.jpeg"
+        art: "/img/statik_art.jpeg",
+        ident: "giuymr"
     },
     {
         title: "Upside Down",
         artist: "Paloma Faith",
         duration: "3:09",
-        art: "/img/statik_art.jpeg"
+        art: "/img/statik_art.jpeg",
+        ident: "domisdf"
     }
 ]
 
