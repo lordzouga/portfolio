@@ -41,8 +41,9 @@
                     <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Workout Playlist</span>
                 </span>
 
-                <span v-if="dataLoaded" class="flex flex-col mt-2"> <!--Workout Playlist-->
-                    <song class="first:mt-0" v-for="track in likedTracks" :key="track.id" :track="track" />
+                <span v-if="dataLoaded" class="flex flex-col mt-2 lg:overflow-y-scroll lg:max-h-[40%]">
+                    <!--Workout Playlist-->
+                    <song class="first:mt-0" v-for="track in workoutTracks" :key="track.id" :track="track" />
                 </span>
                 <span v-else class="flex flex-col mt-8">
                     <u-skeleton v-for="i in ['', '', '', '']" class="h-12 w-full mt-8 first:mt-0" />
@@ -56,7 +57,7 @@
                 </span>
 
                 <span v-if="dataLoaded" class="flex flex-col mt-2"> <!--Liked Songs-->
-                    <!--<song class="first:mt-0" v-for="song in likedSongs" :key="song.ident" :song="song" />-->
+                    <song class="first:mt-0" v-for="track in likedTracks" :key="track.id" :track="track" />
                 </span>
 
                 <span v-else class="flex flex-col mt-8">
@@ -108,6 +109,7 @@ const showDataAnim = () => {
 var spotify = null;
 
 var likedTracks = ref([]);
+var workoutTracks = ref([]);
 
 const setupSpotify = async () => {
     /* retrieve generated access token */
@@ -126,8 +128,12 @@ const loadLikedTracks = async () => {
 
     // console.log(items);
     likedTracks.value = items;
+}
 
-    //likedTracks = await spotify.getTracks(items.map((t) => t.id));
+const loadWorkoutTracks = async () => {
+    const { body: { items } } = await spotify.getPlaylistTracks("5i3fEXuXIrNg9uV1D9eo5w");
+
+    workoutTracks.value = items.map((t) => t.track);
 }
 
 onMounted(async () => {
@@ -137,7 +143,7 @@ onMounted(async () => {
 
     await loadLikedTracks();
 
-    console.log(likedTracks);
+    await loadWorkoutTracks();
 });
 
 const dataLoaded = ref(true);

@@ -10,15 +10,15 @@
         <span class="flex flex-col tracking-wide " :class="[`${song.ident}-details`]">
             <span class="font-medium text-sm text-neutral-200/90 group-hover:text-white ">
                 {{ song.title }} </span>
-            <span class="text-xs text-neutral-300 mt-1">{{ song.artist }}</span>
+            <span class="text-xs text-neutral-400 mt-1">{{ song.artist }}</span>
         </span>
 
-        <span class="ml-auto self-center text-neutral-400 text-sm tracking-wider">{{ song.duration }}</span>
+        <span class="ml-auto self-center text-neutral-400/70 text-sm tracking-wider">{{ song.duration }}</span>
 
         <USlideover v-model="isOpen" :key="song.title" class="font-inter">
             <div class="h-full bg-cover bg-center player-root" :style="`--bg-var: url('${fullArt}');`">
-                <div class="h-full bg-gradient-to-b from-neutral-950/80 from-[8%] via-transparent via-10% 
-                  to-black to-60% p-8 flex flex-col">
+                <div class="h-full bg-gradient-to-b from-neutral-950/80 from-[1%] via-transparent via-10% 
+                  to-black to-60% lg:p-8 p-4 flex flex-col">
                     <div>
                         <UButton class="close-button" square="" variant="solid" color="gray"
                             icon="i-heroicons-x-mark-20-solid" @click="isOpen = false" />
@@ -54,7 +54,6 @@
 </template>
 
 <script setup>
-
 const props = defineProps(["track"]);
 const isOpen = ref(false);
 
