@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col mt-10">
         <div class="flex flex-col lg:flex-row"><!--Artists and Albums-->
-            <div class="flex flex-col pb-4 lg:pb-0 lg:flex-[0.4] lg:border-b-0 border-b border-neutral-600/30">
+            <div class="flex flex-col pb-4 lg:pb-0 lg:flex-[0.4] lg:border-b-0 border-b border-neutral-600/30 artists-cont">
                 <!--Artists-->
                 <span class="flex">
                     <u-icon name="i-tabler-palette" class="h-4 w-4 text-blue-500 self-center"></u-icon>
@@ -18,7 +18,7 @@
             </div>
 
             <div class="flex flex-col lg:ml-auto mt-8 lg:mt-0 lg:pb-0 lg:border-b-0 pb-4 border-b 
-            border-neutral-600/30 lg:flex-[0.4]">
+            border-neutral-600/30 lg:flex-[0.4] albums-cont">
                 <!--Albums-->
                 <span class="flex">
                     <u-icon name="i-tabler-album" class="h-4 w-4 text-pink-500 self-center"></u-icon>
@@ -35,28 +35,28 @@
         </div>
 
         <div class="flex mt-8 flex-col lg:flex-row"><!--Favorite Playlists-->
-            <div class="flex flex-col flex-[0.4]"><!--Workout Section-->
+            <div class="flex flex-col flex-[0.4] workout-cont"><!--Workout Section-->
                 <span class="flex">
                     <u-icon name="i-tabler-stretching" class="h-4 w-4 text-purple-500 self-center font-bold"></u-icon>
                     <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Workout Playlist</span>
                 </span>
 
                 <span v-if="dataLoaded" class="flex flex-col mt-2"> <!--Workout Playlist-->
-                    <song class="first:mt-0" v-for="song in workoutSongs" :key="song.ident" :song="song" />
+                    <song class="first:mt-0" v-for="track in likedTracks" :key="track.id" :track="track" />
                 </span>
                 <span v-else class="flex flex-col mt-8">
                     <u-skeleton v-for="i in ['', '', '', '']" class="h-12 w-full mt-8 first:mt-0" />
                 </span>
             </div>
 
-            <div class="flex flex-col flex-[0.4] mt-8 lg:mt-0 lg:ml-auto"><!--Liked Section-->
+            <div class="flex flex-col flex-[0.4] mt-8 lg:mt-0 lg:ml-auto liked-cont"><!--Liked Section-->
                 <span class="flex">
                     <u-icon name="i-tabler-heart" class="h-4 w-4 text-orange-500 self-center font-bold"></u-icon>
                     <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Liked Songs</span>
                 </span>
 
                 <span v-if="dataLoaded" class="flex flex-col mt-2"> <!--Liked Songs-->
-                    <song class="first:mt-0" v-for="song in workoutSongs" :key="song.ident" :song="song" />
+                    <!--<song class="first:mt-0" v-for="song in likedSongs" :key="song.ident" :song="song" />-->
                 </span>
 
                 <span v-else class="flex flex-col mt-8">
@@ -72,25 +72,23 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 
 /* generate access token server-side */
-/* const { refresh } = await useFetch('/api/access', {
+const { refresh } = await useFetch('/api/access', {
     key: "access",
     server: true
-}); */
+});
 
 const _onEnter = (target) => {
     useNuxtApp().$gsap.fromTo(target, {
         opacity: 0,
-        visibility: "hidden",
         y: "20%",
     },
         {
             duration: 0.2,
             opacity: 1,
             y: 0,
-            visibility: "visible",
             delay: 0,
-            ease: "power2.easeIn",
-            stagger: 0.2,
+            ease: "power.easeOut",
+            stagger: 0.1,
         });
 }
 
@@ -102,27 +100,47 @@ const onAlbumEnter = () => {
     // _onEnter(".album");
 }
 
-const loginToSpotify = async () => {
+const showDataAnim = () => {
+    _onEnter([".artists-cont", ".albums-cont", ".workout-cont", ".liked-cont"])
+}
+
+/** @type {SpotifyWebApi} */
+var spotify = null;
+
+var likedTracks = ref([]);
+
+const setupSpotify = async () => {
     /* retrieve generated access token */
     const { data: { access } } = useNuxtApp().payload;
 
-    let spotify = new SpotifyWebApi();
+    spotify = new SpotifyWebApi();
     spotify.setAccessToken(access.token.access_token);
+}
 
-    const me = await spotify.getMe();
-    // console.log(me.body);
-
-    const tracks = await spotify.getMyTopTracks({
-        time_range: 'medium_term',
+const loadLikedTracks = async () => {
+    const { body: { items } } = await spotify.getMyTopTracks({
+        time_range: "medium_term",
         limit: 10,
         offset: 5
     });
 
-    console.log(tracks);
+    // console.log(items);
+    likedTracks.value = items;
+
+    //likedTracks = await spotify.getTracks(items.map((t) => t.id));
 }
 
+onMounted(async () => {
+    showDataAnim();
 
-const dataLoaded = ref(false);
+    await setupSpotify(); // should always be called first
+
+    await loadLikedTracks();
+
+    console.log(likedTracks);
+});
+
+const dataLoaded = ref(true);
 
 const loadTracks = () => {
     setTimeout(() => {
@@ -200,9 +218,35 @@ const workoutSongs = [
 ]
 
 const likedSongs = [
-
+    {
+        title: "Yeah Yeah Yeah",
+        artist: "Jax Jones",
+        duration: "4:53",
+        art: "/img/statik_art.jpeg",
+        ident: "peroom"
+    },
+    {
+        title: "Tsunami",
+        artist: "DVBBS, Borgeous",
+        duration: "3:57",
+        art: "/img/statik_art.jpeg",
+        ident: "oewpioenn"
+    },
+    {
+        title: "Wake Up",
+        artist: "No wyld",
+        duration: "3:50",
+        art: "/img/statik_art.jpeg",
+        ident: "pbbisbb"
+    },
+    {
+        title: "Upside Down",
+        artist: "Paloma Faith",
+        duration: "3:09",
+        art: "/img/statik_art.jpeg",
+        ident: "inewibib"
+    }
 ]
-
 
 onMounted(() => {
     // loginToSpotify();

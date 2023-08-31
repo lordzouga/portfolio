@@ -1,11 +1,10 @@
 <template>
-    <div class="flex pt-4 pb-4 border border-r-transparent border-t-transparent border-l-transparent border-neutral-600/30 
-    group-hover: cursor-pointer
+    <div class="flex pt-4 pb-4 border border-r-transparent border-t-transparent border-l-transparent border-neutral-600/20 
+    group-hover: cursor-pointer active:scale-90
     hover:bg-gradient-to-b hover:from-neutral-500/10 hover:to-neutral-600/20 hover:border hover:border-neutral-800/40 transition-all
     -mx-4 px-4 lg:rounded-md group" @click="isOpen = true" @mouseenter="showArt" @mouseleave="reverseShowArt">
 
-        <img src="/img/statik_art.jpeg"
-            class="h-8 w-8 self-center hidden rounded-md mr-4 shadow-[0_0_1px_1px_rgba(0,0,0,0.14)]"
+        <img :src="thumbArt" class="h-10 w-10 self-center hidden rounded-md mr-4 shadow-[0_0_1px_1px_rgba(0,0,0,0.14)]"
             :class="[`${song.ident}-art`]" />
 
         <span class="flex flex-col tracking-wide " :class="[`${song.ident}-details`]">
@@ -17,7 +16,7 @@
         <span class="ml-auto self-center text-neutral-400 text-sm tracking-wider">{{ song.duration }}</span>
 
         <USlideover v-model="isOpen" :key="song.title" class="font-inter">
-            <div class="h-full bg-[url('/img/statik_art.jpeg')] bg-cover bg-center player-root">
+            <div class="h-full bg-cover bg-center player-root" :style="`--bg-var: url('${fullArt}');`">
                 <div class="h-full bg-gradient-to-b from-neutral-950/80 from-[8%] via-transparent via-10% 
                   to-black to-60% p-8 flex flex-col">
                     <div>
@@ -34,7 +33,7 @@
                             {{ song.artist }}
                         </span>
                         <span class="text-sm text-neutral-500 tracking-wide font-medium mt-[0.175em]">
-                            Ultraviolence
+                            {{ albumTitle }}
                         </span>
                     </div>
 
@@ -56,8 +55,27 @@
 
 <script setup>
 
-const props = defineProps(["song"]);
+const props = defineProps(["track"]);
 const isOpen = ref(false);
+
+/** @type { SpotifyApi.SingleTrackResponse } */
+var track_ = props.track;
+
+const title = track_.name;
+const ident = track_.id.toLowerCase().replace(/[0-9]/g, '');
+const artist = track_.artists[0].name;
+
+const duration = new Date(track_.duration_ms).toLocaleTimeString([], {
+    minute: "numeric",
+    second: "2-digit"
+});
+
+const thumbArt = track_.album.images[2].url;
+const fullArt = track_.album.images[0].url;
+
+const albumTitle = track_.album.name;
+
+const song = { title, ident, artist, duration };
 
 const animComp = () => {
     useNuxtApp().$gsap.timeline()
@@ -72,10 +90,11 @@ var artAnimTimeline = null;
 
 const newArtAnim = () => {
     artAnimTimeline = useNuxtApp().$gsap.timeline()
-        .to(`.${props.song.ident}-details`, { duration: 0.2, x: 48, ease: "power2.ease" })
-        .set(`.${props.song.ident}-art`, { display: 'flex' })
-        .set(`.${props.song.ident}-details`, { x: 0 })
-        .fromTo(`.${props.song.ident}-art`, { scale: 0.5, }, { scale: 1, duration: 0.2, ease: "back.out" });
+        .to(`.${song.ident}-details`, { duration: 0.2, x: 56, ease: "power2.ease" })
+        .set(`.${song.ident}-art`, { display: 'flex' })
+        .set(`.${song.ident}-details`, { x: 0 })
+        .fromTo(`.${song.ident}-art`, { scale: 0.5, opacity: 0.5 },
+            { scale: 1, opacity: 1, duration: 0.4, ease: "back.out" });
 }
 
 const showArt = () => {
@@ -83,7 +102,7 @@ const showArt = () => {
         if (artAnimTimeline.reversed()) artAnimTimeline.play();
         else artAnimTimeline.reverse();
     } else {
-        newArtAnim()
+        newArtAnim();
     }
 }
 
@@ -99,3 +118,9 @@ watch(isOpen, (newVal, oldVal) => {
     }
 })
 </script>
+
+<style>
+.player-root {
+    background-image: var(--bg-var);
+}
+</style>
