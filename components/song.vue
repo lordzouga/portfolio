@@ -29,7 +29,7 @@
                             {{ song.title }}
                         </span>
                         <span class="text-base text-neutral-400 tracking-wide font-medium">
-                            {{ song.artist }}
+                            {{ artistsFull }}
                         </span>
                         <span class="text-sm text-neutral-500 tracking-wide font-medium mt-[0.175em]">
                             {{ albumTitle }}
@@ -61,7 +61,18 @@ var track_ = props.track;
 
 const title = track_.name;
 const ident = track_.id.toLowerCase().replace(/[0-9]/g, '');
-const artist = track_.artists[0].name;
+
+/* show that the track was made by more than on artist */
+let extraCount = track_.artists.length - 1;
+let artist = "";
+
+if (extraCount) {
+    artist = `${track_.artists[0].name} +${extraCount}`
+} else {
+    artist = track_.artists[0].name
+}
+
+const artistsFull = track_.artists.map(({ name }) => name).join(", ");
 
 const duration = new Date(track_.duration_ms).toLocaleTimeString([], {
     minute: "numeric",
