@@ -1,14 +1,21 @@
 <template>
     <div class="flex flex-col items-center lg:items-center cursor-pointer
         transition-transform hover:-translate-y-1 duration-[250ms] group active:scale-75">
-        <UAvatar class="artist-avatar" :src="artist.avatar" size="2xl" :alt="artist.name" />
+        <UAvatar class="artist-avatar" :src="avatar" size="2xl" :alt="name" />
         <span class="mt-2 text-xs group-hover:text-white group-hover:underline text-neutral-200/80 tracking-wide"> {{
-            artist.name }}</span>
+            name }}</span>
     </div>
 </template>
 
 <script setup>
-defineProps(["artist"])
+const props = defineProps(["artist"])
+
+/** @type { SpotifyApi.SingleArtistResponse } */
+const artist = props.artist;
+
+const name = artist.name;
+const avatar = artist.images[2].url;
+
 </script>
 
 <style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col mt-10">
+    <div class="flex flex-col mt-10 lg:overflow-y-clip lg:max-h-[calc(100vh-2.5rem-120px)]">
         <div class="flex flex-col lg:flex-row"><!--Artists and Albums-->
             <div class="flex flex-col pb-4 lg:pb-0 lg:flex-[0.4] lg:border-b-0 border-b border-neutral-600/30 artists-cont">
                 <!--Artists-->
@@ -11,7 +11,7 @@
 
                 <transition name="show-loaded" mode="out-in" @enter="onArtistEnter">
                     <span v-if="dataLoaded" class="flex mt-4" key="artists"> <!--Artist List-->
-                        <artist class="artist ml-8 first:ml-0" v-for="artist in artists" :artist="artist" />
+                        <artist class="artist ml-8 first:ml-0" v-for="artist in favArtists" :artist="artist" />
                     </span>
                     <u-skeleton v-else class="mt-4 h-24 w-full" key="artist-skeleton" :ui="{ rounded: 'rounded-md' }" />
                 </transition>
@@ -27,38 +27,46 @@
 
                 <transition name="show-loaded" mode="out-in" @enter="onAlbumEnter">
                     <span v-if="dataLoaded" class="flex mt-4" key="albums"> <!--Album list-->
-                        <album class="album ml-8 first:ml-0" v-for="album in albums" :album="album" />
+                        <album class="album ml-8 first:ml-0" v-for="album in favAlbums" :album="album" />
                     </span>
                     <u-skeleton v-else class="mt-4 h-24 w-full" key="albums-skeleton" :ui="{ rounded: 'rounded-md' }" />
                 </transition>
             </div>
         </div>
 
-        <div class="flex mt-8 flex-col lg:flex-row"><!--Favorite Playlists-->
-            <div class="flex flex-col flex-[0.4] workout-cont"><!--Workout Section-->
+        <div class="flex mt-8 flex-col lg:flex-row "><!--Favorite Playlists-->
+            <div class="flex flex-col flex-[0.4] workout-cont "><!--Workout Section-->
                 <span class="flex">
                     <u-icon name="i-tabler-stretching" class="h-4 w-4 text-purple-500 self-center font-bold"></u-icon>
                     <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Workout Playlist</span>
                 </span>
 
-                <span v-if="dataLoaded" class="flex flex-col mt-2 lg:overflow-y-scroll lg:max-h-[40%]">
-                    <!--Workout Playlist-->
-                    <song class="first:mt-0" v-for="track in workoutTracks" :key="track.id" :track="track" />
-                </span>
+                <div v-if="dataLoaded"
+                    class="lg:overflow-y-scroll max-h-[65%] no-scrollbar mt-8 flex flex-1 lg:absolute px-4 -mx-4 playlist">
+                    <span class="flex flex-col w-full flex-1 ">
+                        <!--Workout Playlist-->
+                        <song class="first:mt-0" v-for="track in workoutTracks" :key="track.id" :track="track" />
+                    </span>
+                </div>
+
                 <span v-else class="flex flex-col mt-8">
                     <u-skeleton v-for="i in ['', '', '', '']" class="h-12 w-full mt-8 first:mt-0" />
                 </span>
             </div>
 
-            <div class="flex flex-col flex-[0.4] mt-8 lg:mt-0 lg:ml-auto liked-cont"><!--Liked Section-->
+            <div class="flex flex-col flex-[0.4] mt-8 lg:mt-0 lg:ml-auto liked-cont">
+                <!--Liked Section-->
                 <span class="flex">
                     <u-icon name="i-tabler-heart" class="h-4 w-4 text-orange-500 self-center font-bold"></u-icon>
                     <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Liked Songs</span>
                 </span>
 
-                <span v-if="dataLoaded" class="flex flex-col mt-2"> <!--Liked Songs-->
-                    <song class="first:mt-0" v-for="track in likedTracks" :key="track.id" :track="track" />
-                </span>
+                <div v-if="dataLoaded"
+                    class="lg:overflow-y-scroll max-h-[65%] w-full no-scrollbar mt-4 px-4 -mx-4 flex playlist">
+                    <span class="flex flex-col w-full flex-1 "> <!--Liked Songs-->
+                        <song class="first:mt-0" v-for="track in likedTracks" :key="track.id" :track="track" />
+                    </span>
+                </div>
 
                 <span v-else class="flex flex-col mt-8">
                     <u-skeleton v-for="i in ['', '', '', '']" class="h-12 w-full mt-8 first:mt-0" />
@@ -110,6 +118,8 @@ var spotify = null;
 
 var likedTracks = ref([]);
 var workoutTracks = ref([]);
+var favArtists = ref([]);
+var favAlbums = ref([]);
 
 const setupSpotify = async () => {
     /* retrieve generated access token */
@@ -123,7 +133,7 @@ const loadLikedTracks = async () => {
     const { body: { items } } = await spotify.getMyTopTracks({
         time_range: "medium_term",
         limit: 10,
-        offset: 5
+        offset: 0
     });
 
     // console.log(items);
@@ -136,13 +146,34 @@ const loadWorkoutTracks = async () => {
     workoutTracks.value = items.map((t) => t.track);
 }
 
+const loadFavArtists = async () => {
+    const { body: { items } } = await spotify.getMyTopArtists({
+        time_range: "long_term",
+        limit: 3,
+        offset: 1
+    });
+
+    favArtists.value = items;
+}
+
+const loadFavAlbums = async () => {
+    const { body: { items } } = await spotify.getMyTopTracks({
+        time_range: "long_term",
+        limit: 3
+    });
+
+    favAlbums.value = items.map(({ album }) => album);
+}
+
 onMounted(async () => {
     showDataAnim();
 
     await setupSpotify(); // should always be called first
 
-    await loadLikedTracks();
+    await loadFavArtists();
+    await loadFavAlbums();
 
+    await loadLikedTracks();
     await loadWorkoutTracks();
 });
 
@@ -262,14 +293,21 @@ onMounted(() => {
 </script>
 
 <style>
-/*.show-loaded-enter-active {
-    transition: opacity 0.4s ease-in;
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
 }
 
-.show-loaded-leave-active {}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
 
-.show-loaded-enter-from,
-.show-loaded-leave-to {
-    opacity: 0.4;
-}*/
+.playlist {
+    width: calc(100% + 32px);
+}
 </style>
