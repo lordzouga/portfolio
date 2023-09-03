@@ -6,7 +6,7 @@ export default <Partial<Config>> <unknown>{
     ],
     theme: {
         fontFamily: {
-            inter: ['"Inter"'],
+            inter: ['"Inter"', { fontFeatureSettings: '"cv11", "ss01"' } ],
             body: ['"Inter"']
         }
     }

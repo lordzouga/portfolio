@@ -5,7 +5,7 @@
                 <!--Artists-->
                 <span class="flex">
                     <u-icon name="i-tabler-palette" class="h-4 w-4 text-blue-500 self-center"></u-icon>
-                    <span class="font-semibold text-xs text-neutral-400 tracking-wider ml-2">
+                    <span class="font-light text-sm text-neutral-400 tracking-wider ml-2">
                         Favorite Artists</span>
                 </span>
 
@@ -22,7 +22,7 @@
                 <!--Albums-->
                 <span class="flex">
                     <u-icon name="i-tabler-album" class="h-4 w-4 text-pink-500 self-center"></u-icon>
-                    <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Favorite Albums</span>
+                    <span class="font-light text-neutral-400 text-sm tracking-wider ml-2">Favorite Albums</span>
                 </span>
 
                 <transition name="show-loaded" mode="out-in" @enter="onAlbumEnter">
@@ -38,11 +38,14 @@
             <div class="flex flex-col flex-[0.4] workout-cont "><!--Workout Section-->
                 <span class="flex">
                     <u-icon name="i-tabler-stretching" class="h-4 w-4 text-purple-500 self-center font-bold"></u-icon>
-                    <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Workout Playlist</span>
+                    <span class="font-light text-neutral-400 text-sm tracking-wider ml-2 self-center">Workout
+                        Playlist</span>
+                    <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ workoutTracks.length }}
+                        Songs</u-badge>
                 </span>
 
                 <div v-if="dataLoaded"
-                    class="lg:overflow-y-scroll max-h-[65%] no-scrollbar mt-8 flex flex-1 lg:absolute px-4 -mx-4 playlist">
+                    class="lg:overflow-y-scroll max-h-[65%] no-scrollbar mt-4 lg:mt-8 flex flex-1 lg:absolute px-4 -mx-4 playlist">
                     <span class="flex flex-col w-full flex-1 ">
                         <!--Workout Playlist-->
                         <song class="first:mt-0" v-for="track in workoutTracks" :key="track.id" :track="track" />
@@ -57,8 +60,10 @@
             <div class="flex flex-col flex-[0.4] mt-8 lg:mt-0 lg:ml-auto liked-cont">
                 <!--Liked Section-->
                 <span class="flex">
-                    <u-icon name="i-tabler-heart" class="h-4 w-4 text-orange-500 self-center font-bold"></u-icon>
-                    <span class="font-semibold text-neutral-400 text-xs tracking-wider ml-2">Liked Songs</span>
+                    <u-icon name="i-tabler-heart" class="h-4 w-4 text-green-500 self-center font-bold"></u-icon>
+                    <span class="font-light text-neutral-400 text-sm tracking-wider ml-2 self-center">Liked Songs</span>
+                    <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ likedTracks.length }}
+                        Songs</u-badge>
                 </span>
 
                 <div v-if="dataLoaded"
