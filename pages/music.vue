@@ -4,8 +4,8 @@
             <div class="flex flex-col pb-4 lg:pb-0 lg:flex-[0.4] lg:border-b-0 border-b border-neutral-600/30 artists-cont">
                 <!--Artists-->
                 <span class="flex">
-                    <u-icon name="i-tabler-palette" class="h-4 w-4 text-neutral-500 self-center"></u-icon>
-                    <span class="font-light text-sm text-neutral-400 tracking-wider ml-2">
+                    <!--<u-icon name="i-tabler-palette" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
+                    <span class="font-semibold text-neutral-200 text-base  tracking-wide">
                         Favorite Artists</span>
                 </span>
 
@@ -21,8 +21,8 @@
             border-neutral-600/30 lg:flex-[0.4] albums-cont">
                 <!--Albums-->
                 <span class="flex">
-                    <u-icon name="i-tabler-album" class="h-4 w-4 text-neutral-500 self-center"></u-icon>
-                    <span class="font-light text-neutral-400 text-sm tracking-wider ml-2">Favorite Albums</span>
+                    <!--<u-icon name="i-tabler-album" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
+                    <span class="font-semibold text-neutral-200 text-base tracking-wide">Favorite Albums</span>
                 </span>
 
                 <transition name="show-loaded" mode="out-in" @enter="onAlbumEnter">
@@ -35,30 +35,32 @@
         </div>
 
         <div class="flex mt-8 flex-col lg:flex-row "><!--Favorite Playlists-->
+            <UTabs class="lg:hidden" :items="tabData" />
             <div class="flex flex-col flex-[0.4] workout-cont "><!--Workout Section-->
                 <span class="flex">
-                    <u-icon name="i-tabler-stretching" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>
-                    <span class="font-light text-neutral-400 text-sm tracking-wider ml-2 self-center">Workout
+                    <!--<u-icon name="i-tabler-stretching" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
+                    <span class="font-semibold text-neutral-200 text-base tracking-wide self-center">Workout
                         Playlist</span>
                     <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ workoutTracks.length }}
                         Songs</u-badge>
                 </span>
 
                 <div class="flex mt-1">
-                    <UButton class="focus:ring-0 focus-visible:ring-0" size="xs" color="gray" :padded="false"
-                        icon="i-teenyicons-spotify-outline" variant="link">
+                    <UButton class="focus:ring-0 focus-visible:ring-0" size="2xs" color="gray" :padded="false"
+                        icon="i-la-spotify" variant="link" :ui="{ font: 'font-normal' }">
                         Open in Spotify
                     </UButton>
-                    <span class="text-neutral-300 text-xs font-medium ml-2"> <span
-                            class="text-neutral-400 font-normal">Duration:</span> {{ workoutPlaylistDuration }} </span>
+
+                    <span class="flex ml-4 items-center text-neutral-400">
+                        <UIcon name="i-gridicons-time" class="h-4 w-4 text-neutral-500"></UIcon>
+                        <span class="text-xs font-light ml-1">{{ workoutPlaylistDuration }} </span>
+                    </span>
                 </div>
 
                 <div v-if="dataLoaded"
                     class="lg:overflow-y-scroll max-h-[65%] no-scrollbar mt-4 lg:mt-14 flex flex-1 lg:absolute px-4 -mx-4 playlist">
-                    <span class="flex flex-col w-full flex-1 ">
-                        <!--Workout Playlist-->
-                        <song class="first:mt-0" v-for="track in workoutTracks" :key="track.id" :track="track" />
-                    </span>
+                    <!--Workout Playlist-->
+                    <Songlist :songs="workoutTracks"></Songlist>
                 </div>
 
                 <span v-else class="flex flex-col mt-8">
@@ -69,17 +71,28 @@
             <div class="flex flex-col flex-[0.4] mt-8 lg:mt-0 lg:ml-auto liked-cont">
                 <!--Liked Section-->
                 <span class="flex">
-                    <u-icon name="i-tabler-heart" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>
-                    <span class="font-light text-neutral-400 text-sm tracking-wider ml-2 self-center">Liked Songs</span>
+                    <!--<u-icon name="i-tabler-heart" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
+                    <span class="font-semibold text-neutral-200 text-base tracking-wide self-center">Liked Songs</span>
                     <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ likedTracks.length }}
                         Songs</u-badge>
                 </span>
 
+                <div class="flex mt-1">
+                    <UButton class="focus:ring-0 focus-visible:ring-0" size="2xs" color="gray" :padded="false"
+                        icon="i-la-spotify" variant="link" :ui="{ font: 'font-normal' }">
+                        Open in Spotify
+                    </UButton>
+
+                    <span class="flex ml-4 items-center text-neutral-400">
+                        <UIcon name="i-gridicons-time" class="h-4 w-4"></UIcon>
+                        <span class="text-xs font-light ml-1">{{ workoutPlaylistDuration }} </span>
+                    </span>
+                </div>
+
                 <div v-if="dataLoaded"
                     class="lg:overflow-y-scroll max-h-[65%] w-full no-scrollbar mt-4 px-4 -mx-4 flex playlist">
-                    <span class="flex flex-col w-full flex-1 "> <!--Liked Songs-->
-                        <song class="first:mt-0" v-for="track in likedTracks" :key="track.id" :track="track" />
-                    </span>
+                    <!--Liked Playlist-->
+                    <Songlist :songs="likedTracks"></Songlist>
                 </div>
 
                 <span v-else class="flex flex-col mt-8">
@@ -92,7 +105,6 @@
 </template>
 
 <script setup>
-import { _0 } from '#tailwind-config/theme/backdropBlur';
 import SpotifyWebApi from 'spotify-web-api-node';
 
 /* generate access token server-side */
@@ -137,6 +149,15 @@ var favArtists = ref([]);
 var favAlbums = ref([]);
 const workoutPlaylistDuration = ref("");
 
+const tabData = [
+    {
+        label: 'Workout Songs'
+    },
+    {
+        label: 'Liked Songs'
+    }
+]
+
 const setupSpotify = async () => {
     /* retrieve generated access token */
     const { data: { access } } = useNuxtApp().payload;
@@ -159,7 +180,7 @@ const loadLikedTracks = async () => {
 const loadWorkoutTracks = async () => {
     let workoutPlaylist = "5i3fEXuXIrNg9uV1D9eo5w";
 
-    const { body: { items } } = await spotify.getPlaylistTracks("5i3fEXuXIrNg9uV1D9eo5w");
+    const { body: { items } } = await spotify.getPlaylistTracks(workoutPlaylist);
 
     // const playlistDetails = await spotify.getPlaylist(workoutPlaylist);
 
@@ -167,7 +188,6 @@ const loadWorkoutTracks = async () => {
 
     let totalDuration = 0;
     items.map(({ track }) => totalDuration += track.duration_ms);
-    console.log(totalDuration);
 
     // clever time formatting https://stackoverflow.com/a/72218615/3256367
     // do not want to install moment.
