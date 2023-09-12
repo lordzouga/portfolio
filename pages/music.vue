@@ -34,9 +34,57 @@
             </div>
         </div>
 
-        <div class="flex mt-8 flex-col lg:flex-row "><!--Favorite Playlists-->
-            <UTabs class="lg:hidden" :items="tabData" />
-            <div class="flex flex-col flex-[0.4] workout-cont "><!--Workout Section-->
+        <div class="flex lg:mt-8 mt-4 flex-col lg:flex-row "><!--Favorite Playlists-->
+            <UTabs class="lg:hidden" :items="tabData">
+                <template #default="{ item, selected }" class="-mx-4">
+                    <div class="flex items-center gap-2 relative truncate">
+                        <span> {{ item.label }}</span>
+                        <u-badge v-if="item.key === 'workout'" color="gray" variant="soft" size="xs" class="ml-auto">{{
+                            workoutTracks.length }}</u-badge>
+                        <u-badge v-else-if="item.key === 'liked'" color="gray" variant="soft" size="xs" class="ml-auto">{{
+                            likedTracks.length }}</u-badge>
+
+                        <span v-if="selected"
+                            class="absolute -right-4 w-2 h-2 rounded-full bg-primary-500 dark:bg-primary-400" />
+                    </div>
+                </template>
+
+                <template #item="{ item }">
+
+                    <div v-if="item.key === 'workout'">
+                        <div class="flex mb-2">
+                            <UButton class="focus:ring-0 focus-visible:ring-0" size="xs" color="gray" :padded="false"
+                                icon="i-la-spotify" variant="link" :ui="{ font: 'font-normal' }">
+                                Open in Spotify
+                            </UButton>
+
+                            <span class="flex items-center ml-4 text-neutral-400">
+                                <UIcon name="i-gridicons-time" class="h-4 w-4"></UIcon>
+                                <span class="text-xs font-normal ml-1">{{ workoutPlaylistDuration }} </span>
+                            </span>
+
+                        </div>
+                        <Songlist :songs="workoutTracks" />
+                    </div>
+                    <div v-else-if="item.key === 'liked'">
+                        <div class="flex mb-2">
+                            <UButton class="focus:ring-0 focus-visible:ring-0" size="xs" color="gray" :padded="false"
+                                icon="i-la-spotify" variant="link" :ui="{ font: 'font-normal' }">
+                                Open in Spotify
+                            </UButton>
+
+                            <span class="flex items-center ml-4 text-neutral-400">
+                                <UIcon name="i-gridicons-time" class="h-4 w-4"></UIcon>
+                                <span class="text-xs font-normal ml-1">{{ likedPlaylistDuration }} </span>
+                            </span>
+
+                        </div>
+                        <Songlist :songs="likedTracks" />
+                    </div>
+                </template>
+            </UTabs>
+
+            <div class="lg:flex flex-col flex-[0.4] workout-cont hidden "><!--Workout Section-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-stretching" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
                     <span class="font-semibold text-neutral-200 text-base tracking-wide self-center">Workout
@@ -68,7 +116,7 @@
                 </span>
             </div>
 
-            <div class="flex flex-col flex-[0.4] mt-8 lg:mt-0 lg:ml-auto liked-cont">
+            <div class="lg:flex hidden flex-col flex-[0.4] mt-8 lg:mt-0 lg:ml-auto liked-cont">
                 <!--Liked Section-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-heart" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
@@ -148,13 +196,16 @@ var workoutTracks = ref([]);
 var favArtists = ref([]);
 var favAlbums = ref([]);
 const workoutPlaylistDuration = ref("");
+const likedPlaylistDuration = ref("");
 
 const tabData = [
     {
-        label: 'Workout Songs'
+        key: 'workout',
+        label: 'Workout Songs',
     },
     {
-        label: 'Liked Songs'
+        key: 'liked',
+        label: 'Liked Songs',
     }
 ]
 
@@ -166,15 +217,35 @@ const setupSpotify = async () => {
     spotify.setAccessToken(access.token.access_token);
 }
 
+const formatDuration = (duration) => {
+
+    // clever time formatting https://stackoverflow.com/a/72218615/3256367
+    // do not want to install moment.
+    let durationStr = new Date(0, 0, 0, 0, 0, 0, duration).toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "numeric",
+        hourCycle: "h24"
+    });
+
+    let temp = durationStr.split(":");
+
+    return `${parseInt(temp[0])}h ${parseInt(temp[1])}m`;
+}
+
 const loadLikedTracks = async () => {
     const { body: { items } } = await spotify.getMyTopTracks({
         time_range: "medium_term",
-        limit: 10,
+        limit: 30,
         offset: 0
     });
 
     // console.log(items);
     likedTracks.value = items;
+
+    let totalDuration = 0;
+    items.map(({ duration_ms }) => totalDuration += duration_ms);
+
+    likedPlaylistDuration.value = formatDuration(totalDuration);
 }
 
 const loadWorkoutTracks = async () => {
@@ -189,17 +260,7 @@ const loadWorkoutTracks = async () => {
     let totalDuration = 0;
     items.map(({ track }) => totalDuration += track.duration_ms);
 
-    // clever time formatting https://stackoverflow.com/a/72218615/3256367
-    // do not want to install moment.
-    let durationStr = new Date(0, 0, 0, 0, 0, 0, totalDuration).toLocaleTimeString([], {
-        hour: "numeric",
-        minute: "numeric",
-        hourCycle: "h24"
-    });
-
-    let temp = durationStr.split(":");
-
-    workoutPlaylistDuration.value = `${parseInt(temp[0])}h ${parseInt(temp[1])}m`;
+    workoutPlaylistDuration.value = formatDuration(totalDuration);
 }
 
 const loadFavArtists = async () => {
