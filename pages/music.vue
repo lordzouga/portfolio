@@ -5,7 +5,7 @@
                 <!--Artists-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-palette" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
-                    <span class="font-semibold text-neutral-200 text-base  tracking-wide">
+                    <span class="font-bold text-neutral-200 text-base  tracking-wide">
                         Favorite Artists</span>
                 </span>
 
@@ -22,7 +22,7 @@
                 <!--Albums-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-album" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
-                    <span class="font-semibold text-neutral-200 text-base tracking-wide">Favorite Albums</span>
+                    <span class="font-bold text-neutral-200 text-base tracking-wide">Favorite Albums</span>
                 </span>
 
                 <transition name="show-loaded" mode="out-in" @enter="onAlbumEnter">
@@ -38,7 +38,7 @@
             <UTabs class="lg:hidden" :items="tabData">
                 <template #default="{ item, selected }" class="-mx-4">
                     <div class="flex items-center gap-2 relative truncate">
-                        <span> {{ item.label }}</span>
+                        <span class="font-semibold tracking-wide"> {{ item.label }}</span>
                         <u-badge v-if="item.key === 'workout'" color="gray" variant="soft" size="xs" class="ml-auto">{{
                             workoutTracks.length }}</u-badge>
                         <u-badge v-else-if="item.key === 'liked'" color="gray" variant="soft" size="xs" class="ml-auto">{{
@@ -87,7 +87,7 @@
             <div class="lg:flex flex-col flex-[0.4] workout-cont hidden "><!--Workout Section-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-stretching" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
-                    <span class="font-semibold text-neutral-200 text-base tracking-wide self-center">Workout
+                    <span class="font-bold text-neutral-200 text-base tracking-wide self-center">Workout
                         Playlist</span>
                     <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ workoutTracks.length }}
                         Songs</u-badge>
@@ -120,7 +120,7 @@
                 <!--Liked Section-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-heart" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
-                    <span class="font-semibold text-neutral-200 text-base tracking-wide self-center">Liked Songs</span>
+                    <span class="font-bold text-neutral-200 text-base tracking-wide self-center">Liked Songs</span>
                     <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ likedTracks.length }}
                         Songs</u-badge>
                 </span>
@@ -301,106 +301,6 @@ const loadTracks = () => {
         dataLoaded.value = true;
     }, 3 * 1000)
 }
-
-const artists = [
-    {
-        name: "Deca",
-        avatar: "/img/deca_avatar.jpeg"
-    },
-    {
-        name: "Black Thought",
-        avatar: ""
-    },
-    {
-        name: "Coldplay",
-        avatar: ""
-    },
-    /*{
-        name: "Lana Del Rey",
-        avatar: ""
-    }*/
-]
-
-const albums = [
-    {
-        title: "The Way Through",
-        art: "/img/deca_avatar.jpeg"
-    },
-    {
-        title: "A Rush of Blood To the Head",
-        art: "/img/deca_avatar.jpeg"
-    },
-    {
-        title: "Streams of Thought",
-        art: "/img/deca_avatar.jpeg"
-    },
-    /*{
-        title: "Ultraviolence",
-        art: "/img/deca_avatar.jpeg"
-    }*/
-]
-
-const workoutSongs = [
-    {
-        title: "Yeah Yeah Yeah",
-        artist: "Jax Jones",
-        duration: "4:53",
-        art: "/img/statik_art.jpeg",
-        ident: "tforumn"
-    },
-    {
-        title: "Tsunami",
-        artist: "DVBBS, Borgeous",
-        duration: "3:57",
-        art: "/img/statik_art.jpeg",
-        ident: "ferbsak"
-    },
-    {
-        title: "Wake Up",
-        artist: "No wyld",
-        duration: "3:50",
-        art: "/img/statik_art.jpeg",
-        ident: "giuymr"
-    },
-    {
-        title: "Upside Down",
-        artist: "Paloma Faith",
-        duration: "3:09",
-        art: "/img/statik_art.jpeg",
-        ident: "domisdf"
-    }
-]
-
-const likedSongs = [
-    {
-        title: "Yeah Yeah Yeah",
-        artist: "Jax Jones",
-        duration: "4:53",
-        art: "/img/statik_art.jpeg",
-        ident: "peroom"
-    },
-    {
-        title: "Tsunami",
-        artist: "DVBBS, Borgeous",
-        duration: "3:57",
-        art: "/img/statik_art.jpeg",
-        ident: "oewpioenn"
-    },
-    {
-        title: "Wake Up",
-        artist: "No wyld",
-        duration: "3:50",
-        art: "/img/statik_art.jpeg",
-        ident: "pbbisbb"
-    },
-    {
-        title: "Upside Down",
-        artist: "Paloma Faith",
-        duration: "3:09",
-        art: "/img/statik_art.jpeg",
-        ident: "inewibib"
-    }
-]
 
 onMounted(() => {
     // loginToSpotify();
