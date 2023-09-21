@@ -153,7 +153,6 @@
 </template>
 
 <script setup>
-import SpotifyWebApi from 'spotify-web-api-node';
 
 /* generate access token server-side */
 const { refresh } = await useFetch('/api/access', {
@@ -188,15 +187,8 @@ const showDataAnim = () => {
     _onEnter([".artists-cont", ".albums-cont", ".workout-cont", ".liked-cont"])
 }
 
-/** @type {SpotifyWebApi} */
-var spotify = null;
-
-var likedTracks = ref([]);
-var workoutTracks = ref([]);
-var favArtists = ref([]);
-var favAlbums = ref([]);
-const workoutPlaylistDuration = ref("");
-const likedPlaylistDuration = ref("");
+const { likedTracks, workoutTracks, favArtists, favAlbums,
+    workoutPlaylistDuration, likedPlaylistDuration } = storeToRefs(useSpotify());
 
 const tabData = [
     {
@@ -209,89 +201,11 @@ const tabData = [
     }
 ]
 
-const setupSpotify = async () => {
-    /* retrieve generated access token */
-    const { data: { access } } = useNuxtApp().payload;
-
-    spotify = new SpotifyWebApi();
-    spotify.setAccessToken(access.token.access_token);
-}
-
-const formatDuration = (duration) => {
-
-    // clever time formatting https://stackoverflow.com/a/72218615/3256367
-    // do not want to install moment.
-    let durationStr = new Date(0, 0, 0, 0, 0, 0, duration).toLocaleTimeString([], {
-        hour: "numeric",
-        minute: "numeric",
-        hourCycle: "h24"
-    });
-
-    let temp = durationStr.split(":");
-
-    return `${parseInt(temp[0])}h ${parseInt(temp[1])}m`;
-}
-
-const loadLikedTracks = async () => {
-    const { body: { items } } = await spotify.getMyTopTracks({
-        time_range: "medium_term",
-        limit: 30,
-        offset: 0
-    });
-
-    // console.log(items);
-    likedTracks.value = items;
-
-    let totalDuration = 0;
-    items.map(({ duration_ms }) => totalDuration += duration_ms);
-
-    likedPlaylistDuration.value = formatDuration(totalDuration);
-}
-
-const loadWorkoutTracks = async () => {
-    let workoutPlaylist = "5i3fEXuXIrNg9uV1D9eo5w";
-
-    const { body: { items } } = await spotify.getPlaylistTracks(workoutPlaylist);
-
-    // const playlistDetails = await spotify.getPlaylist(workoutPlaylist);
-
-    workoutTracks.value = items.map((t) => t.track);
-
-    let totalDuration = 0;
-    items.map(({ track }) => totalDuration += track.duration_ms);
-
-    workoutPlaylistDuration.value = formatDuration(totalDuration);
-}
-
-const loadFavArtists = async () => {
-    const { body: { items } } = await spotify.getMyTopArtists({
-        time_range: "long_term",
-        limit: 3,
-        offset: 1
-    });
-
-    favArtists.value = items;
-}
-
-const loadFavAlbums = async () => {
-    const { body: { items } } = await spotify.getMyTopTracks({
-        time_range: "long_term",
-        limit: 3
-    });
-
-    favAlbums.value = items.map(({ album }) => album);
-}
-
 onMounted(async () => {
     showDataAnim();
 
-    await setupSpotify(); // should always be called first
-
-    await loadFavArtists();
-    await loadFavAlbums();
-
-    await loadLikedTracks();
-    await loadWorkoutTracks();
+    const { loadSpotifyData } = useSpotify();
+    await loadSpotifyData();
 });
 
 const dataLoaded = ref(true);
