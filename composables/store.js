@@ -27,8 +27,9 @@ export const useSpotify = defineStore('spotify', () => {
         loadFavAlbums();
     }
 
+    /* Make the access token available to be use in subsequent api calls */
     async function setupSpotify () {
-        /* retrieve generated access token */
+        /* retrieve server side generated access token */
         const { data: { access } } = useNuxtApp().payload;
         
         spotify = new SpotifyWebApi();
@@ -57,7 +58,7 @@ export const useSpotify = defineStore('spotify', () => {
         });
     
         // console.log(items);
-        likedTracks.value = items;
+        likedTracks.value.push(...items);
     
         let totalDuration = 0;
         items.map(({ duration_ms }) => totalDuration += duration_ms);
@@ -72,7 +73,7 @@ export const useSpotify = defineStore('spotify', () => {
     
         // const playlistDetails = await spotify.getPlaylist(workoutPlaylist);
     
-        workoutTracks.value = items.map((t) => t.track);
+        workoutTracks.value.push(...items.map((t) => t.track));
     
         let totalDuration = 0;
         items.map(({ track }) => totalDuration += track.duration_ms);
@@ -87,7 +88,25 @@ export const useSpotify = defineStore('spotify', () => {
             offset: 1
         });
     
-        favArtists.value = items;
+        favArtists.value.push(...items);
+    }
+
+    /* returns the list of albums an artist has based on provided ID */
+    const loadArtistAlbums = async (id) => {
+        const { body: { items }} = await spotify.getArtistAlbums(id, {
+            album_type: 'album',
+            country: 'GB',
+            limit: 5
+        });
+        
+        return items;
+    }
+
+    const loadArtistTopTracks = async (id) => {
+        const { body: { tracks } } = await spotify.getArtistTopTracks(id, 'GB');
+
+        // we need only 5 tracks
+        return tracks.slice(0, 5);
     }
     
     const loadFavAlbums = async () => {
@@ -100,5 +119,5 @@ export const useSpotify = defineStore('spotify', () => {
     }
     
     return { likedTracks, workoutTracks, favArtists, favAlbums, workoutPlaylistDuration,
-        likedPlaylistDuration, loadSpotifyData }
+        likedPlaylistDuration, loadSpotifyData, loadArtistAlbums, loadArtistTopTracks }
 })

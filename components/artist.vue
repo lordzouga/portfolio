@@ -6,7 +6,7 @@
             {{ name }}</span>
 
         <USlideover v-model="isOpen">
-            <div class="h-full w-full ">
+            <div class="h-full w-full font-inter artist-page-root" :style="`--bg-var: url('${artistPhoto}');`">
                 <div class="h-full bg-gradient-to-b from-neutral-950/80 from-[1%] via-transparent via-10% 
                   to-black to-60% lg:p-8 p-4 flex flex-col">
                     <div>
@@ -16,6 +16,16 @@
 
                     <span class="text-center text-xl mt-4 font-semibold">{{ name }}</span>
                     <span class="text-center"> {{ artist.popularity }}</span>
+
+                    <div class="flex justify-between mt-8">
+                        <img :src="albumArts[0]" class="w-[30%] rounded-lg" />
+                        <img :src="albumArts[1]" class="w-[30%] rounded-lg" />
+                        <img :src="albumArts[2]" class="w-[30%] rounded-lg" />
+                    </div>
+
+                    <div class="flex flex-col mt-8">
+                        <span v-for="track in topTracks">{{ track.name }}</span>
+                    </div>
                 </div>
 
             </div>
@@ -28,7 +38,25 @@ const props = defineProps(["artist"])
 
 /** @type { SpotifyApi.SingleArtistResponse } */
 const artist = props.artist;
+const albumArts = ref([]);
 
+/** @type { SpotifyApi.TrackObjectFull[] } */
+const topTracks = ref([]);
+
+const artistPhoto = artist.images[0].url;
+
+const { loadArtistAlbums, loadArtistTopTracks } = useSpotify();
+
+loadArtistAlbums(artist.id).then((items) => {
+    /** @type { SpotifyApi.AlbumObjectSimplified[] } */
+    let albums = items;
+
+    albumArts.value = albums.map(({ images }) => images[1].url);
+});
+
+loadArtistTopTracks(artist.id).then((tracks) => {
+    topTracks.value.push(...tracks);
+});
 
 const name = artist.name;
 const avatar = artist.images[2].url;
@@ -43,6 +71,10 @@ const isOpen = ref(false);
 
 .artist-container:hover {
     transform: translateY(-2px) scale(1.05);
+}
+
+.artist-page-root {
+    background-image: var(--bg-var);
 }
 
 @keyframes zoom {
