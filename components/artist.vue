@@ -15,7 +15,7 @@
                     </div>
 
                     <span class="text-center text-2xl mt-4 font-semibold text-neutral-300">{{ name }}</span>
-                    <span class="text-center"> {{ artist.popularity }}</span>
+                    <Popularity class="text-center justify-center mt-2" :popularity="artist.popularity" />
 
                     <div class="flex justify-between mt-8">
                         <img :src="albumArts[0]" class="w-[30%] rounded-lg" />

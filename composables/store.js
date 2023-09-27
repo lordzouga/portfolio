@@ -58,7 +58,7 @@ export const useSpotify = defineStore('spotify', () => {
         });
     
         // console.log(items);
-        likedTracks.value.push(...items);
+        likedTracks.value = items;
     
         let totalDuration = 0;
         items.map(({ duration_ms }) => totalDuration += duration_ms);
@@ -73,7 +73,7 @@ export const useSpotify = defineStore('spotify', () => {
     
         // const playlistDetails = await spotify.getPlaylist(workoutPlaylist);
     
-        workoutTracks.value.push(...items.map((t) => t.track));
+        workoutTracks.value = items.map((t) => t.track);
     
         let totalDuration = 0;
         items.map(({ track }) => totalDuration += track.duration_ms);
@@ -88,7 +88,7 @@ export const useSpotify = defineStore('spotify', () => {
             offset: 1
         });
     
-        favArtists.value.push(...items);
+        favArtists.value = items;
     }
 
     /* returns the list of albums an artist has based on provided ID */
@@ -115,9 +115,9 @@ export const useSpotify = defineStore('spotify', () => {
             limit: 3
         });
     
-        favAlbums.value.push(...items.map(({ album }) => album));
+        favAlbums.value = items.map(({ album }) => album);
     }
     
     return { likedTracks, workoutTracks, favArtists, favAlbums, workoutPlaylistDuration,
         likedPlaylistDuration, loadSpotifyData, loadArtistAlbums, loadArtistTopTracks }
-})
+});
