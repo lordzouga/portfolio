@@ -115,7 +115,7 @@ export const useSpotify = defineStore('spotify', () => {
             limit: 3
         });
     
-        favAlbums.value = items.map(({ album }) => album);
+        favAlbums.value.push(...items.map(({ album }) => album));
     }
     
     return { likedTracks, workoutTracks, favArtists, favAlbums, workoutPlaylistDuration,

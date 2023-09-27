@@ -97,6 +97,7 @@ const animComp = () => {
 
 var artAnimTimeline = null;
 
+/* We want the album art to be shown on hover but it should remain hidden otherwise */
 const newArtAnim = () => {
     artAnimTimeline = useNuxtApp().$gsap.timeline()
         .to(`.${song.ident}-details`, { duration: 0.2, x: 56, ease: "power2.ease" })
@@ -106,6 +107,7 @@ const newArtAnim = () => {
             { scale: 1, opacity: 1, duration: 0.4, ease: "back.out" });
 }
 
+/* sync animation states between an already playing animation and the start of a new one */
 const showArt = () => {
     if (artAnimTimeline != null && artAnimTimeline.progress() > 0 && artAnimTimeline.progress() < 1) { // if the animation is still running, reverse it
         if (artAnimTimeline.reversed()) artAnimTimeline.play();
