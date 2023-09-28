@@ -14,7 +14,12 @@
 
         <span class="ml-auto self-center text-neutral-400/70 text-sm tracking-wider">{{ song.duration }}</span>
 
-        <USlideover v-model="isOpen" :key="song.title" class="font-inter">
+        <USlideover v-model="isOpen" :ui="{
+            overlay: {
+                transition: { enter: 'ease-linear duration-100' }
+            },
+            transition: { enter: 'transform transition ease-in-out duration-100' }
+        }" :key="song.title" class="font-inter">
             <div class="h-full bg-cover bg-center player-root" :style="`--bg-var: url('${fullArt}');`">
                 <div class="h-full bg-gradient-to-b from-neutral-950/80 from-[1%] via-transparent via-10% 
                   to-black to-60% lg:p-8 p-4 flex flex-col">
@@ -88,10 +93,10 @@ const song = { title, ident, artist, duration };
 
 const animComp = () => {
     useNuxtApp().$gsap.timeline()
-        .from(".player-root", { duration: 0.4, y: "10%", opacity: 0, delay: 0.2, ease: 'sine' })
+        //.from(".player-root", { duration: 0.2, opacity: 0, delay: 0.05, ease: 'sine' }, 0.1)
         .from(".close-button", { scale: 0.5, opacity: 0, duration: 0.3, ease: "back" }, 0.5)
         .from(".player-details", { y: "20%", duration: 0.2, opacity: 0, ease: "sine" }, 0.3)
-        .from(".play-button", { scale: 0.2, opacity: 0, duration: 0.5, ease: "back.out" }, 0.4)
+        .from(".play-button", { scale: 0.2, opacity: 0, duration: 0.3, ease: "back.out" }, 0.4)
         .from(".played-stat", { opacity: 0, duration: 0.2, ease: "power2.ease" }, 0.2);
 }
 

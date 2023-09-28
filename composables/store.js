@@ -15,6 +15,8 @@ export const useSpotify = defineStore('spotify', () => {
     const workoutPlaylistDuration = ref("");
     const likedPlaylistDuration = ref("");
 
+    const topTracksPreviewLimit = 5;
+
     /** @type {SpotifyWebApi} */
     let spotify = null;
     
@@ -106,7 +108,7 @@ export const useSpotify = defineStore('spotify', () => {
         const { body: { tracks } } = await spotify.getArtistTopTracks(id, 'GB');
 
         // we need only 5 tracks
-        return tracks.slice(0, 5);
+        return tracks.slice(0, topTracksPreviewLimit);
     }
     
     const loadFavAlbums = async () => {
