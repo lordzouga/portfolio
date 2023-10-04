@@ -14,7 +14,7 @@
 
         <span class="ml-auto self-center text-neutral-400/70 text-sm tracking-wider">{{ song.duration }}</span>
 
-        <USlideover v-model="isOpen" :ui="{
+        <Overslide v-model="isOpen" @open="animComp" :ui="{
             overlay: {
                 transition: { enter: 'ease-linear duration-100' }
             },
@@ -53,7 +53,7 @@
                     <span class="mt-auto text-neutral-500 text-xs font-light played-stat"> listened to 245 times </span>
                 </div>
             </div>
-        </USlideover>
+        </Overslide>
     </div>
 </template>
 
@@ -128,11 +128,6 @@ const reverseShowArt = () => {
     }
 }
 
-watch(isOpen, (newVal, oldVal) => {
-    if (newVal) { // if slider is open
-        nextTick(() => animComp())
-    }
-})
 </script>
 
 <style>

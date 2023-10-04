@@ -5,7 +5,7 @@
                 <!--Artists-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-palette" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
-                    <span class="font-bold text-neutral-200 text-base  tracking-wide">
+                    <span class="lg:font-medium font-bold text-neutral-200 text-base  tracking-wide">
                         Favorite Artists</span>
                 </span>
 
@@ -22,7 +22,7 @@
                 <!--Albums-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-album" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
-                    <span class="font-bold text-neutral-200 text-base tracking-wide">Favorite Albums</span>
+                    <span class="lg:font-medium font-bold text-neutral-200 text-base tracking-wide">Favorite Albums</span>
                 </span>
 
                 <transition name="show-loaded" mode="out-in" @enter="onAlbumEnter">
@@ -35,13 +35,19 @@
         </div>
 
         <div class="flex lg:mt-8 mt-4 flex-col lg:flex-row "><!--Favorite Playlists-->
-            <UTabs class="lg:hidden" :items="tabData">
-                <template #default="{ item, selected }" class="-mx-4">
+            <UTabs class="lg:hidden" :items="tabData" :ui="{
+                list: {
+                    tab: {
+                        active: ' dark:text-orange-500'
+                    }
+                }
+            }">
+                <template #default="{ item, selected }" class="-mx-4 ">
                     <div class="flex items-center gap-2 relative truncate">
                         <span class="font-semibold tracking-wide"> {{ item.label }}</span>
-                        <u-badge v-if="item.key === 'workout'" color="gray" variant="soft" size="xs" class="ml-auto">{{
+                        <u-badge v-if="item.key === 'workout'" color="orange" variant="soft" size="xs" class="ml-auto">{{
                             workoutTracks.length }}</u-badge>
-                        <u-badge v-else-if="item.key === 'liked'" color="gray" variant="soft" size="xs" class="ml-auto">{{
+                        <u-badge v-else-if="item.key === 'liked'" color="orange" variant="soft" size="xs" class="ml-auto">{{
                             likedTracks.length }}</u-badge>
 
                         <span v-if="selected"
@@ -87,7 +93,7 @@
             <div class="lg:flex flex-col flex-[0.4] workout-cont hidden "><!--Workout Section-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-stretching" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
-                    <span class="font-bold text-neutral-200 text-base tracking-wide self-center">Workout
+                    <span class="lg:font-medium font-bold text-neutral-200 text-base tracking-wide self-center">Workout
                         Playlist</span>
                     <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ workoutTracks.length }}
                         Songs</u-badge>
@@ -120,7 +126,8 @@
                 <!--Liked Section-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-heart" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
-                    <span class="font-bold text-neutral-200 text-base tracking-wide self-center">Liked Songs</span>
+                    <span class="font-bold lg:font-medium text-neutral-200 text-base tracking-wide self-center">Liked
+                        Songs</span>
                     <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ likedTracks.length }}
                         Songs</u-badge>
                 </span>

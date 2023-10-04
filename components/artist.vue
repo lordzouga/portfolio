@@ -5,7 +5,7 @@
         <span class="mt-2 text-xs group-hover:text-white group-hover:underline text-neutral-200/80 tracking-wide">
             {{ name }}</span>
 
-        <USlideover v-model="isOpen" :ui="{
+        <Overslide v-model="isOpen" @open="onSliderOpenAnimate" :ui="{
             overlay: {
                 background: 'bg-gray-200/75 dark:bg-gray-800/75 blur',
                 transition: { enter: 'ease-linear duration-100' }
@@ -42,7 +42,7 @@
                 </div>
 
             </div>
-        </USlideover>
+        </Overslide>
     </div>
 </template>
 
@@ -80,14 +80,15 @@ loadArtistAlbums(artist.id).then((items) => {
     albumArts.value = albums.slice(0, albumPreviewLimit).map(({ images }) => images[1].url);
 });
 
+
 loadArtistTopTracks(artist.id).then((tracks) => {
     topTracks.value.push(...tracks);
 });
 
-watch(isOpen, (_new, old) => {
+/* watch(isOpen, (_new, old) => {
     // run the animation only when the slider is opened
     if (_new) nextTick(() => onSliderOpenAnimate());
-})
+})*/
 
 
 
