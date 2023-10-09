@@ -114,12 +114,21 @@ export const useSpotify = defineStore('spotify', () => {
     const loadFavAlbums = async () => {
         const { body: { items } } = await spotify.getMyTopTracks({
             time_range: "long_term",
-            limit: 3
+            limit: 10
         });
-    
-        favAlbums.value = items.map(({ album }) => album);
+        
+        // we don't want singles
+        let albums = items.filter(({ album }) => album.album_type === "ALBUM").slice(0, 3);
+        
+        favAlbums.value = albums.map(( { album } ) => album);
     }
     
+    const loadAlbumTracks = async (id) => {
+        const { body: { items } } = await spotify.getAlbumTracks(id);
+
+        return items;
+    }
+
     return { likedTracks, workoutTracks, favArtists, favAlbums, workoutPlaylistDuration,
-        likedPlaylistDuration, loadSpotifyData, loadArtistAlbums, loadArtistTopTracks }
+        likedPlaylistDuration, loadSpotifyData, loadArtistAlbums, loadArtistTopTracks, loadAlbumTracks }
 });

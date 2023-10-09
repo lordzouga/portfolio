@@ -1,6 +1,13 @@
 <template>
-    <div class="flex flex-col mt-10 lg:overflow-y-clip lg:max-h-[calc(100vh-2.5rem-120px)]">
-        <div class="flex flex-col lg:flex-row"><!--Artists and Albums-->
+    <div class="flex flex-col">
+        <div class="flex w-full flex-col lg:flex-row">
+            <UButton variant="link" to="/" icon="i-tabler-arrow-left" color="gray" :padded="false">Back</UButton>
+            <UInput icon="i-tabler-bulb" :ui="{
+                wrapper: 'relative flex-1 lg:flex-[0.45] lg:ml-auto mt-4 lg:mt-0'
+            }" color="gray" size="lg" placeholder="Recommend me a song" v-model="searchVal" />
+        </div>
+
+        <div class="flex flex-col lg:flex-row mt-8 lg:mt-8"><!--Artists and Albums-->
             <div class="flex flex-col pb-4 lg:pb-0 lg:flex-[0.4] lg:border-b-0 border-b border-neutral-600/30 artists-cont">
                 <!--Artists-->
                 <span class="flex">
@@ -17,8 +24,8 @@
                 </transition>
             </div>
 
-            <div class="flex flex-col lg:ml-auto mt-8 lg:mt-0 lg:pb-0 lg:border-b-0 pb-4 border-b 
-            border-neutral-600/30 lg:flex-[0.4] albums-cont">
+            <div class="flex flex-col lg:ml-auto mt-4 lg:mt-0 lg:pb-0 lg:border-b-0 pb-4
+             lg:flex-[0.4] albums-cont">
                 <!--Albums-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-album" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
@@ -34,7 +41,8 @@
             </div>
         </div>
 
-        <div class="flex lg:mt-8 mt-4 flex-col lg:flex-row "><!--Favorite Playlists-->
+        <div class="flex lg:mt-8 mt-4 flex-col lg:flex-row lg:max-h-[calc(61vh)] lg:overflow-clip lg:px-4 lg:-mx-4">
+            <!--Favorite Playlists-->
             <UTabs class="lg:hidden" :items="tabData" :ui="{
                 list: {
                     tab: {
@@ -90,7 +98,7 @@
                 </template>
             </UTabs>
 
-            <div class="lg:flex flex-col flex-[0.4] workout-cont hidden "><!--Workout Section-->
+            <div class="lg:flex flex-col flex-[0.4] workout-cont hidden"><!--Workout Section-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-stretching" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
                     <span class="lg:font-medium font-bold text-neutral-200 text-base tracking-wide self-center">Workout
@@ -111,8 +119,7 @@
                     </span>
                 </div>
 
-                <div v-if="dataLoaded"
-                    class="lg:overflow-y-scroll max-h-[65%] no-scrollbar mt-4 lg:mt-14 flex flex-1 lg:absolute px-4 -mx-4 playlist">
+                <div v-if="dataLoaded" class="lg:overflow-y-scroll no-scrollbar mt-4 flex flex-1 px-4 -mx-4 playlist">
                     <!--Workout Playlist-->
                     <Songlist :songs="workoutTracks"></Songlist>
                 </div>
@@ -145,7 +152,7 @@
                 </div>
 
                 <div v-if="dataLoaded"
-                    class="lg:overflow-y-scroll max-h-[65%] w-full no-scrollbar mt-4 px-4 -mx-4 flex playlist">
+                    class="lg:overflow-y-scroll pb-8 lg:h-full w-full no-scrollbar mt-4 px-4 -mx-4 flex playlist">
                     <!--Liked Playlist-->
                     <Songlist :songs="likedTracks"></Songlist>
                 </div>
@@ -181,6 +188,7 @@ const _onEnter = (target) => {
             stagger: 0.1,
         });
 }
+const searchVal = ref('');
 
 const onArtistEnter = () => {
     // _onEnter(".artist");

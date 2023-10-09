@@ -12,7 +12,8 @@
             },
             transition: { enter: 'transform transition ease-in-out duration-100' }
         }">
-            <div class="h-full w-full font-inter artist-page-root" :style="`--bg-var: url('${artistPhoto}');`">
+            <div class="h-full w-full font-inter artist-page-root backdrop-blur"
+                :style="`--bg-var: url('${artistPhoto}');`">
                 <div class="h-full bg-gradient-to-b from-neutral-900/70 from-[0%] via-neutral-400/50 via-10% 
                   to-black to-90% lg:p-8 p-4 flex flex-col">
                     <div>
@@ -80,17 +81,9 @@ loadArtistAlbums(artist.id).then((items) => {
     albumArts.value = albums.slice(0, albumPreviewLimit).map(({ images }) => images[1].url);
 });
 
-
 loadArtistTopTracks(artist.id).then((tracks) => {
     topTracks.value.push(...tracks);
 });
-
-/* watch(isOpen, (_new, old) => {
-    // run the animation only when the slider is opened
-    if (_new) nextTick(() => onSliderOpenAnimate());
-})*/
-
-
 
 </script>
 

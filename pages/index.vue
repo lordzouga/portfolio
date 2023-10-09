@@ -1,5 +1,9 @@
 <template>
     <div>
+        <div class="flex">
+            <UButton class="ml-auto" color="gray" icon="i-logos-spotify-icon" size="xs" to="/music"> Music </UButton>
+            <UButton color="gray" icon="i-uil-github" class="ml-4" size="xs"> View on Github </UButton>
+        </div>
         <div class="flex flex-col mt-8">
             <span class="font-light text-2xl tracking-wide text-slate-200">Zouga Gerald</span>
             <span class="text-neutral-400 flex mt-1">
