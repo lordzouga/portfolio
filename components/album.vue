@@ -57,8 +57,6 @@ const props = defineProps(["album"]);
 /** @type { SpotifyApi.AlbumObjectSimplified } */
 const album = props.album;
 
-console.log(album);
-
 /** @type { SpotifyApi.TrackObjectSimplified[] } */
 const tracks = ref([]);
 const art = album.images[2].url;
