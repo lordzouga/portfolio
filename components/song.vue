@@ -1,7 +1,8 @@
 <template>
     <div class="flex pt-4 pb-4 border border-r-transparent border-t-transparent border-l-transparent border-neutral-600/20 
-    group-hover: cursor-pointer active:scale-90
-    hover:bg-gradient-to-b hover:from-neutral-500/10 hover:to-neutral-600/20 hover:border hover:border-neutral-800/40 transition-all
+    cursor-pointer active:scale-90
+    hover:bg-gradient-to-b hover:from-neutral-500/10 hover:to-neutral-600/20 
+    hover:border hover:border-neutral-800/40 transition-all
     -mx-4 px-4 lg:rounded-md group" @click="isOpen = true" @mouseenter="showArt" @mouseleave="reverseShowArt">
         <img :src="thumbArt" class="h-10 w-10 self-center hidden rounded-md mr-4 shadow-[0_0_1px_1px_rgba(0,0,0,0.14)]"
             :class="[`${song.ident}-art`]" />

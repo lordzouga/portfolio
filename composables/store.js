@@ -14,6 +14,7 @@ export const useSpotify = defineStore('spotify', () => {
 
     const workoutPlaylistDuration = ref("");
     const likedPlaylistDuration = ref("");
+    const searchedTracks = ref([]);
 
     const topTracksPreviewLimit = 5;
 
@@ -129,6 +130,17 @@ export const useSpotify = defineStore('spotify', () => {
         return items;
     }
 
-    return { likedTracks, workoutTracks, favArtists, favAlbums, workoutPlaylistDuration,
-        likedPlaylistDuration, loadSpotifyData, loadArtistAlbums, loadArtistTopTracks, loadAlbumTracks }
+    const searchTracks = async (query) => {
+        // search for tracks
+
+        const { body: { tracks } } = await spotify.searchTracks(query, {
+            limit: 3
+        });
+
+        searchedTracks.value = tracks.items;
+    }
+
+    return { likedTracks, workoutTracks, favArtists, favAlbums, workoutPlaylistDuration, searchedTracks,
+        likedPlaylistDuration, loadSpotifyData, loadArtistAlbums, loadArtistTopTracks, loadAlbumTracks, 
+        searchTracks }
 });

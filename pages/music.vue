@@ -1,21 +1,16 @@
 <template>
     <div class="flex flex-col">
+
+        <Head>
+            <Title>Spotify Playlist</Title>
+            <Meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        </Head>
+
         <div class="flex w-full flex-col lg:flex-row">
-            <UButton variant="link" to="/" icon="i-tabler-arrow-left" color="gray" :padded="false">Back</UButton>
+            <UButton variant="link" to="/" class="flex-[0.1]" icon="i-tabler-arrow-left" color="gray" :padded="false">
+            </UButton>
 
-            <UPopover class="flex-1 flex lg:flex-[0.45] lg:ml-auto mt-4 lg:mt-0" :ui="{
-                wrapper: 'relative flex',
-                container: `z-20 flex w-[--bg-var]`,
-                base: 'overflow-hidden focus:outline-none flex flex-1'
-            }" :style="`--bg-var: ${popoverWidth};`">
-                <UInput icon="i-tabler-bulb" label="suggestions" ref="input" :ui="{
-                    wrapper: 'relative flex-1'
-                }" color="gray" size="lg" placeholder="Recommend me a song" v-model="searchVal" />
-
-                <template #panel>
-                    <div class="p-4">This is a test</div>
-                </template>
-            </UPopover>
+            <Recommend></Recommend>
         </div>
 
         <div class="flex flex-col lg:flex-row mt-8 lg:mt-8"><!--Artists and Albums-->
@@ -199,7 +194,6 @@ const _onEnter = (target) => {
             stagger: 0.1,
         });
 }
-const searchVal = ref('');
 
 const onArtistEnter = () => {
     // _onEnter(".artist");
@@ -226,28 +220,6 @@ const tabData = [
         label: 'Liked Songs',
     }
 ]
-
-const dropdownItems = [
-    [{
-        label: "An Artist",
-        icon: 'i-heroicons-document-duplicate-20-solid',
-        shortcuts: ['D'],
-    }],
-    [{
-        label: "Another Artist",
-        icon: 'i-heroicons-archive-box-20-solid'
-    }]
-];
-
-const input = ref(null);
-
-const popoverWidth = computed(() => {
-    if (input.value == null) {
-        return "30%";
-    } else {
-        return `${input.value.input.clientWidth}px`;
-    }
-});
 
 onMounted(async () => {
     showDataAnim();
