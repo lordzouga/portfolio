@@ -2,13 +2,19 @@
     <div class="flex flex-col">
 
         <Head>
-            <Title>Spotify Playlist</Title>
+            <Title>{{ pageTitle }}</Title>
             <Meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         </Head>
 
         <div class="flex w-full flex-col lg:flex-row">
-            <UButton variant="link" to="/" class="flex-[0.1]" icon="i-tabler-arrow-left" color="gray" :padded="false">
-            </UButton>
+            <div class="lg:flex-[0.1] flex">
+                <UButton variant="link" to="/" icon="i-tabler-arrow-left" color="gray" :padded="false">
+                </UButton>
+
+                <div class="lg:hidden left-[calc(50%-78.78px)] relative font-semibold text-sm text-neutral-400
+                tracking-wide">{{ pageTitle }}
+                </div>
+            </div>
 
             <Recommend></Recommend>
         </div>
@@ -18,7 +24,7 @@
                 <!--Artists-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-palette" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
-                    <span class="lg:font-medium font-bold text-neutral-200 text-base  tracking-wide">
+                    <span class="font-medium text-neutral-400 text-base  tracking-wide">
                         Favorite Artists</span>
                 </span>
 
@@ -35,7 +41,7 @@
                 <!--Albums-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-album" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
-                    <span class="lg:font-medium font-bold text-neutral-200 text-base tracking-wide">Favorite Albums</span>
+                    <span class="font-medium text-neutral-400 text-base tracking-wide">Favorite Albums</span>
                 </span>
 
                 <transition name="show-loaded" mode="out-in" @enter="onAlbumEnter">
@@ -107,7 +113,7 @@
             <div class="lg:flex flex-col flex-[0.4] workout-cont hidden"><!--Workout Section-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-stretching" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
-                    <span class="lg:font-medium font-bold text-neutral-200 text-base tracking-wide self-center">Workout
+                    <span class="font-medium text-neutral-400 text-base tracking-wide self-center">Workout
                         Playlist</span>
                     <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ workoutTracks.length }}
                         Songs</u-badge>
@@ -179,6 +185,8 @@ const { refresh } = await useFetch('/api/access', {
     key: "access",
     server: true
 });
+
+const pageTitle = "My Music Profile";
 
 const _onEnter = (target) => {
     useNuxtApp().$gsap.fromTo(target, {
