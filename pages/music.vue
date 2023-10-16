@@ -19,12 +19,14 @@
             <Recommend></Recommend>
         </div>
 
-        <div class="flex flex-col lg:flex-row mt-8 lg:mt-8"><!--Artists and Albums-->
+        <!--<hr class="border-neutral-600/30 mt-4 lg:mx-0 -mx-4" />-->
+
+        <div class="flex flex-col lg:flex-row mt-4 lg:mt-8"><!--Artists and Albums-->
             <div class="flex flex-col pb-4 lg:pb-0 lg:flex-[0.4] lg:border-b-0 border-b border-neutral-600/30 artists-cont">
                 <!--Artists-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-palette" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
-                    <span class="font-medium text-neutral-400 text-base  tracking-wide">
+                    <span class="lg:font-medium font-semibold text-neutral-400 lg:text-base text-sm tracking-wide">
                         Favorite Artists</span>
                 </span>
 
@@ -41,7 +43,8 @@
                 <!--Albums-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-album" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
-                    <span class="font-medium text-neutral-400 text-base tracking-wide">Favorite Albums</span>
+                    <span class="lg:font-medium font-semibold text-sm text-neutral-400 lg:text-base tracking-wide">Favorite
+                        Albums</span>
                 </span>
 
                 <transition name="show-loaded" mode="out-in" @enter="onAlbumEnter">
@@ -145,7 +148,7 @@
                 <!--Liked Section-->
                 <span class="flex">
                     <!--<u-icon name="i-tabler-heart" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
-                    <span class="font-bold lg:font-medium text-neutral-200 text-base tracking-wide self-center">Liked
+                    <span class="font-medium text-neutral-400 text-base tracking-wide self-center">Liked
                         Songs</span>
                     <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ likedTracks.length }}
                         Songs</u-badge>
@@ -173,7 +176,6 @@
                     <u-skeleton v-for="i in ['', '', '', '']" class="h-12 w-full mt-8 first:mt-0" />
                 </span>
             </div>
-
         </div>
     </div>
 </template>

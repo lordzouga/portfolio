@@ -1,19 +1,19 @@
 <template>
-    <UPopover class="flex-1 flex lg:flex-[0.4] lg:ml-auto mt-4 lg:mt-0 search-root" :ui="{
+    <UPopover class="flex-1 flex lg:flex-[0.4] lg:ml-auto mt-4 lg:mt-0" :close-delay="100" :ui="{
         wrapper: 'relative flex',
-        container: `z-20 flex w-[--popover-width-var]`,
+        container: `z-20 flex w-[--popover-width-var] drop-container`,
         base: 'overflow-hidden focus:outline-none flex flex-1'
     }" :style="`--popover-width-var: ${popoverWidth};`" ref="popover" :open="visibleDropdown">
         <UInput icon="i-tabler-bulb" label="suggestions" ref="input" :ui="{
             wrapper: 'relative flex-1'
         }" color="gray" size="lg" placeholder="Recommend me a song" v-model="searchVal"
-            @click.prevent="handleInputClick()" @focusout="showDropdown = false"
+            @click.prevent="handleInputClick()" @focusout="onLoseInputFocus"
             @keydown.space.prevent="overrideSpacebarPress()" />
 
         <template #panel>
             <TransitionGroup tag="div" class="flex-1 flex flex-col bg-gray-700" :css="false" @enter="onListItemEnter">
                 <div v-for="(track, index) in searchedTracks" :key="track.id" :data-index="index"
-                    class="flex-col bg-gray-700 text-xs group cursor-pointer">
+                    @click="onRecommendedTrackClicked(track)" class="flex-col bg-gray-700 text-xs group cursor-pointer">
                     <div class="flex p-2 rounded-md group-hover:bg-neutral-800/40 m-1">
                         <img class="h-8 w-8 rounded-md mr-4 self-center" :src="track.album.images[2].url" />
                         <div class="flex flex-col">
@@ -36,6 +36,8 @@ const popover = ref(null);
 
 // holds user search input
 const searchVal = ref('');
+
+// controls whether dropdown is visible
 const showDropdown = ref(false);
 const { searchTracks } = useSpotify();
 
@@ -47,8 +49,27 @@ const overrideSpacebarPress = () => {
     searchVal.value = searchVal.value + " ";
 }
 
-const onListItemEnter = (el, done) => {
+/** @param {FocusEvent} e */
+function onLoseInputFocus(e) {
+    useNuxtApp().$gsap.to(".drop-container",
+        {
+            opacity: 0,
+            y: 130,
+            duration: 0.3,
+            ease: "power3.in",
+            onComplete: () => showDropdown.value = false
+        });
+}
 
+/**
+* Handle click on search result track item.
+* @param {SpotifyApi.TrackObjectFull} track 
+*/
+function onRecommendedTrackClicked(track) {
+
+}
+
+const onListItemEnter = (el, done) => {
     useNuxtApp().$gsap.from(el, {
         duration: 0.2,
         y: "10%",

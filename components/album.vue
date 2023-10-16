@@ -6,7 +6,7 @@
             :style="`--bg-var: url('${art}');`">
             <div class="rounded h-full w-full bg-gradient-to-b from-neutral-500/40 via-30% to-black/20"></div>
         </div>
-        <span class="text-xs mt-2 group-hover:text-white group-hover:underline text-neutral-200/80 tracking-wide">
+        <span class="text-xs mt-2 group-hover:text-white group-hover:underline text-neutral-200 tracking-wide">
             {{ album.name }}</span>
 
         <Overslide v-model="isOpen" @open="onSliderOpened" :ui="{
