@@ -19,164 +19,181 @@
             <Recommend></Recommend>
         </div>
 
-        <!--<hr class="border-neutral-600/30 mt-4 lg:mx-0 -mx-4" />-->
+        <hr class="border-neutral-600/30 mt-4 lg:mx-0 -mx-4 lg:hidden" />
 
-        <div class="flex flex-col lg:flex-row mt-4 lg:mt-8"><!--Artists and Albums-->
-            <div class="flex flex-col pb-4 lg:pb-0 lg:flex-[0.4] lg:border-b-0 border-b border-neutral-600/30 artists-cont">
-                <!--Artists-->
-                <span class="flex">
-                    <!--<u-icon name="i-tabler-palette" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
-                    <span class="lg:font-medium font-semibold text-neutral-400 lg:text-base text-sm tracking-wide">
-                        Favorite Artists</span>
-                </span>
-
-                <transition name="show-loaded" mode="out-in" @enter="onArtistEnter">
-                    <span v-if="dataLoaded" class="flex mt-4" key="artists"> <!--Artist List-->
-                        <artist class="artist ml-8 first:ml-0" v-for="artist in favArtists" :artist="artist" />
-                    </span>
-                    <u-skeleton v-else class="mt-4 h-24 w-full" key="artist-skeleton" :ui="{ rounded: 'rounded-md' }" />
-                </transition>
-            </div>
-
-            <div class="flex flex-col lg:ml-auto mt-4 lg:mt-0 lg:pb-0 lg:border-b-0 pb-4
-             lg:flex-[0.4] albums-cont">
-                <!--Albums-->
-                <span class="flex">
-                    <!--<u-icon name="i-tabler-album" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
-                    <span class="lg:font-medium font-semibold text-sm text-neutral-400 lg:text-base tracking-wide">Favorite
-                        Albums</span>
-                </span>
-
-                <transition name="show-loaded" mode="out-in" @enter="onAlbumEnter">
-                    <span v-if="dataLoaded" class="flex mt-4" key="albums"> <!--Album list-->
-                        <album class="album ml-8 first:ml-0" v-for="album in favAlbums" :album="album" />
-                    </span>
-                    <u-skeleton v-else class="mt-4 h-24 w-full" key="albums-skeleton" :ui="{ rounded: 'rounded-md' }" />
-                </transition>
-            </div>
-        </div>
-
-        <div class="flex lg:mt-8 mt-4 flex-col lg:flex-row lg:max-h-[calc(61vh)] lg:overflow-clip lg:px-4 lg:-mx-4">
-            <!--Favorite Playlists-->
-            <UTabs class="lg:hidden" :items="tabData" :ui="{
-                list: {
-                    tab: {
-                        active: ' dark:text-orange-500'
-                    }
-                }
-            }">
-                <template #default="{ item, selected }" class="-mx-4 ">
-                    <div class="flex items-center gap-2 relative truncate">
-                        <span class="font-semibold tracking-wide"> {{ item.label }}</span>
-                        <u-badge v-if="item.key === 'workout'" color="orange" variant="soft" size="xs" class="ml-auto">{{
-                            workoutTracks.length }}</u-badge>
-                        <u-badge v-else-if="item.key === 'liked'" color="orange" variant="soft" size="xs" class="ml-auto">{{
-                            likedTracks.length }}</u-badge>
-
-                        <span v-if="selected"
-                            class="absolute -right-4 w-2 h-2 rounded-full bg-primary-500 dark:bg-primary-400" />
-                    </div>
-                </template>
-
-                <template #item="{ item }">
-
-                    <div v-if="item.key === 'workout'">
-                        <div class="flex mb-2">
-                            <UButton class="focus:ring-0 focus-visible:ring-0" size="xs" color="gray" :padded="false"
-                                icon="i-la-spotify" variant="link" :ui="{ font: 'font-normal' }">
-                                Open in Spotify
-                            </UButton>
-
-                            <span class="flex items-center ml-4 text-neutral-400">
-                                <UIcon name="i-gridicons-time" class="h-4 w-4"></UIcon>
-                                <span class="text-xs font-normal ml-1">{{ workoutPlaylistDuration }} </span>
+        <Suspense>
+            <template #default>
+                <div>
+                    <div class="flex flex-col lg:flex-row mt-4 lg:mt-8"><!--Artists and Albums-->
+                        <div
+                            class="flex flex-col pb-4 lg:pb-0 lg:flex-[0.4] lg:border-b-0 border-b border-neutral-600/30 artists-cont">
+                            <!--Artists-->
+                            <span class="flex">
+                                <!--<u-icon name="i-tabler-palette" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
+                                <span
+                                    class="lg:font-medium font-semibold text-neutral-400 lg:text-base text-sm tracking-wide">
+                                    Favorite Artists</span>
                             </span>
 
+                            <transition name="show-loaded" mode="out-in" @enter="onArtistEnter">
+                                <span v-if="dataLoaded" class="flex mt-4" key="artists"> <!--Artist List-->
+                                    <artist class="artist ml-8 first:ml-0" v-for="artist in favArtists" :artist="artist" />
+                                </span>
+                                <u-skeleton v-else class="mt-4 h-24 w-full" key="artist-skeleton"
+                                    :ui="{ rounded: 'rounded-md' }" />
+                            </transition>
                         </div>
-                        <Songlist :songs="workoutTracks" />
-                    </div>
-                    <div v-else-if="item.key === 'liked'">
-                        <div class="flex mb-2">
-                            <UButton class="focus:ring-0 focus-visible:ring-0" size="xs" color="gray" :padded="false"
-                                icon="i-la-spotify" variant="link" :ui="{ font: 'font-normal' }">
-                                Open in Spotify
-                            </UButton>
 
-                            <span class="flex items-center ml-4 text-neutral-400">
-                                <UIcon name="i-gridicons-time" class="h-4 w-4"></UIcon>
-                                <span class="text-xs font-normal ml-1">{{ likedPlaylistDuration }} </span>
+                        <div class="flex flex-col lg:ml-auto mt-4 lg:mt-0 lg:pb-0 lg:border-b-0 pb-4
+                         lg:flex-[0.4] albums-cont">
+                            <!--Albums-->
+                            <span class="flex">
+                                <!--<u-icon name="i-tabler-album" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
+                                <span
+                                    class="lg:font-medium font-semibold text-sm text-neutral-400 lg:text-base tracking-wide">Favorite
+                                    Albums</span>
                             </span>
 
+                            <transition name="show-loaded" mode="out-in" @enter="onAlbumEnter">
+                                <span v-if="dataLoaded" class="flex mt-4" key="albums"> <!--Album list-->
+                                    <album class="album ml-8 first:ml-0" v-for="album in favAlbums" :album="album" />
+                                </span>
+                                <u-skeleton v-else class="mt-4 h-24 w-full" key="albums-skeleton"
+                                    :ui="{ rounded: 'rounded-md' }" />
+                            </transition>
                         </div>
-                        <Songlist :songs="likedTracks" />
                     </div>
-                </template>
-            </UTabs>
 
-            <div class="lg:flex flex-col flex-[0.4] workout-cont hidden"><!--Workout Section-->
-                <span class="flex">
-                    <!--<u-icon name="i-tabler-stretching" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
-                    <span class="font-medium text-neutral-400 text-base tracking-wide self-center">Workout
-                        Playlist</span>
-                    <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ workoutTracks.length }}
-                        Songs</u-badge>
-                </span>
+                    <div
+                        class="flex lg:mt-8 mt-4 flex-col lg:flex-row lg:max-h-[calc(61vh)] lg:overflow-clip lg:px-4 lg:-mx-4">
+                        <!--Favorite Playlists-->
+                        <UTabs class="lg:hidden" :items="tabData" :ui="{
+                            list: {
+                                tab: {
+                                    active: ' dark:text-orange-500'
+                                }
+                            }
+                        }">
+                            <template #default="{ item, selected }" class="-mx-4 ">
+                                <div class="flex items-center gap-2 relative truncate">
+                                    <span class="font-semibold tracking-wide"> {{ item.label }}</span>
+                                    <u-badge v-if="item.key === 'workout'" color="orange" variant="soft" size="xs"
+                                        class="ml-auto">{{
+                                            workoutTracks.length }}</u-badge>
+                                    <u-badge v-else-if="item.key === 'liked'" color="orange" variant="soft" size="xs"
+                                        class="ml-auto">{{
+                                            likedTracks.length }}</u-badge>
 
-                <div class="flex mt-1">
-                    <UButton class="focus:ring-0 focus-visible:ring-0" size="2xs" color="gray" :padded="false"
-                        icon="i-la-spotify" variant="link" :ui="{ font: 'font-normal' }">
-                        Open in Spotify
-                    </UButton>
+                                    <span v-if="selected"
+                                        class="absolute -right-4 w-2 h-2 rounded-full bg-primary-500 dark:bg-primary-400" />
+                                </div>
+                            </template>
 
-                    <span class="flex ml-4 items-center text-neutral-400">
-                        <UIcon name="i-gridicons-time" class="h-4 w-4 text-neutral-500"></UIcon>
-                        <span class="text-xs font-light ml-1">{{ workoutPlaylistDuration }} </span>
-                    </span>
+                            <template #item="{ item }">
+
+                                <div v-if="item.key === 'workout'">
+                                    <div class="flex mb-2">
+                                        <UButton class="focus:ring-0 focus-visible:ring-0" size="xs" color="gray"
+                                            :padded="false" icon="i-la-spotify" variant="link"
+                                            :ui="{ font: 'font-normal' }">
+                                            Open in Spotify
+                                        </UButton>
+
+                                        <span class="flex items-center ml-4 text-neutral-400">
+                                            <UIcon name="i-gridicons-time" class="h-4 w-4"></UIcon>
+                                            <span class="text-xs font-normal ml-1">{{ workoutPlaylistDuration }} </span>
+                                        </span>
+
+                                    </div>
+                                    <Songlist :songs="workoutTracks" />
+                                </div>
+                                <div v-else-if="item.key === 'liked'">
+                                    <div class="flex mb-2">
+                                        <UButton class="focus:ring-0 focus-visible:ring-0" size="xs" color="gray"
+                                            :padded="false" icon="i-la-spotify" variant="link"
+                                            :ui="{ font: 'font-normal' }">
+                                            Open in Spotify
+                                        </UButton>
+
+                                        <span class="flex items-center ml-4 text-neutral-400">
+                                            <UIcon name="i-gridicons-time" class="h-4 w-4"></UIcon>
+                                            <span class="text-xs font-normal ml-1">{{ likedPlaylistDuration }} </span>
+                                        </span>
+
+                                    </div>
+                                    <Songlist :songs="likedTracks" />
+                                </div>
+                            </template>
+                        </UTabs>
+
+                        <div class="lg:flex flex-col flex-[0.4] workout-cont hidden"><!--Workout Section-->
+                            <span class="flex">
+                                <!--<u-icon name="i-tabler-stretching" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
+                                <span class="font-medium text-neutral-400 text-base tracking-wide self-center">Workout
+                                    Playlist</span>
+                                <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ workoutTracks.length }}
+                                    Songs</u-badge>
+                            </span>
+
+                            <div class="flex mt-1">
+                                <UButton class="focus:ring-0 focus-visible:ring-0" size="2xs" color="gray" :padded="false"
+                                    icon="i-la-spotify" variant="link" :ui="{ font: 'font-normal' }">
+                                    Open in Spotify
+                                </UButton>
+
+                                <span class="flex ml-4 items-center text-neutral-400">
+                                    <UIcon name="i-gridicons-time" class="h-4 w-4 text-neutral-500"></UIcon>
+                                    <span class="text-xs font-light ml-1">{{ workoutPlaylistDuration }} </span>
+                                </span>
+                            </div>
+
+                            <div v-if="dataLoaded"
+                                class="lg:overflow-y-scroll no-scrollbar mt-4 flex flex-1 px-4 -mx-4 playlist">
+                                <!--Workout Playlist-->
+                                <Songlist :songs="workoutTracks"></Songlist>
+                            </div>
+
+                            <span v-else class="flex flex-col mt-8">
+                                <u-skeleton v-for="i in ['', '', '', '']" class="h-12 w-full mt-8 first:mt-0" />
+                            </span>
+                        </div>
+
+                        <div class="lg:flex hidden flex-col flex-[0.4] mt-8 lg:mt-0 lg:ml-auto liked-cont">
+                            <!--Liked Section-->
+                            <span class="flex">
+                                <!--<u-icon name="i-tabler-heart" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
+                                <span class="font-medium text-neutral-400 text-base tracking-wide self-center">Liked
+                                    Songs</span>
+                                <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ likedTracks.length }}
+                                    Songs</u-badge>
+                            </span>
+
+                            <div class="flex mt-1">
+                                <UButton class="focus:ring-0 focus-visible:ring-0" size="2xs" color="gray" :padded="false"
+                                    icon="i-la-spotify" variant="link" :ui="{ font: 'font-normal' }">
+                                    Open in Spotify
+                                </UButton>
+
+                                <span class="flex ml-4 items-center text-neutral-400">
+                                    <UIcon name="i-gridicons-time" class="h-4 w-4"></UIcon>
+                                    <span class="text-xs font-light ml-1">{{ workoutPlaylistDuration }} </span>
+                                </span>
+                            </div>
+
+                            <div v-if="dataLoaded"
+                                class="lg:overflow-y-scroll pb-8 lg:h-full w-full no-scrollbar mt-4 px-4 -mx-4 flex playlist">
+                                <!--Liked Playlist-->
+                                <Songlist :songs="likedTracks"></Songlist>
+                            </div>
+
+                            <span v-else class="flex flex-col mt-8">
+                                <u-skeleton v-for="i in ['', '', '', '']" class="h-12 w-full mt-8 first:mt-0" />
+                            </span>
+                        </div>
+                    </div>
                 </div>
-
-                <div v-if="dataLoaded" class="lg:overflow-y-scroll no-scrollbar mt-4 flex flex-1 px-4 -mx-4 playlist">
-                    <!--Workout Playlist-->
-                    <Songlist :songs="workoutTracks"></Songlist>
-                </div>
-
-                <span v-else class="flex flex-col mt-8">
-                    <u-skeleton v-for="i in ['', '', '', '']" class="h-12 w-full mt-8 first:mt-0" />
-                </span>
-            </div>
-
-            <div class="lg:flex hidden flex-col flex-[0.4] mt-8 lg:mt-0 lg:ml-auto liked-cont">
-                <!--Liked Section-->
-                <span class="flex">
-                    <!--<u-icon name="i-tabler-heart" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
-                    <span class="font-medium text-neutral-400 text-base tracking-wide self-center">Liked
-                        Songs</span>
-                    <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ likedTracks.length }}
-                        Songs</u-badge>
-                </span>
-
-                <div class="flex mt-1">
-                    <UButton class="focus:ring-0 focus-visible:ring-0" size="2xs" color="gray" :padded="false"
-                        icon="i-la-spotify" variant="link" :ui="{ font: 'font-normal' }">
-                        Open in Spotify
-                    </UButton>
-
-                    <span class="flex ml-4 items-center text-neutral-400">
-                        <UIcon name="i-gridicons-time" class="h-4 w-4"></UIcon>
-                        <span class="text-xs font-light ml-1">{{ workoutPlaylistDuration }} </span>
-                    </span>
-                </div>
-
-                <div v-if="dataLoaded"
-                    class="lg:overflow-y-scroll pb-8 lg:h-full w-full no-scrollbar mt-4 px-4 -mx-4 flex playlist">
-                    <!--Liked Playlist-->
-                    <Songlist :songs="likedTracks"></Songlist>
-                </div>
-
-                <span v-else class="flex flex-col mt-8">
-                    <u-skeleton v-for="i in ['', '', '', '']" class="h-12 w-full mt-8 first:mt-0" />
-                </span>
-            </div>
-        </div>
+            </template>
+        </Suspense>
     </div>
 </template>
 

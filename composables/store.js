@@ -17,6 +17,7 @@ export const useSpotify = defineStore('spotify', () => {
     const searchedTracks = ref([]);
 
     const topTracksPreviewLimit = 5;
+    const recommendationPlaylist = "3nqABqdRzstzBp0HAUaKRF";
 
     /** @type {SpotifyWebApi} */
     let spotify = null;
@@ -59,6 +60,11 @@ export const useSpotify = defineStore('spotify', () => {
             limit: 30,
             offset: 0
         });
+
+        spotify.getUserPlaylists("lordzouga").then((res) => {
+            console.log(res);
+        })
+
     
         // console.log(items);
         likedTracks.value = items;
@@ -139,8 +145,22 @@ export const useSpotify = defineStore('spotify', () => {
 
         searchedTracks.value = tracks.items;
     }
+    
+    /** @param { SpotifyApi.TrackObjectFull } track */
+    async function saveTrack(track) {
+        let snap_id = "";
+
+        try {
+            const { body: { snapshot_id } } = await spotify.addTracksToPlaylist(recommendationPlaylist,  [track.uri]);
+            snap_id = snapshot_id;
+        } catch (error) {
+            snap_id = "error";
+        }
+        
+        return snap_id;
+    }
 
     return { likedTracks, workoutTracks, favArtists, favAlbums, workoutPlaylistDuration, searchedTracks,
         likedPlaylistDuration, loadSpotifyData, loadArtistAlbums, loadArtistTopTracks, loadAlbumTracks, 
-        searchTracks }
+        searchTracks, saveTrack }
 });

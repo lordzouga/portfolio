@@ -12,41 +12,43 @@
         <Overslide v-model="isOpen" @open="onSliderOpened" :ui="{
             transition: { enter: 'transform transition ease duration-100' }
         }">
-            <div class="h-full w-full font-inter artist-page-root">
-                <img class="absolute h-full w-full blur-xl overflow-hidden" :src="album.images[1].url" />
+            <KeepAlive>
+                <div class="h-full w-full font-inter artist-page-root">
+                    <img class="absolute h-full w-full blur-xl overflow-hidden" :src="album.images[1].url" />
 
-                <div
-                    class="absolute h-full lg:p-8 p-4 flex flex-col bg-neutral-900/30 no-scrollbar overflow-y-scroll scroll-smooth">
-                    <div class="fixed">
-                        <UButton class="close-button" square="" variant="solid" color="gray"
-                            icon="i-heroicons-x-mark-20-solid" @click="isOpen = false" />
-                    </div>
+                    <div
+                        class="absolute h-full lg:p-8 p-4 flex flex-col bg-neutral-900/30 no-scrollbar overflow-y-scroll scroll-smooth">
+                        <div class="fixed">
+                            <UButton class="close-button" square="" variant="solid" color="gray"
+                                icon="i-heroicons-x-mark-20-solid" @click="isOpen = false" />
+                        </div>
 
-                    <div class="mt-10 self-center album-title flex flex-col text-center">
-                        <span class="text-xl font-semibold text-neutral-300"> {{ album.name }}</span>
-                        <span class="text-neutral-400 font-medium">{{ album.artists[0].name }}</span>
-                    </div>
+                        <div class="mt-10 self-center album-title flex flex-col text-center">
+                            <span class="text-xl font-semibold text-neutral-300"> {{ album.name }}</span>
+                            <span class="text-neutral-400 font-medium">{{ album.artists[0].name }}</span>
+                        </div>
 
-                    <img class="shadow-xl rounded-xl self-center w-[80%] mt-4 album-art" :src="album.images[0].url" />
+                        <img class="shadow-xl rounded-xl self-center w-[80%] mt-4 album-art" :src="album.images[0].url" />
 
-                    <div class="mt-8 flex flex-col track-list">
-                        <span class="font-semibold text-sm text-neutral-400">Tracks
-                            <UBadge color="gray" variant="soft" size="xs" class="ml-2">{{ tracks.length }}</UBadge>
-                        </span>
+                        <div class="mt-8 flex flex-col track-list">
+                            <span class="font-semibold text-sm text-neutral-400">Tracks
+                                <UBadge color="gray" variant="soft" size="xs" class="ml-2">{{ tracks.length }}</UBadge>
+                            </span>
 
-                        <div class="flex flex-col mt-2">
-                            <div class="px-4 -mx-4 cursor-pointer" v-for="track in tracks">
-                                <div class="mt-4 mb-4 text-sm text-neutral-200 font-medium flex">{{ track.name }}
-                                    <span class="ml-2 text-xs text-neutral-400 self-center"> {{
-                                        getDuration(track.duration_ms) }}
-                                    </span>
+                            <div class="flex flex-col mt-2">
+                                <div class="px-4 -mx-4 cursor-pointer" v-for="track in tracks">
+                                    <div class="mt-4 mb-4 text-sm text-neutral-200 font-medium flex">{{ track.name }}
+                                        <span class="ml-2 text-xs text-neutral-400 self-center"> {{
+                                            getDuration(track.duration_ms) }}
+                                        </span>
+                                    </div>
+                                    <hr class="border-neutral-400/10">
                                 </div>
-                                <hr class="border-neutral-400/10">
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </KeepAlive>
         </Overslide>
     </div>
 </template>
