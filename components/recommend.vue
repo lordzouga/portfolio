@@ -35,7 +35,7 @@
             </UPopover>
         </div>
         <div v-else-if="saveState == SaveState.SAVING" class="hidden rounded-lg flex-1 bg-neutral-900 
-            px-4 py-2.5 text-sm align-middle outline outline-1 outline-neutral-600 saving-text"
+            px-4 py-2.5 text-sm align-middle outline outline-1 outline-neutral-600 saving-text overflow-hidden"
             :style="`--div-width-var: ${divWidth};`">
 
             <Transition name="slide-up" mode="out-in">
@@ -46,8 +46,8 @@
                     </div>
                 </div>
                 <div v-else-if="recommendState == SubRecommendState.RECOMMENDED" class="flex">
-                    <UIcon name="i-tabler-check" class="text-green-500 mr-2 h-5 w-5 " />
-                    <div class="self-center text-green-500 italic tracking-wider"> Saved your recommendation! </div>
+                    <UIcon name="i-tabler-check" class="text-green-500/40 font-semibold mr-2 h-5 w-5 " />
+                    <div class="self-center text-green-500 tracking-wider font-semibold"> Saved your recommendation! </div>
                 </div>
                 <div v-else-if="recommendState == SubRecommendState.FAILED" class="flex">
                     <UIcon name="i-tabler-alert-triangle" class="text-red-300/40 mr-2 h-5 w-5" />
@@ -86,7 +86,7 @@ const searchVal = ref('');
 
 // controls whether dropdown is visible
 const showDropdown = ref(false);
-const { searchTracks, saveTrack } = useSpotify();
+const { searchTracks, saveTrack, getRandomLikedTrack } = useSpotify();
 
 /** @type {{ searchedTracks: SpotifyApi.TrackObjectFull[] }} */
 const { searchedTracks } = storeToRefs(useSpotify());
@@ -95,6 +95,13 @@ const { searchedTracks } = storeToRefs(useSpotify());
 const overrideSpacebarPress = () => {
     searchVal.value = searchVal.value + " ";
 }
+
+const toast = useToast();
+
+onMounted(async () => {
+    //console.log(await getRandomLikedTrack());
+});
+
 
 /* Ochestrate the recommend animation with gsap because using Vue Transitions with UPopover has a funny
 outcome */
@@ -171,13 +178,33 @@ function onRecommendedTrackClicked(track) {
     saveTrack(track).then((snap_id) => {
         if (snap_id !== "error") {
             recommendState.value = SubRecommendState.RECOMMENDED;
+
+            setTimeout(() => showThankYouToast(), 1000);
         } else {
             recommendState.value = SubRecommendState.FAILED;
         }
 
         tempSaveState.value = SaveState.DONE;
     });
-    // setTimeout(() => tempSaveState.value = SaveState.DONE, 1000);
+}
+
+function showThankYouToast() {
+    getRandomLikedTrack().then((track) => {
+
+        if (track.length) {
+            toast.add({
+                title: JSON.stringify({
+                    name: track[0].track.name,
+                    artist: track[0].track.artists.map(({ name }) => name).join(", "),
+                    art: track[0].track.album.images[0].url
+                }),
+                icon: 'i-tabler-check',
+                type: 'info',
+                timeout: 5000,
+                description: 'A pretty song for a pretty person!',
+            });
+        }
+    });
 }
 
 const onListItemEnter = (el, done) => {
@@ -201,10 +228,8 @@ const handleInputClick = () => {
 
 const visibleDropdown = computed(() => showDropdown.value && searchedTracks.value.length > 0);
 
-
 const divWidth = computed(() => {
     if (recContainer.value != null) {
-        // console.log(recContainer.value.clientWidth);
         return `${recContainer.value.clientWidth}px`;
     } else return "30%";
 })
@@ -216,7 +241,6 @@ watch(searchVal, (newVal) => {
         searchTracks(newVal);
     }
 })
-
 
 </script>
 

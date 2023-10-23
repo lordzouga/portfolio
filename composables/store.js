@@ -136,7 +136,7 @@ export const useSpotify = defineStore('spotify', () => {
         return items;
     }
 
-    const searchTracks = async (query) => {
+    async function searchTracks(query) {
         // search for tracks
 
         const { body: { tracks } } = await spotify.searchTracks(query, {
@@ -146,10 +146,11 @@ export const useSpotify = defineStore('spotify', () => {
         searchedTracks.value = tracks.items;
     }
     
-    /** @param { SpotifyApi.TrackObjectFull } track */
+    /** saves a recommended track to the playlist 
+     * @param { SpotifyApi.TrackObjectFull } track */
     async function saveTrack(track) {
         let snap_id = "";
-
+        
         try {
             const { body: { snapshot_id } } = await spotify.addTracksToPlaylist(recommendationPlaylist,  [track.uri]);
             snap_id = snapshot_id;
@@ -160,7 +161,28 @@ export const useSpotify = defineStore('spotify', () => {
         return snap_id;
     }
 
+
+    async function getRandomLikedTrack(){
+        const likedPlaylistLength = 1000;
+        const randomTrack = [];
+
+        let randomIndex = Math.floor(Math.random() * likedPlaylistLength);
+        
+        try {
+            const { body: { items } } = await spotify.getMySavedTracks({
+                offset: randomIndex,
+                limit: 1
+            });
+            
+            randomTrack.push(...items);
+        } catch (error) {
+            console.log(error);
+        }
+        
+        return randomTrack;
+    }
+
     return { likedTracks, workoutTracks, favArtists, favAlbums, workoutPlaylistDuration, searchedTracks,
         likedPlaylistDuration, loadSpotifyData, loadArtistAlbums, loadArtistTopTracks, loadAlbumTracks, 
-        searchTracks, saveTrack }
+        searchTracks, saveTrack, getRandomLikedTrack }
 });

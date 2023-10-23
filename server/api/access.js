@@ -2,7 +2,7 @@ import SpotifyWebApi from 'spotify-web-api-node';
 import { clientId, clientSecret } from './local'
 
 const loginToSpotify = async () => {
-    var scopes = ['user-read-private', 'user-read-email', 'user-top-read', 'playlist-modify-public'];
+    var scopes = ['user-read-private', 'user-read-email', 'user-top-read', 'user-library-read', 'playlist-modify-public'];
     const redirectUri = 'https://zouga.vercel.app/music';
     const state = 'playing-state';
 
@@ -29,7 +29,7 @@ const loginToSpotify = async () => {
     console.log(access_token);
     console.log(refresh_token);
     
-    return { access_token, refresh_token };
+    return { access_token };
 }
 
 export default defineEventHandler(async (event) => {
