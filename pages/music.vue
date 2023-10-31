@@ -94,8 +94,8 @@
                                 <div v-if="item.key === 'workout'">
                                     <div class="flex mb-2">
                                         <UButton class="focus:ring-0 focus-visible:ring-0" size="xs" color="gray"
-                                            :padded="false" icon="i-la-spotify" variant="link"
-                                            :ui="{ font: 'font-normal' }">
+                                            :padded="false" icon="i-la-spotify" variant="link" :ui="{ font: 'font-normal' }"
+                                            to="https://open.spotify.com/playlist/5i3fEXuXIrNg9uV1D9eo5w" target="_blank">
                                             Open in Spotify
                                         </UButton>
 
@@ -137,7 +137,9 @@
 
                             <div class="flex mt-1">
                                 <UButton class="focus:ring-0 focus-visible:ring-0" size="2xs" color="gray" :padded="false"
-                                    icon="i-la-spotify" variant="link" :ui="{ font: 'font-normal' }">
+                                    icon="i-la-spotify" variant="link"
+                                    to="https://open.spotify.com/playlist/5i3fEXuXIrNg9uV1D9eo5w" target="_blank"
+                                    :ui="{ font: 'font-normal' }">
                                     Open in Spotify
                                 </UButton>
 
@@ -199,11 +201,27 @@
 
 <script setup>
 
+const token = useState('token', () => '')
+const { loadSpotifyData } = useSpotify();
+
 /* generate access token server-side */
-const { refresh } = await useFetch('/api/access', {
+const { pending, data } = useLazyFetch('/api/access', {
     key: "access",
     server: true
 });
+
+if (!pending.value) {
+    setupPage()
+}
+
+function setupPage() {
+    token.value = data.value.token.access_token;
+    loadSpotifyData();
+}
+
+watch(data, (val) => {
+    setupPage()
+})
 
 const pageTitle = "My Music Profile";
 
@@ -251,8 +269,7 @@ const tabData = [
 onMounted(async () => {
     showDataAnim();
 
-    const { loadSpotifyData } = useSpotify();
-    await loadSpotifyData();
+
 });
 
 const dataLoaded = ref(true);

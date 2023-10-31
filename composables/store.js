@@ -34,10 +34,10 @@ export const useSpotify = defineStore('spotify', () => {
     /* Make the access token available to be use in subsequent api calls */
     async function setupSpotify () {
         /* retrieve server side generated access token */
-        const { data: { access } } = useNuxtApp().payload;
+        // const { data: { access } } = useNuxtApp().payload;
         
         spotify = new SpotifyWebApi();
-        spotify.setAccessToken(access.token.access_token);
+        spotify.setAccessToken(useState('token').value);
     }
 
     const formatDuration = (duration) => {
@@ -77,7 +77,11 @@ export const useSpotify = defineStore('spotify', () => {
     
     const loadWorkoutTracks = async () => {
         let workoutPlaylist = "5i3fEXuXIrNg9uV1D9eo5w";
-    
+        
+        spotify.getPlaylist(workoutPlaylist).then((res) => {
+            console.log(res);
+        });
+
         const { body: { items } } = await spotify.getPlaylistTracks(workoutPlaylist);
     
         // const playlistDetails = await spotify.getPlaylist(workoutPlaylist);
@@ -173,7 +177,7 @@ export const useSpotify = defineStore('spotify', () => {
                 offset: randomIndex,
                 limit: 1
             });
-            
+
             randomTrack.push(...items);
         } catch (error) {
             console.log(error);
