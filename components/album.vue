@@ -9,10 +9,10 @@
         <span class="text-xs mt-2 group-hover:text-white group-hover:underline text-neutral-200 tracking-wide">
             {{ album.name }}</span>
 
-        <Overslide v-model="isOpen" @open="onSliderOpened" :ui="{
-            transition: { enter: 'transform transition ease duration-100' }
-        }">
-            <KeepAlive>
+        <KeepAlive>
+            <Overslide v-model="isOpen" @open="onSliderOpened" :ui="{
+                transition: { enter: 'transform transition ease duration-100' }
+            }">
                 <div class="h-full w-full font-inter artist-page-root">
                     <img class="absolute h-full w-full blur-xl overflow-hidden" :src="album.images[1].url" />
 
@@ -26,6 +26,10 @@
                         <div class="mt-10 self-center album-title flex flex-col text-center">
                             <span class="text-xl font-semibold text-neutral-300"> {{ album.name }}</span>
                             <span class="text-neutral-400 font-medium">{{ album.artists[0].name }}</span>
+                            <UButton variant="link" class="self-center mt-1" size="xs" :to="album.external_urls.spotify"
+                                target="_blank" color="green" icon="i-teenyicons-spotify-outline" :padded="false">Open in
+                                Spotify
+                            </UButton>
                         </div>
 
                         <img class="shadow-xl rounded-xl self-center w-[80%] mt-4 album-art" :src="album.images[0].url" />
@@ -36,8 +40,11 @@
                             </span>
 
                             <div class="flex flex-col mt-2">
-                                <div class="px-4 -mx-4 cursor-pointer" v-for="track in tracks">
-                                    <div class="mt-4 mb-4 text-sm text-neutral-200 font-medium flex">{{ track.name }}
+                                <div class="px-4 -mx-4 cursor-pointer group"
+                                    @click="useOpenUrl(track.external_urls.spotify)" v-for="track in tracks">
+                                    <div class="mt-4 mb-4 text-sm text-neutral-200  font-medium flex">
+                                        <span class="group-hover:underline group-hover:text-orange-500">
+                                            {{ track.name }}</span>
                                         <span class="ml-2 text-xs text-neutral-400 self-center"> {{
                                             getDuration(track.duration_ms) }}
                                         </span>
@@ -48,8 +55,8 @@
                         </div>
                     </div>
                 </div>
-            </KeepAlive>
-        </Overslide>
+            </Overslide>
+        </KeepAlive>
     </div>
 </template>
 
@@ -82,6 +89,14 @@ const onSliderOpened = () => {
         .from(".album-art", { duration: 0.3, delay: 0.12, y: "10%", opacity: 0, ease: "power.Out2" })
         .from(".album-title", { duration: 0.2, delay: 0.15, x: "10%", opacity: 0 }, 0.1)
         .from(".track-list", { duration: 0.2, delay: 0.1, y: "5%", opacity: 0, ease: "out" }, 0.2)
+}
+
+async function goToUrl(url) {
+    await navigateTo(url, {
+        open: {
+            target: '_blank'
+        }
+    });
 }
 </script>
 

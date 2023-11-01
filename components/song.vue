@@ -20,7 +20,7 @@
                 transition: { enter: 'ease-linear duration-100' }
             },
             transition: { enter: 'transform transition ease-in-out duration-100' }
-        }" :key="song.title" class="font-inter">
+        }" :key="song.ident" class="font-inter">
             <div class="h-full bg-cover bg-center player-root" :style="`--bg-var: url('${fullArt}');`">
                 <div class="h-full bg-gradient-to-b from-neutral-950/80 from-[1%] via-transparent via-10% 
                   to-black to-60% lg:p-8 p-4 flex flex-col">
@@ -46,7 +46,8 @@
                         <UIcon class="text-orange-500 h-8 w-8 self-center " name="i-basil-play-solid" />
 
                         <UButton class="mt-4 self-center focus:ring-0 focus-visible:ring-0" size="xs" color="gray"
-                            :padded="false" icon="i-teenyicons-spotify-outline" variant="link">
+                            :padded="false" icon="i-teenyicons-spotify-outline" variant="link"
+                            :to="track.external_urls.spotify" target="_blank">
                             Open in Spotify
                         </UButton>
                     </div>
@@ -59,36 +60,38 @@
 </template>
 
 <script setup>
-const props = defineProps(["track"]);
+
+/** @type {{ track: SpotifyApi.SingleTrackResponse }} */
+const { track } = defineProps(["track"]);
+
 const isOpen = ref(false);
 
-/** @type { SpotifyApi.SingleTrackResponse } */
-var track_ = props.track;
+// console.log(track)
 
-const title = track_.name;
-const ident = track_.id.toLowerCase().replace(/[0-9]/g, '');
+const title = track.name;
+const ident = track.id.toLowerCase().replace(/[0-9]/g, '');
 
 /* show that the track was made by more than on artist */
-let extraCount = track_.artists.length - 1;
+let extraCount = track.artists.length - 1;
 let artist = "";
 
 if (extraCount) {
-    artist = `${track_.artists[0].name} +${extraCount}`
+    artist = `${track.artists[0].name} +${extraCount}`
 } else {
-    artist = track_.artists[0].name
+    artist = track.artists[0].name
 }
 
-const artistsFull = track_.artists.map(({ name }) => name).join(", ");
+const artistsFull = track.artists.map(({ name }) => name).join(", ");
 
-const duration = new Date(track_.duration_ms).toLocaleTimeString([], {
+const duration = new Date(track.duration_ms).toLocaleTimeString([], {
     minute: "numeric",
     second: "2-digit"
 });
 
-const thumbArt = track_.album.images[2].url;
-const fullArt = track_.album.images[0].url;
+const thumbArt = track.album.images[2].url;
+const fullArt = track.album.images[0].url;
 
-const albumTitle = track_.album.name;
+const albumTitle = track.album.name;
 
 const song = { title, ident, artist, duration };
 

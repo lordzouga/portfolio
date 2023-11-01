@@ -268,8 +268,6 @@ const tabData = [
 
 onMounted(async () => {
     showDataAnim();
-
-
 });
 
 const dataLoaded = ref(true);
