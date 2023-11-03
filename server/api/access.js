@@ -11,6 +11,15 @@ const loginToSpotify = async () => {
         redirectUri
     });
 
+    const foo = await useStorage('access').getItem('token');
+
+    if (!foo) {
+        await useStorage('access').setItem('token', {toks: 'yaa'});
+    }
+
+    console.log(foo);
+    
+
     // Create the authorization URL
     var authorizeURL = spotify.createAuthorizeURL(scopes, state);
     console.log(authorizeURL);
