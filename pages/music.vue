@@ -93,7 +93,7 @@
 
                                 <div v-if="item.key === 'workout'">
                                     <div class="flex mb-2">
-                                        <UButton class="focus:ring-0 focus-visible:ring-0" size="xs" color="gray"
+                                        <UButton class="focus:ring-0 focus-visible:ring-0" size="xs" color="green"
                                             :padded="false" icon="i-la-spotify" variant="link" :ui="{ font: 'font-normal' }"
                                             to="https://open.spotify.com/playlist/5i3fEXuXIrNg9uV1D9eo5w" target="_blank">
                                             Open in Spotify
@@ -109,7 +109,7 @@
                                 </div>
                                 <div v-else-if="item.key === 'liked'">
                                     <div class="flex mb-2">
-                                        <UButton class="focus:ring-0 focus-visible:ring-0" size="xs" color="gray"
+                                        <UButton class="focus:ring-0 focus-visible:ring-0" size="xs" color="green"
                                             :padded="false" icon="i-la-spotify" variant="link"
                                             :ui="{ font: 'font-normal' }">
                                             Open in Spotify
@@ -136,7 +136,7 @@
                             </span>
 
                             <div class="flex mt-1">
-                                <UButton class="focus:ring-0 focus-visible:ring-0" size="2xs" color="gray" :padded="false"
+                                <UButton class="focus:ring-0 focus-visible:ring-0" size="2xs" color="green" :padded="false"
                                     icon="i-la-spotify" variant="link"
                                     to="https://open.spotify.com/playlist/5i3fEXuXIrNg9uV1D9eo5w" target="_blank"
                                     :ui="{ font: 'font-normal' }">
@@ -171,7 +171,7 @@
                             </span>
 
                             <div class="flex mt-1">
-                                <UButton class="focus:ring-0 focus-visible:ring-0" size="2xs" color="gray" :padded="false"
+                                <UButton class="focus:ring-0 focus-visible:ring-0" size="2xs" color="green" :padded="false"
                                     icon="i-la-spotify" variant="link" :ui="{ font: 'font-normal' }">
                                     Open in Spotify
                                 </UButton>

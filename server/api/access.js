@@ -1,5 +1,4 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import { clientId, clientSecret } from './local'
 
 const loginToSpotify = async () => {
     var scopes = ['user-read-private', 'user-read-email', 'user-top-read', 'user-library-read', 'playlist-modify-public'];

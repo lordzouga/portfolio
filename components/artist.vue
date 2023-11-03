@@ -49,7 +49,6 @@
                                             {{ useGetDuration(track.duration_ms) }}
                                         </span>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

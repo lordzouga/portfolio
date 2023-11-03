@@ -8,7 +8,7 @@
             :class="[`${song.ident}-art`]" />
 
         <span class="flex flex-col tracking-wide " :class="[`${song.ident}-details`]">
-            <span class="font-medium text-sm text-neutral-200/90 group-hover:text-white ">
+            <span class="font-medium text-sm text-neutral-200/90 group-hover:text-orange-500 ">
                 {{ song.title }} </span>
             <span class="text-xs text-neutral-400 mt-1">{{ song.artist }}</span>
         </span>
