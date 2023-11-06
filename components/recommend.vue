@@ -21,7 +21,7 @@
                         <div v-for="(track, index) in searchedTracks" :key="track.id" :data-index="index"
                             @click="onRecommendedTrackClicked(track)" class="flex-col bg-gray-700 text-xs cursor-pointer "
                             :class="groups[index]">
-                            <div :class="`flex p-2 rounded-md group-hover/echo:bg-neutral-800/40 m-1`" :key="track.id">
+                            <div class="flex p-2 rounded-md  m-1" :key="track.id" :class="groupHover[index]">
                                 <img class="h-8 w-8 rounded-md mr-4 self-center" :src="track.album.images[2].url" />
                                 <div class="flex flex-col">
                                     <span class="text-neutral-200 font-medium">{{ track.name }}</span>
@@ -85,6 +85,9 @@ const tempSaveState = ref(SaveState.DONE);
 const searchVal = ref('');
 
 const groups = ['group/echo', 'group/lima', 'group/charley']
+const groupHover = ['group-hover/echo:bg-neutral-800/40',
+    'group-hover/lima:bg-neutral-800/40',
+    'group-hover/charley:bg-neutral-800/40']
 
 function getNormalized(id) {
     return id.toLowerCase().replace(/[0-9]/g, '');
