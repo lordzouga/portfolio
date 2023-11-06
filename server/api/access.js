@@ -21,14 +21,10 @@ async function getSpotifyToken() {
         if (Date.now() / 1000 - timeObj.when >= (45 * 60)){ // if it has been more than 45 minutes
             token = await writeNewToken();
         } else {
-            const { access_token } = await useStorage(ACCESS_KEY).getItem('token');
-
-            token = access_token;
+            token = tokenObj.access_token;
         }
     } else {
-
-        console.log("using old token");
-        
+        // console.log("using old token");
         token = await writeNewToken();
     }
 

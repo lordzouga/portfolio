@@ -21,7 +21,7 @@
                         <div v-for="(track, index) in searchedTracks" :key="track.id" :data-index="index"
                             @click="onRecommendedTrackClicked(track)"
                             class="flex-col bg-gray-700 text-xs group cursor-pointer">
-                            <div class="flex p-2 rounded-md group-hover:bg-neutral-800/40 m-1">
+                            <div class="flex p-2 rounded-md group-hover:bg-neutral-800/40 m-1" :key="track.id">
                                 <img class="h-8 w-8 rounded-md mr-4 self-center" :src="track.album.images[2].url" />
                                 <div class="flex flex-col">
                                     <span class="text-neutral-200 font-medium">{{ track.name }}</span>
@@ -174,6 +174,8 @@ function onLoseInputFocus(e) {
 function onRecommendedTrackClicked(track) {
     tempSaveState.value = SaveState.SAVING;
     recommendState.value = SubRecommendState.RECOMMENDING;
+
+    console.log(track.id);
 
     saveTrack(track).then((snap_id) => {
         if (snap_id !== "error") {
