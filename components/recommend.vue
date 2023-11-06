@@ -20,7 +20,8 @@
                         @enter="onListItemEnter">
                         <div v-for="(track, index) in searchedTracks" :key="track.id" :data-index="index"
                             @click="onRecommendedTrackClicked(track)"
-                            class="flex-col bg-gray-700 text-xs group cursor-pointer">
+                            class="flex-col bg-gray-700 text-xs group cursor-pointer"
+                            :class="[`searched-${track.id.toLowerCase().replace(/[0-9]/g, '')}`]">
                             <div class="flex p-2 rounded-md group-hover:bg-neutral-800/40 m-1" :key="track.id">
                                 <img class="h-8 w-8 rounded-md mr-4 self-center" :src="track.album.images[2].url" />
                                 <div class="flex flex-col">
