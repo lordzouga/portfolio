@@ -89,11 +89,6 @@ const groupHover = ['group-hover/echo:bg-neutral-800/40',
     'group-hover/lima:bg-neutral-800/40',
     'group-hover/charley:bg-neutral-800/40']
 
-function getNormalized(id) {
-    return id.toLowerCase().replace(/[0-9]/g, '');
-}
-
-
 
 // controls whether dropdown is visible
 const showDropdown = ref(false);

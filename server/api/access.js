@@ -10,7 +10,7 @@ async function getSpotifyToken() {
         const { access_token } = await loginToSpotify(); // get new token
 
         await useStorage(ACCESS_KEY).setItem('token', { access_token });
-        await useStorage(ACCESS_KEY).setItem('time', { when: Date.now() / 1000 }); // update the time saved
+        await useStorage(ACCESS_KEY).setItem('time', { when: Math.round(Date.now() / 1000) }); // update the time saved
 
         return access_token;
     }
@@ -18,13 +18,15 @@ async function getSpotifyToken() {
     if (tokenObj) {
         const timeObj = await useStorage(ACCESS_KEY).getItem('time');
 
-        if (Date.now() / 1000 - timeObj.when >= (45 * 60)){ // if it has been more than 45 minutes
+        if (Math.round(Date.now() / 1000) - timeObj.when >= (45 * 60)){ // if it has been more than 45 minutes
+            console.log("token expired, new token generated");
             token = await writeNewToken();
         } else {
+            console.log("using old token");
             token = tokenObj.access_token;
         }
     } else {
-        // console.log("using old token");
+        console.log("using new token");
         token = await writeNewToken();
     }
 
