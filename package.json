@@ -20,6 +20,7 @@
     "@iconify-json/mdi": "^1.1.53",
     "@iconify/json": "^2.2.95",
     "@pinia/nuxt": "^0.4.11",
+    "@vercel/kv": "^0.2.4",
     "gsap": "^3.12.2",
     "pinia": "^2.1.6",
     "spotify-web-api-node": "^5.0.2"
