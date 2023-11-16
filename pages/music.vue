@@ -35,7 +35,7 @@
                                     Favorite Artists</span>
                             </span>
 
-                            <span v-if="!pending" class="flex mt-4" key="artists"> <!--Artist List-->
+                            <span v-if="favArtists.length" class="flex mt-4" key="artists"> <!--Artist List-->
                                 <artist class="artist ml-8 first:ml-0" v-for="artist in favArtists" :artist="artist" />
                             </span>
                             <u-skeleton v-else class="mt-4 h-24 w-full" key="artist-skeleton"
@@ -52,7 +52,7 @@
                                     Albums</span>
                             </span>
 
-                            <span v-if="!pending" class="flex mt-4" key="albums"> <!--Album list-->
+                            <span v-if="favAlbums.length" class="flex mt-4" key="albums"> <!--Album list-->
                                 <album class="album ml-8 first:ml-0" v-for="album in favAlbums" :album="album" />
                             </span>
                             <u-skeleton v-else class="mt-4 h-24 w-full" key="albums-skeleton"
@@ -145,7 +145,7 @@
                                 </span>
                             </div>
 
-                            <div v-if="!pending"
+                            <div v-if="workoutTracks.length"
                                 class="lg:overflow-y-scroll no-scrollbar mt-4 flex flex-1 px-4 -mx-4 playlist">
                                 <!--Workout Playlist-->
                                 <Songlist :songs="workoutTracks"></Songlist>
@@ -178,7 +178,7 @@
                                 </span>
                             </div>
 
-                            <div v-if="!pending"
+                            <div v-if="likedTracks.length"
                                 class="lg:overflow-y-scroll pb-8 lg:h-full w-full no-scrollbar mt-4 px-4 -mx-4 flex playlist">
                                 <!--Liked Playlist-->
                                 <Songlist :songs="likedTracks"></Songlist>
@@ -264,19 +264,6 @@ const tabData = [
 
 onMounted(async () => {
     showDataAnim();
-});
-
-const dataLoaded = ref(true);
-
-const loadTracks = () => {
-    setTimeout(() => {
-        dataLoaded.value = true;
-    }, 3 * 1000)
-}
-
-onMounted(() => {
-    // loginToSpotify();
-    loadTracks();
 });
 
 </script>
