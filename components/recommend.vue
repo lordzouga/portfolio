@@ -89,7 +89,6 @@ const groupHover = ['group-hover/echo:bg-neutral-800/40',
     'group-hover/lima:bg-neutral-800/40',
     'group-hover/charley:bg-neutral-800/40']
 
-
 // controls whether dropdown is visible
 const showDropdown = ref(false);
 const { searchTracks, saveTrack, getRandomLikedTrack } = useSpotify();
@@ -103,8 +102,6 @@ const overrideSpacebarPress = () => {
 }
 
 const toast = useToast();
-
-
 
 /* Ochestrate the recommend animation with gsap because using Vue Transitions with UPopover has a funny
 outcome */

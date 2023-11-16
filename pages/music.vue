@@ -35,13 +35,11 @@
                                     Favorite Artists</span>
                             </span>
 
-                            <transition name="show-loaded" mode="out-in" @enter="onArtistEnter">
-                                <span v-if="dataLoaded" class="flex mt-4" key="artists"> <!--Artist List-->
-                                    <artist class="artist ml-8 first:ml-0" v-for="artist in favArtists" :artist="artist" />
-                                </span>
-                                <u-skeleton v-else class="mt-4 h-24 w-full" key="artist-skeleton"
-                                    :ui="{ rounded: 'rounded-md' }" />
-                            </transition>
+                            <span v-if="!pending" class="flex mt-4" key="artists"> <!--Artist List-->
+                                <artist class="artist ml-8 first:ml-0" v-for="artist in favArtists" :artist="artist" />
+                            </span>
+                            <u-skeleton v-else class="mt-4 h-24 w-full" key="artist-skeleton"
+                                :ui="{ rounded: 'rounded-md' }" />
                         </div>
 
                         <div class="flex flex-col lg:ml-auto mt-4 lg:mt-0 lg:pb-0 lg:border-b-0 pb-4
@@ -54,13 +52,11 @@
                                     Albums</span>
                             </span>
 
-                            <transition name="show-loaded" mode="out-in" @enter="onAlbumEnter">
-                                <span v-if="dataLoaded" class="flex mt-4" key="albums"> <!--Album list-->
-                                    <album class="album ml-8 first:ml-0" v-for="album in favAlbums" :album="album" />
-                                </span>
-                                <u-skeleton v-else class="mt-4 h-24 w-full" key="albums-skeleton"
-                                    :ui="{ rounded: 'rounded-md' }" />
-                            </transition>
+                            <span v-if="!pending" class="flex mt-4" key="albums"> <!--Album list-->
+                                <album class="album ml-8 first:ml-0" v-for="album in favAlbums" :album="album" />
+                            </span>
+                            <u-skeleton v-else class="mt-4 h-24 w-full" key="albums-skeleton"
+                                :ui="{ rounded: 'rounded-md' }" />
                         </div>
                     </div>
 
@@ -149,7 +145,7 @@
                                 </span>
                             </div>
 
-                            <div v-if="dataLoaded"
+                            <div v-if="!pending"
                                 class="lg:overflow-y-scroll no-scrollbar mt-4 flex flex-1 px-4 -mx-4 playlist">
                                 <!--Workout Playlist-->
                                 <Songlist :songs="workoutTracks"></Songlist>
@@ -182,7 +178,7 @@
                                 </span>
                             </div>
 
-                            <div v-if="dataLoaded"
+                            <div v-if="!pending"
                                 class="lg:overflow-y-scroll pb-8 lg:h-full w-full no-scrollbar mt-4 px-4 -mx-4 flex playlist">
                                 <!--Liked Playlist-->
                                 <Songlist :songs="likedTracks"></Songlist>

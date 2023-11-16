@@ -26,7 +26,7 @@ async function getSpotifyToken() {
             token = tokenObj.access_token;
         }
     } else {
-        console.log("using new token");
+        console.log("generating new token");
         token = await writeNewToken();
     }
 

@@ -9,7 +9,6 @@ export default defineNitroPlugin(() => {
         token: process.env.KV_REST_API_TOKEN,
         base: "access",
         env: "KV"
-        /* other redis connector options */
     })
 
   // Mount driver

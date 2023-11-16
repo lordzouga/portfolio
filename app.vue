@@ -6,10 +6,10 @@
         </UContainer>
         <UNotifications>
             <template #title="{ title }">
-                <div class="flex items-center">
+                <div class="flex items-center group cursor-pointer">
                     <img :src="JSON.parse(title).art" class="rounded-lg h-8 w-8" />
                     <div class="flex flex-col ml-4">
-                        <span>{{ JSON.parse(title).name }}</span>
+                        <span class="group-hover:text-orange-500">{{ JSON.parse(title).name }}</span>
                         <span class="font-normal text-sm text-neutral-400">{{ JSON.parse(title).artist }}</span>
                     </div>
                 </div>

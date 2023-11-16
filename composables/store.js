@@ -21,6 +21,7 @@ export const useSpotify = defineStore('spotify', () => {
 
     /** @type {SpotifyWebApi} */
     let spotify = null;
+
     
     async function loadSpotifyData() {
         await setupSpotify();
@@ -61,11 +62,10 @@ export const useSpotify = defineStore('spotify', () => {
             offset: 0
         });
 
-        spotify.getUserPlaylists("lordzouga").then((res) => {
+        /*spotify.getUserPlaylists("lordzouga").then((res) => {
             console.log(res);
-        })
+        })*/
 
-    
         // console.log(items);
         likedTracks.value = items;
     
