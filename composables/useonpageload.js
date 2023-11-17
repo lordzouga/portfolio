@@ -1,6 +1,5 @@
 export const useOnPageLoad = (onLoaded) => {
-    useNuxtApp().hook('app:mounted', (comp) => {
-        console.log(comp);
+    useNuxtApp().hook('page:transition:finish', (comp) => {
         onLoaded()
-    })
+    });
 }

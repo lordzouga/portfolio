@@ -229,11 +229,24 @@ const handleInputClick = () => {
 }
 
 const visibleDropdown = computed(() => showDropdown.value && searchedTracks.value.length > 0);
+const divWidth = ref("");
 
-const divWidth = computed(() => {
+/* const divWidth = computed(() => {
     if (recContainer.value != null) {
         return `${recContainer.value.clientWidth}px`;
     } else return "30%";
+})*/
+
+
+watch(recContainer, (newval) => {
+    divWidth.value = `${recContainer.value.clientWidth}px`
+})
+
+/* on page transition complete. Should rename this */
+useOnPageLoad(() => {
+    if (recContainer.value != null) {
+        divWidth.value = `${recContainer.value.clientWidth}px`
+    }
 })
 
 watch(searchVal, (newVal) => {

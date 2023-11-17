@@ -237,11 +237,11 @@ definePageMeta({
                     duration: 0.2,
                     opacity: 0,
                     y: 40,
-                    delay: 0,
                     ease: "power3.easeOut",
                     stagger: 0.1,
-                    onComplete: done
-                });
+                    onComplete: done,
+                    clearProps: "zIndex,y"
+                }).set(".top-action-row", { display: "flex", opacity: 1 })
         },
         onLeave: (el, done) => {
             let target = [".music-container"];
