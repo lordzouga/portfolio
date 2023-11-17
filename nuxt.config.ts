@@ -18,7 +18,6 @@ export default defineNuxtConfig({
             { rel: "stylesheet", href: "https://rsms.me/inter/inter.css" }
         ]
     },
-    pageTransition: { name: 'page', mode: 'out-in' }
   },
   ui: {
     icons: 'all'

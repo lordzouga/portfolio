@@ -229,6 +229,7 @@ definePageMeta({
     pageTransition: {
         name: 'roll-in',
         appear: true,
+        mode: "out-in",
         onEnter: (el, done) => {
             let target = [".top-action-row", ".artists-cont", ".albums-cont", ".playlist-tabs", ".workout-cont", ".liked-cont"];
             useNuxtApp().$gsap.timeline().from(target,

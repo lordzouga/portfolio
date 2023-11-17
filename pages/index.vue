@@ -60,6 +60,7 @@ definePageMeta({
     pageTransition: {
         name: "roll",
         appear: true,
+        mode: "out-in",
         onEnter: (el, done) => {
             let target = [".top-buttons", ".name-row", ".description-row", ".technologies-row", ".featured-row", ".other-projects-row"];
             useNuxtApp().$gsap.timeline().from(target,
