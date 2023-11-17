@@ -17,7 +17,8 @@ export default defineNuxtConfig({
             /* { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: ""},*/
             { rel: "stylesheet", href: "https://rsms.me/inter/inter.css" }
         ]
-    }
+    },
+    pageTransition: { name: 'page', mode: 'out-in' }
   },
   ui: {
     icons: 'all'

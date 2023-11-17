@@ -56,6 +56,16 @@
 
 <script setup>
 
+definePageMeta({
+    pageTransition: {
+        name: "roll",
+        appear: true,
+        onEnter: (el, done) => {
+
+        }
+    }
+})
+
 const technologies = ref([
     { tech: "Python,", icon: "i-teenyicons-python-outline" },
     { tech: "Vue,", icon: "i-ri-vuejs-line" },

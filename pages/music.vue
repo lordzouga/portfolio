@@ -191,6 +191,10 @@
                     </div>
                 </div>
             </template>
+
+            <template #fallback>
+                Loading...
+            </template>
         </Suspense>
     </div>
 </template>
@@ -219,21 +223,51 @@ watch(data, (val) => {
     setupPage()
 })
 
+definePageMeta({
+    pageTransition: {
+        name: 'roll-in',
+        appear: true,
+        onEnter: (el, done) => {
+            let target = [".artists-cont", ".albums-cont", ".workout-cont", ".liked-cont"];
+            useNuxtApp().$gsap.fromTo(target, {
+                opacity: 0,
+                y: "20%",
+            },
+                {
+                    duration: 0.2,
+                    opacity: 1,
+                    y: 0,
+                    delay: 0,
+                    ease: "power3.easeOut",
+                    stagger: 0.1,
+                    onComplete: done
+                });
+        },
+        onLeave: (el, done) => {
+            let target = [".artists-cont", ".albums-cont", ".workout-cont", ".liked-cont"];
+            useNuxtApp().$gsap.timeline().to(target,
+                {
+                    duration: 0.1,
+                    opacity: 0,
+                    y: 20,
+                    ease: "power3.easeIn",
+                    stagger: 0.05,
+                    onComplete: done
+                });
+        }
+    }
+})
+
+useOnPageLoad(() => {
+    console.log("page loaded");
+    // showDataAnim();
+
+})
+
 const pageTitle = "My Music Profile";
 
-const _onEnter = (target) => {
-    useNuxtApp().$gsap.fromTo(target, {
-        opacity: 0,
-        y: "20%",
-    },
-        {
-            duration: 0.2,
-            opacity: 1,
-            y: 0,
-            delay: 0,
-            ease: "power.easeOut",
-            stagger: 0.1,
-        });
+const _onEnter = (target, done) => {
+
 }
 
 const onArtistEnter = () => {
@@ -244,9 +278,10 @@ const onAlbumEnter = () => {
     // _onEnter(".album");
 }
 
-const showDataAnim = () => {
-    _onEnter([".artists-cont", ".albums-cont", ".workout-cont", ".liked-cont"])
+const showDataAnim = (done) => {
+    _onEnter([".artists-cont", ".albums-cont", ".workout-cont", ".liked-cont"], done)
 }
+
 
 const { likedTracks, workoutTracks, favArtists, favAlbums,
     workoutPlaylistDuration, likedPlaylistDuration } = storeToRefs(useSpotify());
@@ -262,9 +297,11 @@ const tabData = [
     }
 ]
 
+
 onMounted(async () => {
-    showDataAnim();
+    // showDataAnim();
 });
+
 
 </script>
 
