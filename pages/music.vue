@@ -65,8 +65,10 @@
                         <!--Favorite Playlists-->
                         <UTabs class="lg:hidden playlist-tabs" :items="tabData" :ui="{
                             list: {
+                                // background: 'dark:bg-orange-500',
                                 tab: {
-                                    active: ' dark:text-orange-500'
+                                    //active: ' dark:text-orange-500',
+                                    //    inactive: 'dark:text-white'
                                 }
                             }
                         }">
