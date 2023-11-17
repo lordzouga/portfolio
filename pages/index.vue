@@ -1,10 +1,10 @@
 <template>
-    <div>
-        <div class="flex">
+    <div class="index-container">
+        <div class="flex top-buttons">
             <UButton class="ml-auto" color="gray" icon="i-logos-spotify-icon" size="xs" to="/music"> Music </UButton>
             <UButton color="gray" icon="i-uil-github" class="ml-4" size="xs"> View on Github </UButton>
         </div>
-        <div class="flex flex-col mt-8">
+        <div class="flex flex-col mt-8 name-row">
             <span class="font-light text-2xl tracking-wide text-slate-200">Zouga Gerald</span>
             <span class="text-neutral-400 flex mt-1">
                 <UButton variant="link" icon="i-devicon-twitter" size="xs" to="https://twitter.com/iamzouga" color="gray"
@@ -14,11 +14,11 @@
             </span>
         </div>
 
-        <div class="mt-4 tracking-wide text-slate-200">
+        <div class="mt-4 tracking-wide text-slate-200 description-row">
             A very passionate developer that has been building apps for years
         </div>
 
-        <div class="mt-8 flex flex-col">
+        <div class="mt-8 flex flex-col technologies-row">
             <span class="font-medium text-sm text-neutral-400 tracking-wide">Technologies</span>
             <div>
                 <span v-for="tech in technologies" class="pl-1 first:pl-0 tracking-wide text-slate-200">
@@ -29,7 +29,7 @@
             <span class="text-xs text-neutral-400 line-through">Docker, Bash, C/C++</span>
         </div>
 
-        <div class="mt-8 flex flex-col">
+        <div class="mt-8 flex flex-col featured-row">
             <span class="text-gray-400 text-sm font-medium tracking-wide">Featured Projects</span>
 
             <div class="flex lg:space-x-4 mt-2 lg:flex-row flex-col">
@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <div class="mt-8">
+        <div class="mt-8 other-projects-row">
             <span class="text-gray-400 text-sm font-medium tracking-wide">Other Projects</span>
             <div class="flex flex-col mt-2">
                 <div class="flex flex-col tracking-wide mt-4 first:mt-0" v-for="other in otherProjects">
@@ -61,7 +61,29 @@ definePageMeta({
         name: "roll",
         appear: true,
         onEnter: (el, done) => {
-
+            let target = [".top-buttons", ".name-row", ".description-row", ".technologies-row", ".featured-row", ".other-projects-row"];
+            useNuxtApp().$gsap.timeline().from(target,
+                {
+                    duration: 0.2,
+                    opacity: 0,
+                    y: 40,
+                    delay: 0,
+                    ease: "power3.easeIn",
+                    stagger: 0.1,
+                    onComplete: done
+                });
+        },
+        onLeave: (el, done) => {
+            let target = [".index-container"];
+            useNuxtApp().$gsap.timeline().to(target,
+                {
+                    duration: 0.2,
+                    opacity: 0,
+                    y: 40,
+                    ease: "power3.easeOut",
+                    // stagger: 0.1,
+                    onComplete: done
+                });
         }
     }
 })

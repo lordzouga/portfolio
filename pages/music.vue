@@ -1,12 +1,12 @@
 <template>
-    <div class="flex flex-col">
+    <div class="flex flex-col music-container">
 
         <Head>
             <Title>{{ pageTitle }}</Title>
             <Meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         </Head>
 
-        <div class="flex w-full flex-col lg:flex-row">
+        <div class="flex w-full flex-col lg:flex-row top-action-row">
             <div class="lg:flex-[0.1] flex">
                 <UButton variant="link" to="/" icon="i-tabler-arrow-left" color="gray" :padded="false">
                 </UButton>
@@ -63,7 +63,7 @@
                     <div
                         class="flex lg:mt-8 mt-4 flex-col lg:flex-row lg:max-h-[calc(61vh)] lg:overflow-clip lg:px-4 lg:-mx-4">
                         <!--Favorite Playlists-->
-                        <UTabs class="lg:hidden" :items="tabData" :ui="{
+                        <UTabs class="lg:hidden playlist-tabs" :items="tabData" :ui="{
                             list: {
                                 tab: {
                                     active: ' dark:text-orange-500'
@@ -73,10 +73,10 @@
                             <template #default="{ item, selected }" class="-mx-4 ">
                                 <div class="flex items-center gap-2 relative truncate">
                                     <span class="font-semibold tracking-wide"> {{ item.label }}</span>
-                                    <u-badge v-if="item.key === 'workout'" color="orange" variant="soft" size="xs"
+                                    <u-badge v-if="item.key === 'workout'" color="gray" variant="soft" size="xs"
                                         class="ml-auto">{{
                                             workoutTracks.length }}</u-badge>
-                                    <u-badge v-else-if="item.key === 'liked'" color="orange" variant="soft" size="xs"
+                                    <u-badge v-else-if="item.key === 'liked'" color="gray" variant="soft" size="xs"
                                         class="ml-auto">{{
                                             likedTracks.length }}</u-badge>
 
@@ -228,15 +228,12 @@ definePageMeta({
         name: 'roll-in',
         appear: true,
         onEnter: (el, done) => {
-            let target = [".artists-cont", ".albums-cont", ".workout-cont", ".liked-cont"];
-            useNuxtApp().$gsap.fromTo(target, {
-                opacity: 0,
-                y: "20%",
-            },
+            let target = [".top-action-row", ".artists-cont", ".albums-cont", ".playlist-tabs", ".workout-cont", ".liked-cont"];
+            useNuxtApp().$gsap.timeline().from(target,
                 {
                     duration: 0.2,
-                    opacity: 1,
-                    y: 0,
+                    opacity: 0,
+                    y: 40,
                     delay: 0,
                     ease: "power3.easeOut",
                     stagger: 0.1,
@@ -244,12 +241,12 @@ definePageMeta({
                 });
         },
         onLeave: (el, done) => {
-            let target = [".artists-cont", ".albums-cont", ".workout-cont", ".liked-cont"];
+            let target = [".music-container"];
             useNuxtApp().$gsap.timeline().to(target,
                 {
                     duration: 0.1,
                     opacity: 0,
-                    y: 20,
+                    y: 40,
                     ease: "power3.easeIn",
                     stagger: 0.05,
                     onComplete: done
