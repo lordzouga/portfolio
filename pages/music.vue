@@ -258,12 +258,6 @@ definePageMeta({
     }
 })
 
-useOnPageLoad(() => {
-    console.log("page loaded");
-    // showDataAnim();
-
-})
-
 const pageTitle = "My Music Profile";
 
 const _onEnter = (target, done) => {

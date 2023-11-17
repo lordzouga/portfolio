@@ -1,5 +1,11 @@
 <template>
     <div class="index-container">
+
+        <Head>
+            <Title>Skills Overview</Title>
+            <Meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        </Head>
+
         <div class="flex top-buttons">
             <UButton class="ml-auto" color="gray" icon="i-logos-spotify-icon" size="xs" to="/music"> Music </UButton>
             <UButton color="gray" icon="i-uil-github" class="ml-4" size="xs"> View on Github </UButton>
