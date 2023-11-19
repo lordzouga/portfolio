@@ -1,8 +1,8 @@
 <template>
-    <div class="index-container">
+    <div class="index-container ">
 
         <Head>
-            <Title>Skills Overview</Title>
+            <Title>Home</Title>
             <Meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         </Head>
 
@@ -38,7 +38,7 @@
         <div class="mt-8 flex flex-col featured-row">
             <span class="text-gray-400 text-sm font-medium tracking-wide">Featured Projects</span>
 
-            <div class="flex lg:space-x-4 mt-2 lg:flex-row flex-col">
+            <div class="flex lg:space-x-4 mt-2 lg:flex-row flex-col ">
                 <Card v-for="project in projects" class="" :description="project.description" :title="project.title"
                     :background="project.bg" :color="project.color" :key="project.title" :group="project.group"
                     :tech_icons="project.tech_icons">
@@ -47,7 +47,7 @@
         </div>
 
         <div class="mt-8 other-projects-row">
-            <span class="text-gray-400 text-sm font-medium tracking-wide">Other Projects</span>
+            <span class="text-gray-400 text-sffm font-medium tracking-wide">Other Projects</span>
             <div class="flex flex-col mt-2">
                 <div class="flex flex-col tracking-wide mt-4 first:mt-0" v-for="other in otherProjects">
                     <span class="font-medium text-neutral-100">{{ other.title }}</span>
@@ -56,12 +56,10 @@
 
             </div>
         </div>
-
     </div>
 </template>
 
 <script setup>
-
 definePageMeta({
     pageTransition: {
         name: "roll",
@@ -93,7 +91,7 @@ definePageMeta({
                 });
         }
     }
-})
+});
 
 const technologies = ref([
     { tech: "Python,", icon: "i-teenyicons-python-outline" },

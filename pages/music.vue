@@ -29,7 +29,7 @@
                             class="flex flex-col pb-4 lg:pb-0 lg:flex-[0.4] lg:border-b-0 border-b border-neutral-600/30 artists-cont">
                             <!--Artists-->
                             <span class="flex">
-                                <!--<u-icon name="i-tabler-palette" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
+                                <u-icon name="i-tabler-palette" class="h-4 w-4 text-orange-400 mr-2 self-center"></u-icon>
                                 <span
                                     class="lg:font-medium font-semibold text-neutral-400 lg:text-base text-sm tracking-wide">
                                     Favorite Artists</span>
@@ -46,7 +46,7 @@
                          lg:flex-[0.4] albums-cont">
                             <!--Albums-->
                             <span class="flex">
-                                <!--<u-icon name="i-tabler-album" class="h-4 w-4 text-neutral-500 self-center"></u-icon>-->
+                                <u-icon name="i-tabler-album" class="h-4 w-4 text-orange-400 mr-2 self-center"></u-icon>
                                 <span
                                     class="lg:font-medium font-semibold text-sm text-neutral-400 lg:text-base tracking-wide">Favorite
                                     Albums</span>
@@ -103,7 +103,10 @@
                                         </span>
 
                                     </div>
-                                    <Songlist :songs="workoutTracks" />
+
+                                    <Songlist v-if="workoutTracks.length" :songs="workoutTracks" />
+                                    <u-skeleton v-else v-for="i in ['', '', '', '']" class="h-12 w-full mt-8 first:mt-0" />
+
                                 </div>
                                 <div v-else-if="item.key === 'liked'">
                                     <div class="flex mb-2">
@@ -119,14 +122,17 @@
                                         </span>
 
                                     </div>
-                                    <Songlist :songs="likedTracks" />
+
+                                    <Songlist v-if="likedTracks.length" :songs="likedTracks" />
+                                    <u-skeleton v-else v-for="i in ['', '', '', '']" class="h-12 w-full mt-8 first:mt-0" />
                                 </div>
                             </template>
                         </UTabs>
 
                         <div class="lg:flex flex-col flex-[0.4] workout-cont hidden"><!--Workout Section-->
                             <span class="flex">
-                                <!--<u-icon name="i-tabler-stretching" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
+                                <u-icon name="i-tabler-stretching"
+                                    class="h-4 w-4 text-orange-400 mr-2 self-center font-bold"></u-icon>
                                 <span class="font-medium text-neutral-400 text-base tracking-wide self-center">Workout
                                     Playlist</span>
                                 <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ workoutTracks.length }}
@@ -161,7 +167,8 @@
                         <div class="lg:flex hidden flex-col flex-[0.4] mt-8 lg:mt-0 lg:ml-auto liked-cont">
                             <!--Liked Section-->
                             <span class="flex">
-                                <!--<u-icon name="i-tabler-heart" class="h-4 w-4 text-neutral-500 self-center font-bold"></u-icon>-->
+                                <u-icon name="i-tabler-heart"
+                                    class="h-4 w-4 text-orange-400 mr-2 self-center font-bold"></u-icon>
                                 <span class="font-medium text-neutral-400 text-base tracking-wide self-center">Liked
                                     Songs</span>
                                 <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ likedTracks.length }}

@@ -9,11 +9,18 @@
                 leaveFromClass: '',
                 leaveToClass: '',
             }" :style="`--div-width-var: ${divWidth};`" ref="popover" :open="visibleDropdown">
-                <UInput icon="i-tabler-bulb" label="suggestions" ref="input" :ui="{
-                    wrapper: 'relative flex-1'
-                }" color="gray" size="lg" placeholder="Recommend me a song" v-model="searchVal"
-                    @click.prevent="handleInputClick()" @focusout="onLoseInputFocus"
-                    @keydown.space.prevent="overrideSpacebarPress()" class="search-input" />
+                <UInput icon="i-tabler-bulb" label="suggestions" ref="input" color="gray" :ui="{
+                    wrapper: 'relative flex-1',
+                    icon: {
+                        base: 'flex-shrink-0 text-orange-400 dark:text-orange-400'
+                    },
+                    color: {
+                        gray: {
+                            outline: 'shadow-sm bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-neutral-300 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400'
+                        }
+                    }
+                }" size="lg" placeholder="Recommend me a song" v-model="searchVal" @click.prevent="handleInputClick()"
+                    @focusout="onLoseInputFocus" @keydown.space.prevent="overrideSpacebarPress()" class="search-input" />
 
                 <template #panel>
                     <TransitionGroup tag="div" class="flex-1 flex flex-col bg-gray-700" :css="false"
@@ -198,7 +205,8 @@ function showThankYouToast() {
                 title: JSON.stringify({
                     name: track[0].track.name,
                     artist: track[0].track.artists.map(({ name }) => name).join(", "),
-                    art: track[0].track.album.images[0].url
+                    art: track[0].track.album.images[0].url,
+                    url: track[0].track.external_urls.spotify
                 }),
                 icon: 'i-tabler-check',
                 type: 'info',

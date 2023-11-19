@@ -1,12 +1,12 @@
 
 <template>
     <div>
-        <UContainer class="flex flex-col font-inter">
+        <UContainer class="flex flex-col font-inter ">
             <NuxtPage />
         </UContainer>
         <UNotifications>
             <template #title="{ title }">
-                <div class="flex items-center group cursor-pointer">
+                <div class="flex items-center group cursor-pointer" @click="navigateTo(JSON.parse(title).url)">
                     <img :src="JSON.parse(title).art" class="rounded-lg h-8 w-8" />
                     <div class="flex flex-col ml-4">
                         <span class="group-hover:text-orange-500">{{ JSON.parse(title).name }}</span>
