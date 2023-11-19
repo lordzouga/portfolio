@@ -139,7 +139,7 @@
                                     Songs</u-badge>
                             </span>
 
-                            <div class="flex mt-1">
+                            <div class="flex mt-2">
                                 <UButton class="focus:ring-0 focus-visible:ring-0" size="2xs" color="green" :padded="false"
                                     icon="i-la-spotify" variant="link"
                                     to="https://open.spotify.com/playlist/5i3fEXuXIrNg9uV1D9eo5w" target="_blank"
@@ -175,7 +175,7 @@
                                     Songs</u-badge>
                             </span>
 
-                            <div class="flex mt-1">
+                            <div class="flex mt-2">
                                 <UButton class="focus:ring-0 focus-visible:ring-0" size="2xs" color="green" :padded="false"
                                     icon="i-la-spotify" variant="link" :ui="{ font: 'font-normal' }">
                                     Open in Spotify
@@ -183,7 +183,7 @@
 
                                 <span class="flex ml-4 items-center text-neutral-400">
                                     <UIcon name="i-gridicons-time" class="h-4 w-4"></UIcon>
-                                    <span class="text-xs font-light ml-1">{{ workoutPlaylistDuration }} </span>
+                                    <span class="text-xs font-light ml-1">{{ likedPlaylistDuration }} </span>
                                 </span>
                             </div>
 
