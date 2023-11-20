@@ -11,9 +11,8 @@
                 <UButton variant="link" to="/" icon="i-tabler-arrow-left" color="gray" :padded="false">
                 </UButton>
 
-                <div class="lg:hidden left-[calc(50%-78.78px)] relative font-semibold text-sm text-neutral-400
-                tracking-wide">{{ pageTitle }}
-                </div>
+                <div class="lg:hidden left-[calc(50%-78.78px)] relative font-semibold text-sm text-neutral-800 dark:text-neutral-400
+                tracking-wide">My <span class="text-orange-400">Music</span> Profile </div>
             </div>
 
             <Recommend></Recommend>
@@ -67,20 +66,19 @@
                             list: {
                                 // background: 'dark:bg-orange-500',
                                 tab: {
-                                    //active: ' dark:text-orange-500',
+                                    active: ' dark:text-neutral-200',
                                     //    inactive: 'dark:text-white'
                                 }
                             }
                         }">
                             <template #default="{ item, selected }" class="-mx-4 ">
                                 <div class="flex items-center gap-2 relative truncate">
+                                    <UIcon :name="item.icon" class="text-orange-400 h-4 w-4"></UIcon>
                                     <span class="font-semibold tracking-wide"> {{ item.label }}</span>
-                                    <u-badge v-if="item.key === 'workout'" color="gray" variant="soft" size="xs"
-                                        class="ml-auto">{{
-                                            workoutTracks.length }}</u-badge>
+                                    <!--
                                     <u-badge v-else-if="item.key === 'liked'" color="gray" variant="soft" size="xs"
                                         class="ml-auto">{{
-                                            likedTracks.length }}</u-badge>
+                                            likedTracks.length }}</u-badge>-->
 
                                     <span v-if="selected"
                                         class="absolute -right-4 w-2 h-2 rounded-full bg-primary-500 dark:bg-primary-400" />
@@ -90,7 +88,7 @@
                             <template #item="{ item }">
 
                                 <div v-if="item.key === 'workout'">
-                                    <div class="flex mb-2">
+                                    <div class="flex mb-2 mt-3">
                                         <UButton class="focus:ring-0 focus-visible:ring-0" size="xs" color="green"
                                             :padded="false" icon="i-la-spotify" variant="link" :ui="{ font: 'font-normal' }"
                                             to="https://open.spotify.com/playlist/5i3fEXuXIrNg9uV1D9eo5w" target="_blank">
@@ -102,6 +100,11 @@
                                             <span class="text-xs font-normal ml-1">{{ workoutPlaylistDuration }} </span>
                                         </span>
 
+                                        <u-badge v-if="item.key === 'workout'" color="gray" variant="soft" size="xs"
+                                            class="ml-auto">
+                                            {{ workoutTracks.length }} Songs
+                                        </u-badge>
+
                                     </div>
 
                                     <Songlist v-if="workoutTracks.length" :songs="workoutTracks" />
@@ -109,7 +112,7 @@
 
                                 </div>
                                 <div v-else-if="item.key === 'liked'">
-                                    <div class="flex mb-2">
+                                    <div class="flex mb-2 mt-3">
                                         <UButton class="focus:ring-0 focus-visible:ring-0" size="xs" color="green"
                                             :padded="false" icon="i-la-spotify" variant="link"
                                             :ui="{ font: 'font-normal' }">
@@ -120,6 +123,10 @@
                                             <UIcon name="i-gridicons-time" class="h-4 w-4"></UIcon>
                                             <span class="text-xs font-normal ml-1">{{ likedPlaylistDuration }} </span>
                                         </span>
+
+                                        <u-badge color="gray" variant="soft" size="xs" class="ml-auto">
+                                            {{ likedTracks.length }} Songs
+                                        </u-badge>
 
                                     </div>
 
@@ -169,10 +176,12 @@
                             <span class="flex">
                                 <u-icon name="i-tabler-heart"
                                     class="h-4 w-4 text-orange-400 mr-2 self-center font-bold"></u-icon>
-                                <span class="font-medium text-neutral-400 text-base tracking-wide self-center">Liked
-                                    Songs</span>
-                                <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ likedTracks.length }}
-                                    Songs</u-badge>
+                                <span class="font-medium text-neutral-400 text-base tracking-wide self-center">
+                                    Liked Songs
+                                </span>
+                                <u-badge color="gray" variant="soft" size="xs" class="ml-auto">
+                                    {{ likedTracks.length }} Songs
+                                </u-badge>
                             </span>
 
                             <div class="flex mt-2">
@@ -291,10 +300,12 @@ const tabData = [
     {
         key: 'workout',
         label: 'Workout Songs',
+        icon: 'i-tabler-stretching'
     },
     {
         key: 'liked',
         label: 'Liked Songs',
+        icon: 'i-tabler-heart'
     }
 ]
 

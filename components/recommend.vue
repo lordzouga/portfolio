@@ -87,6 +87,7 @@ const recommendState = ref(SubRecommendState.RECOMMENDING);
 
 const saveState = ref(SaveState.DONE);
 const tempSaveState = ref(SaveState.DONE);
+const searching = ref(false);
 
 // holds user search input
 const searchVal = ref('');
@@ -261,7 +262,9 @@ watch(searchVal, (newVal) => {
     showDropdown.value = newVal.length >= 3;
 
     if (showDropdown.value) {
-        searchTracks(newVal);
+        searching.value = true;
+
+        searchTracks(newVal).then((res) => searching.value = false);
     }
 })
 
