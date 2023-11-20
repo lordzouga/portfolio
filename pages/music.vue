@@ -29,8 +29,7 @@
                             <!--Artists-->
                             <span class="flex">
                                 <u-icon name="i-tabler-palette" class="h-4 w-4 text-orange-400 mr-2 self-center"></u-icon>
-                                <span
-                                    class="lg:font-medium font-semibold text-neutral-400 lg:text-base text-sm tracking-wide">
+                                <span class="lg:font-medium font-semibold text-neutral-400 text-sm tracking-wide">
                                     Favorite Artists</span>
                             </span>
 
@@ -46,9 +45,9 @@
                             <!--Albums-->
                             <span class="flex">
                                 <u-icon name="i-tabler-album" class="h-4 w-4 text-orange-400 mr-2 self-center"></u-icon>
-                                <span
-                                    class="lg:font-medium font-semibold text-sm text-neutral-400 lg:text-base tracking-wide">Favorite
-                                    Albums</span>
+                                <span class="lg:font-medium font-semibold text-sm text-neutral-400 tracking-wide">
+                                    Favorite Albums
+                                </span>
                             </span>
 
                             <span v-if="favAlbums.length" class="flex mt-4" key="albums"> <!--Album list-->
@@ -140,8 +139,9 @@
                             <span class="flex">
                                 <u-icon name="i-tabler-stretching"
                                     class="h-4 w-4 text-orange-400 mr-2 self-center font-bold"></u-icon>
-                                <span class="font-medium text-neutral-400 text-base tracking-wide self-center">Workout
-                                    Playlist</span>
+                                <span class="font-medium text-neutral-400 text-sm tracking-wide self-center">
+                                    Workout Playlist
+                                </span>
                                 <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ workoutTracks.length }}
                                     Songs</u-badge>
                             </span>
@@ -176,7 +176,7 @@
                             <span class="flex">
                                 <u-icon name="i-tabler-heart"
                                     class="h-4 w-4 text-orange-400 mr-2 self-center font-bold"></u-icon>
-                                <span class="font-medium text-neutral-400 text-base tracking-wide self-center">
+                                <span class="font-medium text-neutral-400 text-sm tracking-wide self-center">
                                     Liked Songs
                                 </span>
                                 <u-badge color="gray" variant="soft" size="xs" class="ml-auto">
