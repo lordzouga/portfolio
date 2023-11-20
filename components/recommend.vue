@@ -9,7 +9,7 @@
                 leaveFromClass: '',
                 leaveToClass: '',
             }" :style="`--div-width-var: ${divWidth};`" ref="popover" :open="visibleDropdown">
-                <UInput icon="i-tabler-bulb" label="suggestions" ref="input" color="gray" :ui="{
+                <UInput label="suggestions" ref="input" color="gray" :disabled="false" :ui="{
                     wrapper: 'relative flex-1',
                     icon: {
                         base: 'flex-shrink-0 text-orange-400 dark:text-orange-400'
@@ -20,7 +20,12 @@
                         }
                     }
                 }" size="lg" placeholder="Recommend me a song" v-model="searchVal" @click.prevent="handleInputClick()"
-                    @focusout="onLoseInputFocus" @keydown.space.prevent="overrideSpacebarPress()" class="search-input" />
+                    @focusout="onLoseInputFocus" @keydown.space.prevent="overrideSpacebarPress()" class="search-input">
+
+                    <template #leading>
+                        <UIcon :name="inputIconName" class="text-orange-400 h-5 w-5 search-input-icon"></UIcon>
+                    </template>
+                </UInput>
 
                 <template #panel>
                     <TransitionGroup tag="div" class="flex-1 flex flex-col bg-gray-700" :css="false"
@@ -255,6 +260,24 @@ watch(recContainer, (newval) => {
 useOnPageLoad(() => {
     if (recContainer.value != null) {
         divWidth.value = `${recContainer.value.clientWidth}px`
+    }
+})
+
+const inputIconName = computed(() => !searching.value ? 'i-tabler-bulb' : 'i-heroicons-arrow-path-20-solid')
+
+/** @type { gsap.core.Timeline } */
+var inputIconAnimator = null;
+
+watch(searching, (newVal) => {
+    if (newVal) {
+        inputIconAnimator = useNuxtApp().$gsap.timeline().to(".search-input-icon", {
+            rotation: 360,
+            duration: 0.4,
+            repeat: -1,
+            ease: 'linear'
+        })
+    } else {
+        if (inputIconAnimator != null) inputIconAnimator.revert();
     }
 })
 
