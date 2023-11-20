@@ -21,7 +21,9 @@
         </div>
 
         <div class="mt-4 tracking-wide text-slate-200 description-row">
-            A very passionate developer that has been building apps for years
+            Hello 👋🏾, I am a fullstack software developer. Whenever I can, I try to build something useful.
+            I particularly enjoy i/O related projects.
+            I love good UIs and efficient software. I love listening to music and playing Apex Legends.
         </div>
 
         <div class="mt-8 flex flex-col technologies-row">

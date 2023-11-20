@@ -188,7 +188,7 @@ function onRecommendedTrackClicked(track) {
     tempSaveState.value = SaveState.SAVING;
     recommendState.value = SubRecommendState.RECOMMENDING;
 
-    console.log(track.id);
+    // console.log(track.id);
 
     saveTrack(track).then((snap_id) => {
         if (snap_id !== "error") {
@@ -272,7 +272,7 @@ watch(searching, (newVal) => {
     if (newVal) {
         inputIconAnimator = useNuxtApp().$gsap.timeline().to(".search-input-icon", {
             rotation: 360,
-            duration: 0.4,
+            duration: 1.0,
             repeat: -1,
             ease: 'linear'
         })
