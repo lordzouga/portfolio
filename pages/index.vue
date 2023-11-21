@@ -13,23 +13,26 @@
         <div class="flex flex-col mt-8 name-row">
             <span class="font-light text-2xl tracking-wide text-slate-200">Zouga Gerald</span>
             <span class="text-neutral-400 flex mt-1">
-                <UButton variant="link" icon="i-devicon-twitter" size="xs" to="https://twitter.com/iamzouga" color="gray"
-                    :padded="false">Twitter</UButton>
+                <UButton variant="link" icon="i-devicon-twitter" size="xs" target="_blank" to="https://twitter.com/iamzouga"
+                    color="gray" :padded="false">Twitter</UButton>
                 <UButton to="mailto:ozojiechikelu@gmail.com" icon="i-logos-google-gmail" size="xs" variant="link"
                     :padded="false" color="gray" class="ml-4">Gmail</UButton>
+                <UButton to="https://github.com/lordzouga" icon="i-uil-github" size="xs" variant="link" :padded="false"
+                    class="ml-4" color="gray" target="_blank">Github</UButton>
             </span>
         </div>
 
         <div class="mt-2 tracking-wide text-sm text-neutral-200 description-row ">
             Hello 👋🏾, I am a fullstack software developer. Whenever I can, I try to build something useful.
             I particularly enjoy i/O related projects.
-            I love good UIs and efficient software. I love listening to music and playing Apex Legends.
+            I love good UIs and efficient software. I also love listening to
+            <NuxtLink to="/music" class="text-orange-400">music</NuxtLink> and gaming.
         </div>
 
         <div class="mt-8 flex flex-col technologies-row">
             <span class="font-medium text-sm text-neutral-400 tracking-wide">Technologies</span>
             <div>
-                <span v-for="tech in technologies" class="pl-1 first:pl-0 tracking-wide text-slate-200">
+                <span v-for="tech in technologies" class="pl-1 first:pl-0 tracking-wide text-sm text-slate-200">
                     <UIcon :name="tech.icon" class="h-3 w-3 text-neutral-300 mr-[-2px]"></UIcon> {{ tech.tech }}
                 </span>
 
@@ -47,8 +50,8 @@
         </div>
 
         <div class="mt-8 other-projects-row">
-            <span class="text-gray-400 text-sffm font-medium tracking-wide">Other Projects</span>
-            <div class="flex flex-col mt-2">
+            <span class="text-gray-400 text-sm font-medium tracking-wide">Other Projects</span>
+            <div class="flex flex-col mt-1">
                 <div class="flex flex-col tracking-wide mt-4 first:mt-0" v-for="other in otherProjects">
                     <span class="font-medium text-neutral-100">{{ other.title }}</span>
                     <span class="mt-1 text-sm text-neutral-300">{{ other.description }}</span>

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex space-x-4 mt-2 lg:flex-row min-w-[900px] lg:min-w-0 pl-[1px] pb-[1px] lg:pl-0 lg:pb-0">
+    <div class="flex space-x-4 mt-2 lg:flex-row min-w-[900px] lg:min-w-0 pl-[2px] pb-[2px] lg:pl-0 lg:pb-0">
         <Card v-for="project in projects" class="" :description="project.description" :title="project.title"
             :background="project.bg" :color="project.color" :key="project.title" :group="project.group"
             :tech_icons="project.tech_icons">
