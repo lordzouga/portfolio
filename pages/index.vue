@@ -20,7 +20,7 @@
             </span>
         </div>
 
-        <div class="mt-4 tracking-wide text-slate-200 description-row">
+        <div class="mt-4 tracking-wide text-sm text-slate-200 description-row">
             Hello 👋🏾, I am a fullstack software developer. Whenever I can, I try to build something useful.
             I particularly enjoy i/O related projects.
             I love good UIs and efficient software. I love listening to music and playing Apex Legends.
