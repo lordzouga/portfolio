@@ -1,7 +1,7 @@
 <template>
-    <div class="card project-card mt-4 first:mt-0 lg:mt-0 overflow-hidden rounded-lg
-     ring-1 ring-slate-900/5 flex-col flex p-4 lg:flex-[0.333] bg-gradient-to-b from-neutral-950/80 to-neutral-950/10
-    shadow-[0_0_1px_1px_rgba(0,0,0,0.14)] min-h-[200px] cursor-pointer hover:outline-orange-600 hover:outline peer"
+    <div class="card project-card first:mt-0 lg:mt-0 rounded-lg
+     ring-1 ring-slate-900/5 flex-col flex p-4 flex-[0.333] bg-gradient-to-b from-neutral-950/80 to-neutral-950/10
+    shadow-[0_0_1px_1px_rgba(0,0,0,0.14)] min-h-[200px] max-h-[200px] cursor-pointer hover:outline-orange-600 hover:outline peer"
         :style="`background-color: ${color}; --bg-var: url('/img/${background}');`" @mouseenter="spreadIcons()"
         @mouseleave="reverseSpread()">
         <span class=" text-sm text-neutral-100 tracking-wide font-semibold ">
@@ -73,7 +73,7 @@ const reverseSpread = () => {
     if (getActiveBreakpoint() === "mb") return;
     if (tween != null) tween.reverse();
 }
-    //onMounted(() => spreadIcons())
+//onMounted(() => spreadIcons())
 </script>
 
 <style>

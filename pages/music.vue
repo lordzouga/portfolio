@@ -161,7 +161,7 @@
                             </div>
 
                             <div v-if="workoutTracks.length"
-                                class="lg:overflow-y-scroll no-scrollbar mt-4 flex flex-1 px-4 -mx-4 playlist">
+                                class="lg:overflow-y-scroll no-scrollbar scroll-smooth mt-4 flex flex-1 px-4 -mx-4 playlist">
                                 <!--Workout Playlist-->
                                 <Songlist :songs="workoutTracks"></Songlist>
                             </div>
@@ -197,7 +197,7 @@
                             </div>
 
                             <div v-if="likedTracks.length"
-                                class="lg:overflow-y-scroll pb-8 lg:h-full w-full no-scrollbar mt-4 px-4 -mx-4 flex playlist">
+                                class="lg:overflow-y-scroll scroll-smooth pb-8 lg:h-full w-full no-scrollbar mt-4 px-4 -mx-4 flex playlist">
                                 <!--Liked Playlist-->
                                 <Songlist :songs="likedTracks"></Songlist>
                             </div>

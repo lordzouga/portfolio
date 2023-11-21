@@ -20,7 +20,7 @@
             </span>
         </div>
 
-        <div class="mt-4 tracking-wide text-sm text-slate-200 description-row">
+        <div class="mt-2 tracking-wide text-sm text-neutral-200 description-row ">
             Hello 👋🏾, I am a fullstack software developer. Whenever I can, I try to build something useful.
             I particularly enjoy i/O related projects.
             I love good UIs and efficient software. I love listening to music and playing Apex Legends.
@@ -37,15 +37,13 @@
             <span class="text-xs text-neutral-400 line-through">Docker, Bash, C/C++</span>
         </div>
 
-        <div class="mt-8 flex flex-col featured-row">
+        <div class="mt-8 flex flex-col featured-row ">
             <span class="text-gray-400 text-sm font-medium tracking-wide">Featured Projects</span>
 
-            <div class="flex lg:space-x-4 mt-2 lg:flex-row flex-col ">
-                <Card v-for="project in projects" class="" :description="project.description" :title="project.title"
-                    :background="project.bg" :color="project.color" :key="project.title" :group="project.group"
-                    :tech_icons="project.tech_icons">
-                </Card>
+            <div class="overflow-scroll lg:overflow-visible scroll-smooth no-scrollbar flex">
+                <Featuredlist />
             </div>
+
         </div>
 
         <div class="mt-8 other-projects-row">
@@ -156,4 +154,18 @@ onMounted(() => {
 
 </script>
 
+<style>
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
 
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+</style>
