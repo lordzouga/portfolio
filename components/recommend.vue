@@ -58,8 +58,8 @@
                     </div>
                 </div>
                 <div v-else-if="recommendState == SubRecommendState.RECOMMENDED" class="flex">
-                    <UIcon name="i-tabler-check" class="text-green-500/40 font-semibold mr-2 h-5 w-5 " />
-                    <div class="self-center text-green-500 tracking-wider font-semibold"> Saved your recommendation! </div>
+                    <UIcon name="i-tabler-check" class="text-green-500 font-semibold mr-2 h-5 w-5 " />
+                    <div class="self-center text-green-400 tracking-wide font-medium"> Saved your recommendation! </div>
                 </div>
                 <div v-else-if="recommendState == SubRecommendState.FAILED" class="flex">
                     <UIcon name="i-tabler-alert-triangle" class="text-red-300/40 mr-2 h-5 w-5" />
@@ -144,6 +144,9 @@ watch(tempSaveState, (newVal) => {
                     opacity: 0, y: 10, ease: "power3.in", duration: 0.25,
                     onComplete: () => {
                         saveState.value = newVal;
+
+                        // reset the search value here to make it more elegant
+                        searchVal.value = "";
                     },
                 })
                 .call(() => {
@@ -193,6 +196,7 @@ function onRecommendedTrackClicked(track) {
     saveTrack(track).then((snap_id) => {
         if (snap_id !== "error") {
             recommendState.value = SubRecommendState.RECOMMENDED;
+
 
             setTimeout(() => showThankYouToast(), 1000);
         } else {

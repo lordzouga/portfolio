@@ -53,8 +53,8 @@
             <span class="text-gray-400 text-sm font-medium tracking-wide">Other Projects</span>
             <div class="flex flex-col mt-1">
                 <div class="flex flex-col tracking-wide mt-4 first:mt-0" v-for="other in otherProjects">
-                    <span class="font-medium text-neutral-100">{{ other.title }}</span>
-                    <span class="mt-1 text-sm text-neutral-300">{{ other.description }}</span>
+                    <span class="font-bold text-sm text-neutral-100">{{ other.title }}</span>
+                    <span class=" text-sm text-neutral-300">{{ other.description }}</span>
                 </div>
 
             </div>

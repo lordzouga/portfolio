@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     pages: true,
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: ['@nuxt/ui', '@pinia/nuxt', /*'@nuxtjs/google-fonts'*/],
   pinia: {
     autoImports: [
