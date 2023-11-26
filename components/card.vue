@@ -1,22 +1,35 @@
 <template>
-    <div class="card project-card first:mt-0 lg:mt-0 rounded-lg
-     ring-1 ring-slate-900/5 flex-col flex p-4 flex-[0.333] bg-gradient-to-b from-neutral-950/80 to-neutral-950/10
-    shadow-[0_0_1px_1px_rgba(0,0,0,0.14)] min-h-[200px] max-h-[200px] cursor-pointer hover:outline-orange-600 hover:outline peer"
-        :style="`background-color: ${color}; --bg-var: url('/img/${background}');`" @mouseenter="spreadIcons()"
-        @mouseleave="reverseSpread()">
-        <span class=" text-sm text-neutral-100 tracking-wide font-semibold ">
-            {{ title }} <span class="hover:animate-ping">
-                <UBadge class="ml-1" color="orange" size="xs" :variant='"soft"'>{{ group }}</UBadge>
-            </span>
-        </span>
+    <div class="card first:mt-0 lg:mt-0 rounded-lg relative flex
+     ring-1 ring-slate-900/5 flex-[0.333] shadow-[0_0_1px_1px_rgba(0,0,0,0.14)]
+    min-h-[200px] max-h-[200px] cursor-pointer hover:outline-orange-600 group hover:outline peer"
+        @mouseenter="spreadIcons()" @mouseleave="reverseSpread()">
+        <div class="w-full h-full absolute bg-neutral-700 rounded-lg"></div>
+        <div class="w-full h-full absolute rounded-lg" :class="color"></div>
+        <img :src="`/img/${background}`" class=" rounded-lg opacity-20" />
 
-        <span class="text-neutral-400 text-xs tracking-wide font-medium mt-1"> {{ description }} </span>
-
-        <div class="mt-auto flex">
-            <UIcon name="i-tabler-device-gamepad-2 text-sm" class="self-end "></UIcon>
-            <span class="text-sm ml-auto text-neutral-400 mb-0 flex lg:foo" :class=visibility>
-                <UIcon v-for="icon in tech_icons" :name="icon" class="ml-1 first:ml-0" :class="[iconsClass]"></UIcon>
+        <div class="flex flex-col p-4 w-full h-full absolute dark:bg-gradient-to-b bg-gradient-to-b from-neutral-950/60
+      dark:from-neutral-950/80 to-neutral-800/10 dark:to-neutral-950/10 rounded-lg">
+            <span class=" text-sm dark:text-neutral-100 text-neutral-200 tracking-wide font-semibold ">
+                {{ title }} <span class="">
+                    <UBadge :ui="{
+                        variant: {
+                            soft: 'bg-{color}-400 bg-opacity-10 text-{color}-400'
+                        }
+                    }" class="ml-1 " color="orange" size="xs" :variant='"soft"'>{{ group }}</UBadge>
+                </span>
             </span>
+
+            <span class="dark:text-neutral-400 text-neutral-300/80 text-xs tracking-wide font-medium mt-1">
+                {{ description }}
+            </span>
+
+            <div class="mt-auto flex">
+                <UIcon name="i-tabler-device-gamepad-2 text-sm" class="self-end dark:text-neutral-700 text-neutral-300">
+                </UIcon>
+                <span class="text-sm ml-auto dark:text-neutral-400 text-neutral-300 mb-0 flex lg:foo" :class=visibility>
+                    <UIcon v-for="icon in tech_icons" :name="icon" class="ml-1 first:ml-0" :class="[iconsClass]"></UIcon>
+                </span>
+            </div>
         </div>
     </div>
 </template>
@@ -89,7 +102,7 @@ const reverseSpread = () => {
     top: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.05;
+    opacity: 0.15;
     background-image: var(--bg-var);
     background-repeat: repeat space;
     background-position: 50% 0;

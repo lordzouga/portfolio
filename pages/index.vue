@@ -1,5 +1,5 @@
 <template>
-    <div class="index-container ">
+    <div class="index-container flex flex-col">
 
         <Head>
             <Title>Home</Title>
@@ -11,7 +11,7 @@
             <UButton color="gray" icon="i-uil-github" class="ml-4" size="xs"> View on Github </UButton>
         </div>
         <div class="flex flex-col mt-8 name-row">
-            <span class="font-light text-2xl tracking-wide text-slate-200">Zouga Gerald</span>
+            <span class="font-light text-2xl tracking-wide dark:text-slate-200 text-neutral-800">Zouga Gerald</span>
             <span class="text-neutral-400 flex mt-1">
                 <UButton variant="link" icon="i-devicon-twitter" size="xs" target="_blank" to="https://twitter.com/iamzouga"
                     color="gray" :padded="false">Twitter</UButton>
@@ -22,7 +22,7 @@
             </span>
         </div>
 
-        <div class="mt-2 tracking-wide text-sm text-neutral-200 description-row ">
+        <div class="mt-2 tracking-wide text-sm dark:text-neutral-200 text-neutral-600 description-row ">
             Hello 👋🏾, I am a fullstack software developer. Whenever I can, I try to build something useful.
             I particularly enjoy i/O related projects.
             I love good UIs and efficient software. I also love listening to
@@ -30,18 +30,20 @@
         </div>
 
         <div class="mt-8 flex flex-col technologies-row">
-            <span class="font-medium text-sm text-neutral-400 tracking-wide">Technologies</span>
+            <span class="font-medium text-sm dark:text-neutral-400 text-neutral-500 tracking-wide">Technologies</span>
             <div>
-                <span v-for="tech in technologies" class="pl-1 first:pl-0 tracking-wide text-sm text-slate-200">
-                    <UIcon :name="tech.icon" class="h-3 w-3 text-neutral-300 mr-[-2px]"></UIcon> {{ tech.tech }}
+                <span v-for="tech in technologies"
+                    class="pl-1 first:pl-0 tracking-wide text-sm text-neutral-700 dark:text-slate-200">
+                    <UIcon :name="tech.icon" class="h-3 w-3 dark:text-neutral-300 text-neutral-500 mr-[-2px]"></UIcon> {{
+                        tech.tech }}
                 </span>
 
             </div>
-            <span class="text-xs text-neutral-400 line-through">Docker, Bash, C/C++</span>
+            <span class="text-xs text-neutral-500 dark:text-neutral-400 line-through">Docker, Bash, C/C++</span>
         </div>
 
         <div class="mt-8 flex flex-col featured-row ">
-            <span class="text-gray-400 text-sm font-medium tracking-wide">Featured Projects</span>
+            <span class="dark:text-neutral-400 text-neutral-500 text-sm font-medium tracking-wide">Featured Projects</span>
 
             <div class="overflow-scroll lg:overflow-visible scroll-smooth no-scrollbar flex">
                 <Featuredlist />
@@ -50,11 +52,11 @@
         </div>
 
         <div class="mt-8 other-projects-row">
-            <span class="text-gray-400 text-sm font-medium tracking-wide">Other Projects</span>
+            <span class="dark:text-neutral-400 text-neutral-500 text-sm font-medium tracking-wide">Other Projects</span>
             <div class="flex flex-col mt-1">
                 <div class="flex flex-col tracking-wide mt-4 first:mt-0" v-for="other in otherProjects">
-                    <span class="font-bold text-sm text-neutral-100">{{ other.title }}</span>
-                    <span class=" text-sm text-neutral-300">{{ other.description }}</span>
+                    <span class="font-bold text-sm dark:text-neutral-100 text-neutral-700">{{ other.title }}</span>
+                    <span class=" text-sm dark:text-neutral-300 text-neutral-600">{{ other.description }}</span>
                 </div>
 
             </div>
@@ -76,20 +78,20 @@ definePageMeta({
                     opacity: 0,
                     y: 40,
                     delay: 0,
-                    ease: "power3.easeIn",
+                    ease: "power3.easeOut",
                     stagger: 0.1,
                     onComplete: done
                 });
         },
         onLeave: (el, done) => {
-            let target = [".index-container"];
+            let target = ".index-container";
             useNuxtApp().$gsap.timeline().to(target,
                 {
                     duration: 0.2,
                     opacity: 0,
                     y: 40,
-                    ease: "power3.easeOut",
-                    // stagger: 0.1,
+                    ease: "power3.easeIn",
+                    stagger: 0.05,
                     onComplete: done
                 });
         }
@@ -103,32 +105,6 @@ const technologies = ref([
     { tech: "Flutter", icon: "i-tabler-brand-flutter" }
 ])
 
-const projects = [
-    {
-        title: "ALC Manager",
-        description: "A tool for managing controller settings on Apex Legends.",
-        bg: 'alc_bg.png',
-        group: 'gaming',
-        color: '#1725544a',
-        tech_icons: ['i-tabler-brand-vue', 'i-tabler-brand-firebase']
-    },
-    {
-        title: "Remoteable",
-        description: "A chrome extension that lets you get notifications while in your browser.",
-        bg: 'remoteable_bg.png',
-        group: 'jobs',
-        color: '#3c076441',
-        tech_icons: ['i-tabler-brand-vue', 'i-tabler-brand-chrome', 'i-tabler-brand-python']
-    },
-    {
-        title: "DStrategyIQ",
-        description: "A Binary option trading tool for deriv.com.",
-        bg: 'alc_bg.png',
-        group: 'finance',
-        color: '#155f753e',
-        tech_icons: ['i-devicon-vuejs', 'i-devicon-python', 'i-logos-mysql']
-    }
-]
 const otherProjects = [
     {
         title: "LinksForGram",

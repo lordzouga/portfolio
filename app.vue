@@ -23,9 +23,18 @@
 </template>
 
 <style>
-body {
-    background-color: #333333;
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #333333;
+    }
 }
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: #f5f5f5;
+    }
+}
+
 
 .page-enter-active,
 .page-leave-active {
