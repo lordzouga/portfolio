@@ -11,25 +11,27 @@
                 <UButton variant="link" to="/" icon="i-tabler-arrow-left" color="gray" :padded="false">
                 </UButton>
 
-                <div class="lg:hidden left-[calc(50%-78.78px)] relative font-semibold text-sm text-neutral-800 dark:text-neutral-400
-                tracking-wide">My <span class="text-orange-400">Music</span> Profile </div>
+                <div class="lg:hidden left-[calc(50%-78.78px)] relative font-semibold text-sm text-neutral-700 dark:text-neutral-400
+                tracking-wide">My <span class="dark:text-orange-400 text-orange-500">Music</span> Profile </div>
             </div>
 
             <Recommend></Recommend>
         </div>
 
-        <hr class="border-neutral-600/30 mt-4 lg:mx-0 -mx-4 lg:hidden" />
+        <hr class="dark:border-neutral-600/30 border-neutral-200 mt-4 lg:mx-0 -mx-4 lg:hidden" />
 
         <Suspense>
             <template #default>
                 <div>
                     <div class="flex flex-col lg:flex-row mt-4 lg:mt-8"><!--Artists and Albums-->
-                        <div
-                            class="flex flex-col pb-4 lg:pb-0 lg:flex-[0.4] lg:border-b-0 border-b border-neutral-600/30 artists-cont">
+                        <div class="flex flex-col pb-4 lg:pb-0 lg:flex-[0.4] lg:border-b-0 border-b dark:border-neutral-600/30
+                             border-neutral-200 artists-cont">
                             <!--Artists-->
                             <span class="flex">
-                                <u-icon name="i-tabler-palette" class="h-4 w-4 text-orange-400 mr-2 self-center"></u-icon>
-                                <span class="lg:font-medium font-semibold text-neutral-400 text-sm tracking-wide">
+                                <u-icon name="i-tabler-palette"
+                                    class="h-4 w-4 dark:text-orange-400 text-orange-500 mr-2 self-center"></u-icon>
+                                <span
+                                    class="lg:font-medium font-semibold dark:text-neutral-400 text-neutral-500 text-sm tracking-wide">
                                     Favorite Artists</span>
                             </span>
 
@@ -45,7 +47,8 @@
                             <!--Albums-->
                             <span class="flex">
                                 <u-icon name="i-tabler-album" class="h-4 w-4 text-orange-400 mr-2 self-center"></u-icon>
-                                <span class="lg:font-medium font-semibold text-sm text-neutral-400 tracking-wide">
+                                <span
+                                    class="lg:font-medium font-semibold text-sm dark:text-neutral-400 text-neutral-500 tracking-wide">
                                     Favorite Albums
                                 </span>
                             </span>
@@ -63,16 +66,16 @@
                         <!--Favorite Playlists-->
                         <UTabs class="lg:hidden playlist-tabs" :items="tabData" :ui="{
                             list: {
-                                // background: 'dark:bg-orange-500',
+                                background: 'bg-gray-200 dark:bg-gray-800',
                                 tab: {
-                                    active: ' dark:text-neutral-200',
+                                    active: 'dark:text-neutral-200',
                                     //    inactive: 'dark:text-white'
                                 }
                             }
                         }">
                             <template #default="{ item, selected }" class="-mx-4 ">
                                 <div class="flex items-center gap-2 relative truncate">
-                                    <UIcon :name="item.icon" class="text-orange-400 h-4 w-4"></UIcon>
+                                    <UIcon :name="item.icon" class="dark:text-orange-400 text-orange-500 h-4 w-4"></UIcon>
                                     <span class="font-semibold tracking-wide"> {{ item.label }}</span>
                                     <!--
                                     <u-badge v-else-if="item.key === 'liked'" color="gray" variant="soft" size="xs"
@@ -139,7 +142,8 @@
                             <span class="flex">
                                 <u-icon name="i-tabler-stretching"
                                     class="h-4 w-4 text-orange-400 mr-2 self-center font-bold"></u-icon>
-                                <span class="font-medium text-neutral-400 text-sm tracking-wide self-center">
+                                <span
+                                    class="font-medium dark:text-neutral-400 text-neutral-500 text-sm tracking-wide self-center">
                                     Workout Playlist
                                 </span>
                                 <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ workoutTracks.length }}
@@ -176,7 +180,8 @@
                             <span class="flex">
                                 <u-icon name="i-tabler-heart"
                                     class="h-4 w-4 text-orange-400 mr-2 self-center font-bold"></u-icon>
-                                <span class="font-medium text-neutral-400 text-sm tracking-wide self-center">
+                                <span
+                                    class="font-medium dark:text-neutral-400 text-neutral-500 text-sm tracking-wide self-center">
                                     Liked Songs
                                 </span>
                                 <u-badge color="gray" variant="soft" size="xs" class="ml-auto">

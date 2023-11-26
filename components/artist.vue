@@ -2,7 +2,8 @@
     <div class="flex flex-col items-center lg:items-center cursor-pointer
         transition-transform hover:-translate-y-1 duration-[250ms] group active:scale-75" @click="isOpen = true">
         <UAvatar class="artist-avatar" :src="avatar" size="2xl" :alt="name" />
-        <span class="mt-2 text-xs group-hover:text-white group-hover:underline text-neutral-200 tracking-wide">
+        <span class="mt-2 text-xs group-hover:dark:text-white group-hover:text-black group-hover:underline
+             dark:text-neutral-200 text-neutral-600 tracking-wide">
             {{ name }}</span>
 
         <KeepAlive>

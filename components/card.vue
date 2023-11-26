@@ -89,24 +89,5 @@ const reverseSpread = () => {
 //onMounted(() => spreadIcons())
 </script>
 
-<style>
-.project-card {
-    position: relative;
-}
-
-.project-card:before {
-    content: ' ';
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.15;
-    background-image: var(--bg-var);
-    background-repeat: repeat space;
-    background-position: 50% 0;
-    background-size: cover;
-}
-</style>
+<style></style>
 

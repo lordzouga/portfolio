@@ -15,6 +15,9 @@ export default defineAppConfig({
                 //background: "bg-neutral-600"
             }
         },
+        skeleton: {
+            background: "bg-gray-200 dark:bg-gray-800"
+        },
         button: {
             color: {
                 gray: {

@@ -9,7 +9,8 @@
         </div>
 
         <UTooltip :text="album.name">
-            <span class="text-xs mt-2 group-hover:text-white group-hover:underline text-neutral-200 tracking-wide">
+            <span class="text-xs mt-2 group-hover:dark:text-white group-hover:text-black group-hover:underline
+                 dark:text-neutral-200 text-neutral-600 tracking-wide">
                 {{ getAlbumTitle(album.name) }}</span>
         </UTooltip>
 

@@ -26,7 +26,7 @@
             Hello 👋🏾, I am a fullstack software developer. Whenever I can, I try to build something useful.
             I particularly enjoy i/O related projects.
             I love good UIs and efficient software. I also love listening to
-            <NuxtLink to="/music" class="text-orange-400">music</NuxtLink> and gaming.
+            <NuxtLink to="/music" class="dark:text-orange-400 text-orange-500">music</NuxtLink> and gaming.
         </div>
 
         <div class="mt-8 flex flex-col technologies-row">
