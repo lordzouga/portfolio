@@ -46,8 +46,9 @@
                 </template>
             </UPopover>
         </div>
-        <div v-else-if="saveState == SaveState.SAVING" class="hidden rounded-lg flex-1 bg-neutral-900 
-            px-4 py-2.5 text-sm align-middle outline outline-1 outline-neutral-600 saving-text overflow-hidden"
+        <div v-else-if="saveState == SaveState.SAVING"
+            class="hidden rounded-lg flex-1 dark:bg-neutral-900 bg-neutral-200 
+            px-4 py-2.5 text-sm align-middle outline outline-1 dark:outline-neutral-600 outline-neutral-300 saving-text overflow-hidden"
             :style="`--div-width-var: ${divWidth};`">
 
             <Transition name="slide-up" mode="out-in">
