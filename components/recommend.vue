@@ -47,20 +47,23 @@
             </UPopover>
         </div>
         <div v-else-if="saveState == SaveState.SAVING"
-            class="hidden rounded-lg flex-1 dark:bg-neutral-900 bg-neutral-200 
+            class="hidden rounded-lg flex-1 dark:bg-neutral-900 bg-neutral-100 
             px-4 py-2.5 text-sm align-middle outline outline-1 dark:outline-neutral-600 outline-neutral-300 saving-text overflow-hidden"
             :style="`--div-width-var: ${divWidth};`">
 
             <Transition name="slide-up" mode="out-in">
                 <div v-if="recommendState == SubRecommendState.RECOMMENDING" class="flex">
-                    <UIcon name="i-tabler-rotate-rectangle" class="text-orange-300/40 mr-2 h-5 w-5 self-center" />
-                    <div class="self-center text-neutral-500 italic tracking-wider">
-                        Saving your <span class="font-semibold text-orange-300/40"> recommendation</span>...
+                    <UIcon name="i-tabler-rotate-rectangle"
+                        class="dark:text-orange-300/40 text-orange-600 mr-2 h-5 w-5 self-center" />
+                    <div class="self-center dark:text-neutral-500 text-neutral-700 italic tracking-wider">
+                        Saving your <span class="font-semibold dark:text-orange-300/40 text-orange-600">
+                            recommendation</span>...
                     </div>
                 </div>
                 <div v-else-if="recommendState == SubRecommendState.RECOMMENDED" class="flex">
-                    <UIcon name="i-tabler-check" class="text-green-500 font-semibold mr-2 h-5 w-5 " />
-                    <div class="self-center text-green-400 tracking-wide font-medium"> Saved your recommendation! </div>
+                    <UIcon name="i-tabler-check" class="dark:text-green-500 text-green-600 font-semibold mr-2 h-5 w-5 " />
+                    <div class="self-center dark:text-green-400 text-green-600 tracking-wide font-medium"> Saved your
+                        recommendation! </div>
                 </div>
                 <div v-else-if="recommendState == SubRecommendState.FAILED" class="flex">
                     <UIcon name="i-tabler-alert-triangle" class="text-red-300/40 mr-2 h-5 w-5" />

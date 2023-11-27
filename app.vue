@@ -43,12 +43,12 @@
         background:
             repeating-linear-gradient(to right, transparent,
                 transparent 64px,
-                #ff660029 64px,
-                #ff660029 65px),
+                #f9731618 64px,
+                #f9731618 65px),
             repeating-linear-gradient(to bottom, transparent,
                 transparent 64px,
-                #ff660029 64px,
-                #ff660029 65px);
+                #f9731618 64px,
+                #f9731618 65px);
         background-color: #f5f5f5;
     }
 }

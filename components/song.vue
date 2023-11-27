@@ -1,5 +1,5 @@
 <template>
-    <div class="flex pt-4 pb-4 border-b
+    <div class="flex pt-4 pb-4
     dark:border-neutral-600/20 border-neutral-200 cursor-pointer active:scale-90
     hover:bg-gradient-to-b hover:dark:from-neutral-500/10 hover:from-neutral-300/30 hover:dark:to-neutral-600/20 
     hover:to-neutral-300/40 transition-all -mx-4 px-4 lg:rounded-md group" @click="isOpen = true" @mouseenter="showArt"

@@ -102,7 +102,11 @@
                                             <span class="text-xs font-normal ml-1">{{ workoutPlaylistDuration }} </span>
                                         </span>
 
-                                        <u-badge v-if="item.key === 'workout'" color="gray" variant="soft" size="xs"
+                                        <u-badge :ui="{
+                                            variant: {
+                                                soft: 'bg-{color}-200 dark:bg-{color}-400 dark:bg-opacity-10 text-{color}-500 dark:text-{color}-400'
+                                            }
+                                        }" v-if="item.key === 'workout'" color="gray" variant="soft" size="xs"
                                             class="ml-auto">
                                             {{ workoutTracks.length }} Songs
                                         </u-badge>
@@ -126,7 +130,11 @@
                                             <span class="text-xs font-normal ml-1">{{ likedPlaylistDuration }} </span>
                                         </span>
 
-                                        <u-badge color="gray" variant="soft" size="xs" class="ml-auto">
+                                        <u-badge :ui="{
+                                            variant: {
+                                                soft: 'bg-{color}-200 dark:bg-{color}-400 dark:bg-opacity-10 text-{color}-500 dark:text-{color}-400'
+                                            }
+                                        }" color="gray" variant="soft" size="xs" class="ml-auto">
                                             {{ likedTracks.length }} Songs
                                         </u-badge>
 
@@ -146,7 +154,11 @@
                                     class="font-medium dark:text-neutral-400 text-neutral-500 text-sm tracking-wide self-center">
                                     Workout Playlist
                                 </span>
-                                <u-badge color="gray" variant="soft" size="xs" class="ml-auto">{{ workoutTracks.length }}
+                                <u-badge :ui="{
+                                    variant: {
+                                        soft: 'bg-{color}-200 dark:bg-{color}-400 dark:bg-opacity-10 text-{color}-500 dark:text-{color}-400'
+                                    }
+                                }" color="gray" variant="soft" size="xs" class="ml-auto">{{ workoutTracks.length }}
                                     Songs</u-badge>
                             </span>
 
@@ -184,7 +196,11 @@
                                     class="font-medium dark:text-neutral-400 text-neutral-500 text-sm tracking-wide self-center">
                                     Liked Songs
                                 </span>
-                                <u-badge color="gray" variant="soft" size="xs" class="ml-auto">
+                                <u-badge :ui="{
+                                    variant: {
+                                        soft: 'bg-{color}-200 dark:bg-{color}-400 dark:bg-opacity-10 text-{color}-500 dark:text-{color}-400'
+                                    }
+                                }" color="gray" variant="soft" size="xs" class="ml-auto">
                                     {{ likedTracks.length }} Songs
                                 </u-badge>
                             </span>
