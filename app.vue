@@ -25,12 +25,30 @@
 <style>
 @media (prefers-color-scheme: dark) {
     body {
+        background:
+            repeating-linear-gradient(to right, transparent,
+                transparent 64px,
+                #ff660018 64px,
+                #ff660020 65px),
+            repeating-linear-gradient(to bottom, transparent,
+                transparent 64px,
+                #ff660018 64px,
+                #ff660020 65px);
         background-color: #333333;
     }
 }
 
 @media (prefers-color-scheme: light) {
     body {
+        background:
+            repeating-linear-gradient(to right, transparent,
+                transparent 64px,
+                #ff660029 64px,
+                #ff660029 65px),
+            repeating-linear-gradient(to bottom, transparent,
+                transparent 64px,
+                #ff660029 64px,
+                #ff660029 65px);
         background-color: #f5f5f5;
     }
 }

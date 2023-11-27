@@ -1,8 +1,8 @@
 <template>
     <div class="card first:mt-0 lg:mt-0 rounded-lg relative flex
      ring-1 ring-slate-900/5 flex-[0.333] shadow-[0_0_1px_1px_rgba(0,0,0,0.14)]
-    min-h-[200px] max-h-[200px] cursor-pointer hover:outline-orange-600 group hover:outline peer"
-        @mouseenter="spreadIcons()" @mouseleave="reverseSpread()">
+    min-h-[200px] max-h-[200px] cursor-pointer hover:ring-2 hover:ring-orange-600 group" @mouseenter="spreadIcons()"
+        @mouseleave="reverseSpread()">
         <div class="w-full h-full absolute bg-neutral-700 rounded-lg"></div>
         <div class="w-full h-full absolute rounded-lg" :class="color"></div>
         <img :src="`/img/${background}`" class=" rounded-lg opacity-20" />
