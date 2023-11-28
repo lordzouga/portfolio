@@ -22,9 +22,9 @@
     </div>
 </template>
 
-<style>
+<style scoped>
 @media (prefers-color-scheme: dark) {
-    body {
+    :global(body) {
         background:
             repeating-linear-gradient(to right, transparent,
                 transparent 64px,

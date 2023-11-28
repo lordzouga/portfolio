@@ -1,9 +1,6 @@
 <template>
     <div class="flex space-x-4 mt-2 min-w-[900px] lg:min-w-0 pl-[2px] pb-[2px] lg:pl-0 lg:pb-0">
-        <Card v-for="project in projects" class="" :description="project.description" :title="project.title"
-            :background="project.bg" :color="project.color" :key="project.title" :group="project.group"
-            :tech_icons="project.tech_icons">
-        </Card>
+        <Card v-for="project in projects" class="" :project="project" />
     </div>
 </template>
 
@@ -14,6 +11,7 @@ const projects = [
         description: "A tool for managing controller settings on Apex Legends.",
         bg: 'alc_bg.png',
         group: 'gaming',
+        path: "/alcmanager",
         color: 'bg-blue-900/70 dark:bg-blue-900/40',
         tech_icons: ['i-tabler-brand-vue', 'i-tabler-brand-firebase']
     },
@@ -23,6 +21,7 @@ const projects = [
         description: "A chrome extension that lets you get notifications while in your browser.",
         bg: 'remoteable_bg.png',
         group: 'jobs',
+        path: "/remoteable",
         color: 'bg-purple-500/70 dark:bg-purple-500/40',
         tech_icons: ['i-tabler-brand-vue', 'i-tabler-brand-chrome', 'i-tabler-brand-python']
     },
@@ -32,6 +31,7 @@ const projects = [
         bg: 'alc_bg.png',
         group: 'finance',
         color: ' bg-cyan-700/70 dark:bg-cyan-700/40',
+        path: "/dstrategyiq",
         tech_icons: ['i-devicon-vuejs', 'i-devicon-python', 'i-logos-mysql']
     }
 ]

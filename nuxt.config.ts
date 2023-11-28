@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     pages: true,
   devtools: { enabled: false },
-  modules: ['@nuxt/ui', '@pinia/nuxt', /*'@nuxtjs/google-fonts'*/],
+  modules: ['@nuxt/ui', '@pinia/nuxt' /*'@nuxtjs/google-fonts'*/, "@nuxt/content"],
   pinia: {
     autoImports: [
         'defineStore',

@@ -1,11 +1,11 @@
 <template>
-    <div class="card first:mt-0 lg:mt-0 rounded-lg relative flex
+    <NuxtLink :to="project.path" class="card first:mt-0 lg:mt-0 rounded-lg relative flex
      ring-1 ring-slate-900/5 flex-[0.333] shadow-[0_0_1px_1px_rgba(0,0,0,0.14)]
     min-h-[200px] max-h-[200px] cursor-pointer hover:ring-2 hover:ring-orange-600 group" @mouseenter="spreadIcons()"
         @mouseleave="reverseSpread()">
         <div class="w-full h-full absolute bg-neutral-700 rounded-lg"></div>
         <div class="w-full h-full absolute rounded-lg" :class="color"></div>
-        <img :src="`/img/${background}`" class=" rounded-lg opacity-20" />
+        <img :src="`/img/${bg}`" class=" rounded-lg opacity-20" />
 
         <div class="flex flex-col p-4 w-full h-full absolute dark:bg-gradient-to-b bg-gradient-to-b from-neutral-950/60
       dark:from-neutral-950/80 to-neutral-800/10 dark:to-neutral-950/10 rounded-lg">
@@ -31,15 +31,17 @@
                 </span>
             </div>
         </div>
-    </div>
+    </NuxtLink>
 </template>
 
 <script setup>
 import tailwindConfig from '~/tailwind.config';
 import resolveConfig from 'tailwindcss/resolveConfig';
 
-const props = defineProps(["title", "description", "background", "color", "group", "tech_icons"]);
-const iconsClass = `tech-icon-${props.title.toLowerCase().replace(" ", "-")}`;
+const props = defineProps(["project"]);
+const { title, description, bg, color, group, tech_icons } = props.project;
+
+const iconsClass = `tech-icon-${title.toLowerCase().replace(" ", "-")}`;
 const visibility = ref("visible lg:invisible");
 
 const getActiveBreakpoint = () => {
