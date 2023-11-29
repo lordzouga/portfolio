@@ -1,7 +1,7 @@
 
 <template>
-    <div>
-        <UContainer class="flex flex-col font-inter ">
+    <div class="min-h-screen" :class="bg">
+        <UContainer class="flex flex-col font-inter">
             <NuxtPage />
         </UContainer>
         <UNotifications>
@@ -22,9 +22,26 @@
     </div>
 </template>
 
-<style scoped>
+<script setup>
+const bg = ref("root-bg");
+
+setBg(useRoute().path);
+
+useRouter().afterEach((to, from, failure) => {
+    setBg(to.path);
+});
+
+function setBg(path) {
+    if (path === "/") bg.value = "root-bg"
+    else if (path === "/alcmanager") bg.value = "bg-blue-900/70"
+    else if (path === "/remoteable") bg.value = "bg-purple-500/70"
+}
+
+</script>
+
+<style>
 @media (prefers-color-scheme: dark) {
-    :global(body) {
+    .root-bg {
         background:
             repeating-linear-gradient(to right, transparent,
                 transparent 64px,
@@ -39,7 +56,7 @@
 }
 
 @media (prefers-color-scheme: light) {
-    body {
+    .root-bg {
         background:
             repeating-linear-gradient(to right, transparent,
                 transparent 64px,
@@ -52,7 +69,6 @@
         background-color: #f5f5f5;
     }
 }
-
 
 .page-enter-active,
 .page-leave-active {
