@@ -53,6 +53,10 @@ function setBg(path) {
                 #ff660020 65px);
         background-color: #333333;
     }
+
+    body {
+        background-color: #333333;
+    }
 }
 
 @media (prefers-color-scheme: light) {
@@ -66,6 +70,10 @@ function setBg(path) {
                 transparent 64px,
                 #f9731618 64px,
                 #f9731618 65px);
+        background-color: #f5f5f5;
+    }
+
+    body {
         background-color: #f5f5f5;
     }
 }

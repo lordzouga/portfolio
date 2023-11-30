@@ -10,6 +10,10 @@ export default defineNuxtConfig({
         'storeToRefs'
     ]
   },
+  components: {
+    global: true,
+    dirs: ['~/components/content']
+  },
   app: {
     head: {
         link: [

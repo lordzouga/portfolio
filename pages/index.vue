@@ -11,7 +11,7 @@
             <UButton color="gray" icon="i-uil-github" class="ml-4" size="xs"> View on Github </UButton>
         </div>
         <div class="flex flex-col mt-8 name-row">
-            <span class="font-light text-2xl tracking-wide dark:text-slate-200 text-neutral-800">Zouga Gerald</span>
+            <span class="font-medium text-2xl tracking-wide dark:text-slate-200 text-neutral-800">Zouga Gerald</span>
             <span class="text-neutral-400 flex mt-1">
                 <UButton variant="link" icon="i-devicon-twitter" size="xs" target="_blank" to="https://twitter.com/iamzouga"
                     color="gray" :padded="false">Twitter</UButton>
