@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   },
   components: {
     global: true,
-    dirs: ['~/components/content']
+    dirs: ['~/components']
   },
   app: {
     head: {
