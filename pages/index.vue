@@ -8,7 +8,8 @@
 
         <div class="flex top-buttons">
             <UButton class="ml-auto" color="gray" icon="i-logos-spotify-icon" size="xs" to="/music"> Music </UButton>
-            <UButton color="gray" icon="i-uil-github" class="ml-4" size="xs"> View on Github </UButton>
+            <UButton color="gray" icon="i-uil-github" class="ml-4" size="xs" target="_blank"
+                to="https://github.com/lordzouga/portfolio"> View on Github </UButton>
         </div>
         <div class="flex flex-col mt-8 name-row">
             <span class="font-medium text-2xl tracking-wide dark:text-slate-200 text-neutral-800">Zouga Gerald</span>
