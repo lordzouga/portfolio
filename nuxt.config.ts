@@ -10,6 +10,9 @@ export default defineNuxtConfig({
         'storeToRefs'
     ]
   },
+  content: {
+    documentDriven: true
+  },
   components: {
     global: true,
     dirs: ['~/components']

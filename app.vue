@@ -25,10 +25,10 @@
 <script setup>
 const bg = ref("root-bg");
 
-setBg(useRoute().path);
+//  setBg(useRoute().path);
 
 useRouter().afterEach((to, from, failure) => {
-    setBg(to.path);
+    // setBg(to.path);
 });
 
 function setBg(path) {
