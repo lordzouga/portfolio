@@ -25,6 +25,9 @@ Design
 #label
 Settings List
 
+#subimage
+![alc list](/img/alc_list.png)
+
 #description
 The web app was designed for mobile phone displays and desktops. The core focus on mobile was to promote one-handed usage so that users can easily swipe through their settings in-between matches.\
 \
